@@ -1,0 +1,148 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=MS+Sans+Serif:wght@400;700&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'MS Sans Serif', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Windows 95 specific styles */
+.win95-window {
+  border: 2px outset #c0c0c0;
+  background: #c0c0c0;
+}
+
+.win95-button {
+  border: 2px outset #c0c0c0;
+  background: #c0c0c0;
+  padding: 2px 8px;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.win95-button:active {
+  border: 2px inset #c0c0c0;
+}
+
+.win95-titlebar {
+  background: linear-gradient(90deg, #000080 0%, #0000ff 100%);
+  color: white;
+  padding: 2px;
+  font-weight: bold;
+  font-size: 11px;
+}
+
+.win95-desktop-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: none;
+}
+
+/* Hover highlight (Windows 95 style) */
+.win95-desktop-icon:hover {
+  border-color: #0000ff; /* blue border */
+  background: rgba(0, 0, 255, 0.18); /* subtle blue box */
+}
+
+/* Removed blue selection background */
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  body {
+    overflow: hidden;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  .win95-desktop-icon {
+    padding: 12px;
+    min-height: 90px;
+    width: 90px;
+    justify-content: center;
+    touch-action: manipulation;
+  }
+  
+  .win95-desktop-icon span {
+    font-size: 11px;
+    line-height: 1.2;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+  }
+  
+  .win95-desktop-icon div {
+    font-size: 28px;
+    margin-bottom: 4px;
+  }
+  
+  /* Better window sizing for mobile */
+  .win95-window {
+    max-width: calc(100vw - 20px);
+    max-height: calc(100vh - 60px);
+  }
+  
+  /* Prevent text selection on mobile */
+  * {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* Allow text selection in content areas */
+  .win95-window div[style*="overflow-auto"],
+  .win95-window textarea,
+  .win95-window input {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+  }
+}
+
+/* Scrollbar styling for Windows 95 look */
+::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+}
+
+::-webkit-scrollbar-track {
+  background: #c0c0c0;
+  border: 1px inset #c0c0c0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c0c0c0;
+  border: 1px outset #c0c0c0;
+}
+
+::-webkit-scrollbar-button {
+  background: #c0c0c0;
+  border: 1px outset #c0c0c0;
+  height: 16px;
+  width: 16px;
+}
+
+/* Disable text selection for UI elements */
+.no-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
