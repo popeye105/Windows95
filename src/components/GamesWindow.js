@@ -81,7 +81,6 @@ const GamesWindow = () => {
   return (
     <div className="h-full flex flex-col">
       {selectedGame ? (
-        // Game Player
         <div className="h-full flex flex-col" ref={playerRef}>
           <div className="p-2 border-b border-win95-dark-gray flex justify-between items-center">
             <span className="text-sm font-bold">{selectedGame.title}</span>
@@ -113,7 +112,6 @@ const GamesWindow = () => {
           </div>
         </div>
       ) : (
-        // Games List
         <div className="h-full overflow-auto p-2">
           <div className="grid gap-3">
             {games.map((game) => (
