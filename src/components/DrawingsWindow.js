@@ -1,0 +1,96 @@
+import React, { useState, useEffect } from 'react';
+
+const DrawingsWindow = () => {
+  const [drawings, setDrawings] = useState([]);
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  useEffect(() => {
+    // In a real app, you'd fetch this from an API or file system
+    // For now, we'll simulate some drawings
+    const mockDrawings = [
+      { id: 1, name: 'Digital Portrait', filename: 'portrait.jpg' },
+      { id: 2, name: 'Landscape Study', filename: 'landscape.jpg' },
+      { id: 3, name: 'Character Design', filename: 'character.jpg' },
+      { id: 4, name: 'Abstract Art', filename: 'abstract.jpg' },
+    ];
+    setDrawings(mockDrawings);
+  }, []);
+
+  const openImage = (drawing) => {
+    setSelectedImage(drawing);
+  };
+
+  const closeImageViewer = () => {
+    setSelectedImage(null);
+  };
+
+  return (
+    <div className="h-full flex flex-col">
+      {selectedImage ? (
+        // Image Viewer
+        <div className="h-full flex flex-col">
+          <div className="p-2 border-b border-win95-dark-gray flex justify-between items-center">
+            <span className="text-sm font-bold">{selectedImage.name}</span>
+            <button
+              onClick={closeImageViewer}
+              className="win95-button text-xs px-2 py-1"
+            >
+              ← Back
+            </button>
+          </div>
+          <div className="flex-1 p-4 bg-white border-2 border-inset overflow-auto">
+            <div className="flex justify-center">
+              <img
+                src={`/drawings/${selectedImage.filename}`}
+                alt={selectedImage.name}
+                className="max-w-full max-h-full border border-win95-dark-gray"
+                onError={(e) => {
+                  e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjY2NjIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vdCBmb3VuZDwvdGV4dD48L3N2Zz4=';
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      ) : (
+        // Gallery Grid
+        <div className="h-full overflow-auto p-2">
+          <div className="grid grid-cols-2 gap-2">
+            {drawings.map((drawing) => (
+              <div
+                key={drawing.id}
+                className="bg-white border-2 border-outset p-2 cursor-pointer hover:bg-win95-light-gray"
+                onClick={() => openImage(drawing)}
+              >
+                <div className="aspect-square bg-win95-light-gray border border-win95-dark-gray mb-2 flex items-center justify-center">
+                  <img
+                    src={`/drawings/${drawing.filename}`}
+                    alt={drawing.name}
+                    className="max-w-full max-h-full object-cover"
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                      e.target.nextSibling.style.display = 'block';
+                    }}
+                  />
+                  <div className="text-xs text-win95-dark-gray hidden">
+                    🎨 {drawing.name}
+                  </div>
+                </div>
+                <div className="text-xs text-center font-bold">{drawing.name}</div>
+              </div>
+            ))}
+          </div>
+          
+          {drawings.length === 0 && (
+            <div className="text-center text-win95-dark-gray mt-8">
+              <div className="text-4xl mb-2">🎨</div>
+              <p>No drawings found.</p>
+              <p className="text-xs mt-2">Add images to /public/drawings/ folder</p>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default DrawingsWindow;
