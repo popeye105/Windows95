@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import BackgroundContext from './BackgroundContext';
 import SplashScreen from './components/SplashScreen';
 import DesktopIcon from './components/DesktopIcon';
 import Window from './components/Window';
@@ -9,6 +10,7 @@ import ProjectsWindow from './components/ProjectsWindow';
 import DrawingsWindow from './components/DrawingsWindow';
 import MiniBrowserWindow from './components/MiniBrowserWindow';
 import GamesWindow from './components/GamesWindow';
+import ChangeBackgroundWindow from './components/ChangeBackgroundWindow';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -17,6 +19,7 @@ function App() {
   const [activeWindow, setActiveWindow] = useState(null);
   const [isStartMenuOpen, setIsStartMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [wallpaperUrl, setWallpaperUrl] = useState(null);
 
   const desktopIcons = [
     { id: 'resume', icon: '📄', label: 'Resume', component: ResumeWindow },
@@ -24,6 +27,7 @@ function App() {
     { id: 'drawings', icon: '🎨', label: 'Drawings', component: DrawingsWindow },
     { id: 'games', icon: '🎮', label: 'Games', component: GamesWindow },
     { id: 'browser', icon: '🌐', label: 'Browser', component: MiniBrowserWindow },
+    { id: 'bg', icon: '🖼️', label: 'Change Background', component: ChangeBackgroundWindow },
   ];
 
   useEffect(() => {
@@ -53,6 +57,14 @@ function App() {
     return () => {
       window.removeEventListener('resize', checkMobile);
     };
+  }, []);
+
+  // Load saved wallpaper once
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('wallpaperUrl');
+      if (saved) setWallpaperUrl(saved);
+    } catch {}
   }, []);
 
   const handleSplashComplete = () => {
@@ -121,40 +133,51 @@ function App() {
   }
 
   return (
-    <div className="h-screen bg-win95-desktop overflow-hidden" onClick={handleDesktopClick}>
-      <div className={`${isMobile ? 'grid grid-cols-2 gap-6 justify-items-center pt-8' : 'flex flex-col space-y-2'} p-4`}>
-        {desktopIcons.map((icon) => (
-          <DesktopIcon
-            key={icon.id}
-            icon={icon.icon}
-            label={icon.label}
-            isSelected={selectedIcon === icon.id}
-            onSelect={() => handleIconSelect(icon.id)}
-            onDoubleClick={() => handleIconDoubleClick(icon.id)}
-          />
-        ))}
-      </div>
+    <BackgroundContext.Provider value={{ wallpaperUrl, setWallpaperUrl }}>
+      <div
+        className={`h-screen overflow-hidden ${wallpaperUrl ? '' : 'bg-win95-desktop'}`}
+        onClick={handleDesktopClick}
+        style={wallpaperUrl ? {
+          backgroundImage: `url(${wallpaperUrl})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        } : {}}
+      >
+        <div className={`${isMobile ? 'grid grid-cols-2 gap-6 justify-items-center pt-8' : 'flex flex-col space-y-2'} p-4`}>
+          {desktopIcons.map((icon) => (
+            <DesktopIcon
+              key={icon.id}
+              icon={icon.icon}
+              label={icon.label}
+              isSelected={selectedIcon === icon.id}
+              onSelect={() => handleIconSelect(icon.id)}
+              onDoubleClick={() => handleIconDoubleClick(icon.id)}
+            />
+          ))}
+        </div>
 
-      {openWindows.map((window) => (
-        <Window
-          key={window.id}
-          title={window.title}
-          initialPosition={isMobile ? { x: 10, y: 10 } : window.position}
-          width={isMobile ? Math.min(window.innerWidth - 20, 350) : 500}
-          height={isMobile ? Math.min(window.innerHeight - 120, 450) : 400}
-          isActive={activeWindow === window.id}
-          onClose={() => handleWindowClose(window.id)}
-          onFocus={() => handleWindowFocus(window.id)}
-        >
-          <window.component />
-        </Window>
-      ))}
-      <StartMenu isOpen={isStartMenuOpen} onClose={handleStartMenuClose} />
-      <Taskbar 
-        onStartClick={handleStartClick} 
-        isStartMenuOpen={isStartMenuOpen}
-      />
-    </div>
+        {openWindows.map((window) => (
+          <Window
+            key={window.id}
+            title={window.title}
+            initialPosition={isMobile ? { x: 10, y: 10 } : window.position}
+            width={isMobile ? Math.min(window.innerWidth - 20, 350) : 500}
+            height={isMobile ? Math.min(window.innerHeight - 120, 450) : 400}
+            isActive={activeWindow === window.id}
+            onClose={() => handleWindowClose(window.id)}
+            onFocus={() => handleWindowFocus(window.id)}
+          >
+            <window.component />
+          </Window>
+        ))}
+        <StartMenu isOpen={isStartMenuOpen} onClose={handleStartMenuClose} />
+        <Taskbar 
+          onStartClick={handleStartClick} 
+          isStartMenuOpen={isStartMenuOpen}
+        />
+      </div>
+    </BackgroundContext.Provider>
   );
 }
 
