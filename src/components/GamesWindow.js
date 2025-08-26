@@ -128,12 +128,6 @@ const GamesWindow = () => {
             ))}
           </div>
           
-          <div className="mt-6 p-3 bg-win95-light-gray border-2 border-inset">
-            <div className="text-xs text-win95-dark-gray">
-              <strong>Note:</strong> Add your HTML5 games to the /public/games/ folder. 
-              Each game should be a complete HTML file with embedded CSS and JavaScript.
-            </div>
-          </div>
         </div>
       )}
     </div>
