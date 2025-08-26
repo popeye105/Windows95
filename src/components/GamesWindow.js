@@ -40,14 +40,6 @@ const GamesWindow = () => {
       icon: '🐍'
     },
     {
-      id: 2,
-      title: 'Tetris',
-      description: 'Block-stacking puzzle game',
-      type: 'iframe',
-      url: '/games/tetris.html',
-      icon: '🧩'
-    },
-    {
       id: 3,
       title: 'Minesweeper',
       description: 'Classic Windows Minesweeper',

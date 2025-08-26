@@ -3,8 +3,8 @@ import BackgroundContext from '../BackgroundContext';
 
 const wallpapers = [
   { name: 'Mario', src: '/wallpapers/Mario.jpeg' },
-  { name: 'Spiderman', src: '/wallpapers/Spiderman.jpeg' },
   { name: 'Sunset', src: '/wallpapers/Sunset.jpeg' },
+  { name: 'Spiderman', src: '/wallpapers/Spiderman.jpeg' },
 ];
 
 const ChangeBackgroundWindow = () => {
