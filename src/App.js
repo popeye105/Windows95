@@ -122,8 +122,7 @@ function App() {
 
   return (
     <div className="h-screen bg-win95-desktop overflow-hidden" onClick={handleDesktopClick}>
-      {/* Desktop Icons */}
-      <div className={`p-4 ${isMobile ? 'grid grid-cols-2 gap-6 justify-items-center pt-8' : 'flex flex-col space-y-2'}`}>
+      <div className={`${isMobile ? 'grid grid-cols-2 gap-6 justify-items-center pt-8' : 'flex flex-col space-y-2'} p-4`}>
         {desktopIcons.map((icon) => (
           <DesktopIcon
             key={icon.id}
@@ -136,7 +135,6 @@ function App() {
         ))}
       </div>
 
-      {/* Windows */}
       {openWindows.map((window) => (
         <Window
           key={window.id}
@@ -151,11 +149,7 @@ function App() {
           <window.component />
         </Window>
       ))}
-
-      {/* Start Menu */}
       <StartMenu isOpen={isStartMenuOpen} onClose={handleStartMenuClose} />
-
-      {/* Taskbar */}
       <Taskbar 
         onStartClick={handleStartClick} 
         isStartMenuOpen={isStartMenuOpen}
