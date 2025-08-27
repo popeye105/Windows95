@@ -43,59 +43,63 @@ const MusicWindow = () => {
   };
 
   return (
-    <div className="h-full flex flex-col bg-win95-gray">
-      <div className="flex-1 flex flex-col p-4">
-        <h2 className="text-lg font-bold mb-4 text-center">🎵 My Music</h2>
-        
-        <div className="flex-1 bg-white border-2 border-inset p-2 overflow-auto">
-          {songs.map((song) => (
-            <div
-              key={song.id}
-              className={`flex items-center justify-between p-2 hover:bg-win95-light-gray cursor-pointer ${
-                currentSong?.id === song.id ? 'bg-win95-blue text-white' : ''
-              }`}
-              onClick={() => playSong(song)}
-            >
-              <div className="flex items-center">
-                <span className="mr-2">
-                  {currentSong?.id === song.id && isPlaying ? '🔊' : '🎵'}
-                </span>
-                <span className="text-sm">{song.name}</span>
+    <div className="h-full flex flex-col bg-win95-gray overflow-hidden">
+      <div className="flex-shrink-0 p-2 border-b border-win95-dark-gray">
+        <h2 className="text-sm font-bold text-center">🎵 My Music</h2>
+      </div>
+      
+      <div className="flex-1 flex flex-col min-h-0">
+        <div className="flex-1 bg-white border-2 border-inset m-2 overflow-auto">
+          <div className="divide-y divide-gray-200">
+            {songs.map((song) => (
+              <div
+                key={song.id}
+                className={`flex items-center justify-between p-2 hover:bg-win95-light-gray cursor-pointer ${
+                  currentSong?.id === song.id ? 'bg-win95-blue text-white' : ''
+                }`}
+                onClick={() => playSong(song)}
+              >
+                <div className="flex items-center min-w-0 flex-1">
+                  <span className="mr-2 flex-shrink-0">
+                    {currentSong?.id === song.id && isPlaying ? '🔊' : '🎵'}
+                  </span>
+                  <span className="text-xs truncate">{song.name}</span>
+                </div>
+                {currentSong?.id === song.id && isPlaying && (
+                  <span className="text-xs flex-shrink-0 ml-2">Playing...</span>
+                )}
               </div>
-              {currentSong?.id === song.id && isPlaying && (
-                <span className="text-xs">Playing...</span>
-              )}
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
         {currentSong && (
-          <div className="mt-4 p-3 bg-white border-2 border-inset">
+          <div className="flex-shrink-0 mx-2 mb-2 p-2 bg-white border-2 border-inset">
             <div className="text-center mb-2">
-              <div className="text-sm font-bold">{currentSong.name}</div>
+              <div className="text-xs font-bold truncate">{currentSong.name}</div>
               <div className="text-xs text-gray-600">
                 {formatTime(currentTime)} / {formatTime(duration)}
               </div>
             </div>
             
-            <div className="flex justify-center gap-2">
-              <button onClick={() => playSong(currentSong)} className="win95-button px-3 py-1 text-sm">
-                {isPlaying ? '⏸️ Pause' : '▶️ Play'}
+            <div className="flex justify-center gap-1">
+              <button onClick={() => playSong(currentSong)} className="win95-button px-2 py-1 text-xs">
+                {isPlaying ? '⏸️' : '▶️'}
               </button>
-              <button onClick={stopSong} className="win95-button px-3 py-1 text-sm">
-                ⏹️ Stop
+              <button onClick={stopSong} className="win95-button px-2 py-1 text-xs">
+                ⏹️
               </button>
             </div>
           </div>
         )}
-
-        <audio
-          ref={audioRef}
-          onTimeUpdate={() => setCurrentTime(audioRef.current?.currentTime || 0)}
-          onLoadedMetadata={() => setDuration(audioRef.current?.duration || 0)}
-          onEnded={() => { setIsPlaying(false); setCurrentTime(0); }}
-        />
       </div>
+
+      <audio
+        ref={audioRef}
+        onTimeUpdate={() => setCurrentTime(audioRef.current?.currentTime || 0)}
+        onLoadedMetadata={() => setDuration(audioRef.current?.duration || 0)}
+        onEnded={() => { setIsPlaying(false); setCurrentTime(0); }}
+      />
     </div>
   );
 };
