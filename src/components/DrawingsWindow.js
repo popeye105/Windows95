@@ -37,17 +37,16 @@ const DrawingsWindow = () => {
               ← Back
             </button>
           </div>
-          <div className="flex-1 p-4 bg-white border-2 border-inset overflow-auto">
-            <div className="flex justify-center">
-              <img
-                src={`/drawings/${selectedImage.filename}`}
-                alt={selectedImage.name}
-                className="max-w-full max-h-full border border-win95-dark-gray"
-                onError={(e) => {
-                  e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjY2NjIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vdCBmb3VuZDwvdGV4dD48L3N2Zz4=';
-                }}
-              />
-            </div>
+          <div className="flex-1 p-4 bg-white border-2 border-inset flex items-center justify-center">
+            <img
+              src={`/drawings/${selectedImage.filename}`}
+              alt={selectedImage.name}
+              className="max-w-full max-h-full object-contain border border-win95-dark-gray"
+              style={{ maxWidth: '100%', maxHeight: '100%' }}
+              onError={(e) => {
+                e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjY2NjIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vdCBmb3VuZDwvdGV4dD48L3N2Zz4=';
+              }}
+            />
           </div>
         </div>
       ) : (
