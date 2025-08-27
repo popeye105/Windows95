@@ -5,10 +5,11 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
   const [showGamesSubmenu, setShowGamesSubmenu] = useState(false);
   const [showSettingsDialog, setShowSettingsDialog] = useState(false);
 
-  // Reset submenu state when start menu closes
+  // Reset submenu and dialog states when start menu closes
   useEffect(() => {
     if (!isOpen) {
       setShowGamesSubmenu(false);
+      setShowSettingsDialog(false);
     }
   }, [isOpen]);
 
@@ -41,7 +42,7 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
 
   const handleSettingsClick = () => {
     setShowSettingsDialog(true);
-    onClose();
+    // Don't close the start menu immediately, let the dialog appear first
   };
 
   return (
@@ -145,14 +146,20 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
         <>
           <div 
             className="fixed inset-0 z-60 bg-black bg-opacity-50"
-            onClick={() => setShowSettingsDialog(false)}
+            onClick={() => {
+              setShowSettingsDialog(false);
+              onClose();
+            }}
           />
           <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-70 bg-win95-gray border-2 border-outset shadow-lg">
             <div className="bg-win95-blue text-white px-2 py-1 win95-titlebar-text flex justify-between items-center">
               <span>Settings</span>
               <button 
                 className="window-control-btn"
-                onClick={() => setShowSettingsDialog(false)}
+                onClick={() => {
+                  setShowSettingsDialog(false);
+                  onClose();
+                }}
               >
                 ×
               </button>
@@ -166,7 +173,10 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
               <div className="flex justify-center">
                 <button 
                   className="win95-button px-4 py-1"
-                  onClick={() => setShowSettingsDialog(false)}
+                  onClick={() => {
+                    setShowSettingsDialog(false);
+                    onClose();
+                  }}
                 >
                   OK
                 </button>
