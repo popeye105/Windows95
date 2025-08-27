@@ -44,10 +44,11 @@ const Taskbar = ({ onStartClick, isStartMenuOpen, minimizedWindows = [], onWindo
           <button
             key={window.id}
             onClick={() => onWindowRestore && onWindowRestore(window.id)}
-            className="bg-win95-gray border-2 border-outset hover:bg-win95-light-gray px-3 py-1 text-xs font-bold text-black max-w-32 truncate"
+            className="bg-win95-gray border-2 border-outset hover:bg-win95-light-gray px-2 py-1 text-xs font-bold text-black max-w-32 truncate flex items-center gap-1"
             title={window.title}
           >
-            {window.title}
+            <span className="text-sm">{window.icon}</span>
+            <span className="truncate">{window.title}</span>
           </button>
         ))}
       </div>

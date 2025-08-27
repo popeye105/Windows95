@@ -21,14 +21,14 @@ const GamesWindow = () => {
     return !!(d.fullscreenElement || d.webkitFullscreenElement || d.msFullscreenElement || d.mozFullScreenElement);
   };
 
-  // Auto-enter fullscreen when a game starts
-  useEffect(() => {
-    if (selectedGame && playerRef.current && !isFullscreen()) {
-      // small delay to ensure element is in DOM
-      const id = setTimeout(() => enterFullscreen(playerRef.current), 0);
-      return () => clearTimeout(id);
-    }
-  }, [selectedGame]);
+  // Games now open in windowed mode by default - no auto-fullscreen
+  // useEffect(() => {
+  //   if (selectedGame && playerRef.current && !isFullscreen()) {
+  //     // small delay to ensure element is in DOM
+  //     const id = setTimeout(() => enterFullscreen(playerRef.current), 0);
+  //     return () => clearTimeout(id);
+  //   }
+  // }, [selectedGame]);
 
   const games = [
     {

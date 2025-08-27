@@ -77,6 +77,7 @@ function App() {
         const gamesWindow = {
           id: 'games',
           title: gamesIcon.label,
+          icon: gamesIcon.icon,
           component: gamesIcon.component,
           position: { x: 50, y: 50 }
         };
@@ -106,6 +107,7 @@ function App() {
     const newWindow = {
       id: iconId,
       title: icon.label,
+      icon: icon.icon,
       component: icon.component,
       position: { 
         x: 50 + openWindows.length * 30, 
