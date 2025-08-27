@@ -195,7 +195,7 @@ function App() {
         )}
         {!isLoading && !showMobileWarning && (
           <>
-            <div className={`${isMobile ? 'grid grid-cols-2 gap-6 justify-items-center pt-8 px-8' : 'flex flex-col space-y-2'} p-4`}>
+            <div className={`${isMobile ? 'desktop-icons-container' : 'flex flex-col space-y-2 p-4'}`}>
               {desktopIcons.map((icon) => (
                 <DesktopIcon
                   key={icon.id}
