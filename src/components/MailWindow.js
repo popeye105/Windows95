@@ -36,36 +36,67 @@ const MailWindow = () => {
       return;
     }
 
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      setSubmitStatus('Please enter a valid email address');
+      return;
+    }
+
     setIsSubmitting(true);
     setSubmitStatus('Sending message...');
 
     try {
-      const response = await fetch('https://formspree.io/f/xdkogkqr', {
+      const response = await fetch('https://formspree.io/f/xeoloobg', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
           phone: formData.phone || 'Not provided',
-          message: formData.message,
+          message: formData.message || 'No message provided',
           _replyto: formData.email,
           _subject: `New message from ${formData.name} - Windows 95 Portfolio`
         })
       });
 
+      console.log('Response status:', response.status);
+      console.log('Response headers:', response.headers);
+
       if (response.ok) {
+        const responseData = await response.json();
+        console.log('Success response:', responseData);
         setSubmitStatus('Message sent successfully! ✓');
         setTimeout(() => {
           handleClear();
         }, 2000);
       } else {
-        throw new Error('Failed to send message');
+        const errorData = await response.text();
+        console.error('Error response:', errorData);
+        
+        if (response.status === 422) {
+          setSubmitStatus('Form validation failed. Please check your inputs.');
+        } else if (response.status === 403) {
+          setSubmitStatus('Form not properly configured. Contact administrator.');
+        } else if (response.status === 429) {
+          setSubmitStatus('Too many requests. Please wait and try again.');
+        } else {
+          setSubmitStatus(`Server error (${response.status}). Please try again later.`);
+        }
       }
     } catch (error) {
-      console.error('Error sending email:', error);
-      setSubmitStatus('Failed to send message. Please try again.');
+      console.error('Network error:', error);
+      
+      if (error.name === 'TypeError' && error.message.includes('fetch')) {
+        setSubmitStatus('Network error. Please check your internet connection.');
+      } else if (error.name === 'AbortError') {
+        setSubmitStatus('Request timed out. Please try again.');
+      } else {
+        setSubmitStatus('Failed to send message. Please try again later.');
+      }
     } finally {
       setIsSubmitting(false);
     }
