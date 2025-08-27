@@ -69,7 +69,7 @@ const MailWindow = () => {
       if (response.ok) {
         const responseData = await response.json();
         console.log('Success response:', responseData);
-        setSubmitStatus('Message sent successfully! ✓');
+        setSubmitStatus('Message sent successfully ✓');
         setTimeout(() => {
           handleClear();
         }, 2000);
