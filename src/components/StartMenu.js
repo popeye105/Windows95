@@ -12,13 +12,13 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
     }
   }, [isOpen]);
 
-  if (!isOpen) return null;
-
   const games = [
     { name: 'Snake', icon: '🐍', url: '/games/snake.html' },
     { name: 'Minesweeper', icon: '💣', url: '/games/minesweeper.html' },
     { name: 'Cooking Game', icon: '🍳', url: '/games/cooking/index.html' }
   ];
+
+  if (!isOpen && !showSettingsDialog) return null;
 
   const handleGameClick = (game) => {
     onOpenWindow({
@@ -46,14 +46,16 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
 
   return (
     <>
-      {/* Backdrop */}
-      <div 
-        className="fixed inset-0 z-40"
-        onClick={onClose}
-      />
-      
-      {/* Menu */}
-      <div className="fixed bottom-8 left-1 w-48 bg-win95-gray border-2 border-outset shadow-lg z-50 win95-start-menu">
+      {isOpen && (
+        <>
+          {/* Backdrop */}
+          <div 
+            className="fixed inset-0 z-40"
+            onClick={onClose}
+          />
+          
+          {/* Menu */}
+          <div className="fixed bottom-8 left-1 w-48 bg-win95-gray border-2 border-outset shadow-lg z-50 win95-start-menu">
         <div className="bg-win95-blue text-white px-2 py-1 win95-titlebar-text">
           Windows 95
         </div>
@@ -139,6 +141,8 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
           </div>
         </div>
       </div>
+        </>
+      )}
 
       {/* Settings Dialog */}
       {showSettingsDialog && (
