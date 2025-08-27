@@ -118,6 +118,27 @@ function App() {
     setActiveWindow(iconId);
   };
 
+  const handleOpenWindow = (windowConfig) => {
+    // Check if window is already open
+    const existingWindow = openWindows.find(w => w.id === windowConfig.id);
+    if (existingWindow) {
+      setActiveWindow(windowConfig.id);
+      return;
+    }
+
+    // Create new window with position
+    const newWindow = {
+      ...windowConfig,
+      position: { 
+        x: 50 + openWindows.length * 30, 
+        y: 50 + openWindows.length * 30 
+      }
+    };
+
+    setOpenWindows(prev => [...prev, newWindow]);
+    setActiveWindow(windowConfig.id);
+  };
+
   const handleWindowClose = (windowId) => {
     setOpenWindows(prev => prev.filter(w => w.id !== windowId));
     setMinimizedWindows(prev => prev.filter(w => w.id !== windowId));
@@ -228,7 +249,7 @@ function App() {
                 </Window>
               );
             })}
-            <StartMenu isOpen={isStartMenuOpen} onClose={handleStartMenuClose} />
+            <StartMenu isOpen={isStartMenuOpen} onClose={handleStartMenuClose} onOpenWindow={handleOpenWindow} />
             <Taskbar 
               onStartClick={handleStartClick} 
               isStartMenuOpen={isStartMenuOpen}

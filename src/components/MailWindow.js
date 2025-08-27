@@ -89,7 +89,6 @@ const MailWindow = () => {
                 value={formData.name}
                 onChange={handleInputChange}
                 className="w-full p-2 border-2 border-inset bg-white text-black"
-                placeholder="Your full name"
               />
             </div>
 
@@ -102,7 +101,6 @@ const MailWindow = () => {
                 value={formData.email}
                 onChange={handleInputChange}
                 className="w-full p-2 border-2 border-inset bg-white text-black"
-                placeholder="your.email@example.com"
               />
             </div>
 
@@ -115,7 +113,6 @@ const MailWindow = () => {
                 value={formData.phone}
                 onChange={handleInputChange}
                 className="w-full p-2 border-2 border-inset bg-white text-black"
-                placeholder="Your phone number"
               />
             </div>
 
@@ -128,7 +125,6 @@ const MailWindow = () => {
                 onChange={handleInputChange}
                 className="w-full flex-1 p-2 border-2 border-inset bg-white text-black resize-none"
                 style={{ minHeight: '180px' }}
-                placeholder="Type your message here..."
               />
             </div>
           </div>

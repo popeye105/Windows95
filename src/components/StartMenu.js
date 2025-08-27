@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const StartMenu = ({ isOpen, onClose }) => {
+const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
   const [showGamesSubmenu, setShowGamesSubmenu] = useState(false);
 
   if (!isOpen) return null;
@@ -11,8 +11,24 @@ const StartMenu = ({ isOpen, onClose }) => {
     { name: 'Cooking Game', icon: '👨‍🍳', url: '/games/cooking/index.html' }
   ];
 
-  const handleGameClick = (url) => {
-    window.open(url, '_blank');
+  const handleGameClick = (game) => {
+    // Create a game window component that loads the specific game
+    const gameWindow = {
+      id: `game-${game.name.toLowerCase().replace(/\s+/g, '-')}`,
+      title: game.name,
+      component: () => (
+        <div className="h-full flex flex-col">
+          <iframe
+            src={game.url}
+            className="w-full h-full"
+            title={game.name}
+            allow="fullscreen"
+            allowFullScreen
+          />
+        </div>
+      )
+    };
+    onOpenWindow(gameWindow);
     onClose();
   };
 
@@ -38,7 +54,7 @@ const StartMenu = ({ isOpen, onClose }) => {
         <div className="p-1">
           <div 
             className="relative flex items-center justify-between px-2 py-1 text-xs hover:bg-win95-light-gray cursor-pointer"
-            onMouseEnter={() => setShowGamesSubmenu(true)}
+            onClick={() => setShowGamesSubmenu(!showGamesSubmenu)}
           >
             <div className="flex items-center">
               <span className="mr-2">🎮</span>
@@ -50,14 +66,13 @@ const StartMenu = ({ isOpen, onClose }) => {
             {showGamesSubmenu && (
               <div 
                 className="absolute left-full top-0 ml-1 w-44 bg-win95-gray border-2 border-outset shadow-lg z-60"
-                onMouseLeave={() => setShowGamesSubmenu(false)}
               >
                 <div className="p-1">
                   {games.map((game, index) => (
                     <div
                       key={index}
                       className="flex items-center px-2 py-1 text-xs hover:bg-win95-light-gray cursor-pointer"
-                      onClick={() => handleGameClick(game.url)}
+                      onClick={() => handleGameClick(game)}
                     >
                       <span className="mr-2">{game.icon}</span>
                       {game.name}
@@ -83,7 +98,7 @@ const StartMenu = ({ isOpen, onClose }) => {
             className="flex items-center px-2 py-1 text-xs hover:bg-win95-light-gray cursor-pointer"
             onClick={handleLinkedInClick}
           >
-            <span className="mr-2">💼</span>
+            <img src="/linkedin-logo.svg" alt="LinkedIn" className="w-4 h-4 mr-2" />
             LinkedIn
           </div>
         </div>
