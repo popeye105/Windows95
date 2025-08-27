@@ -12,7 +12,7 @@ const SplashScreen = ({ onComplete }) => {
   return (
     <div className="fixed inset-0 bg-black flex items-center justify-center z-50 overflow-hidden relative">
       <img
-        src="/windows95-splash.jpeg"
+        src="https://github.com/ariz17/Windows95/raw/060561348c25c2f4d58f176f4205ac1a01c456b0/Windows%2095%20theme.jpeg"
         alt="Windows 95"
         className="w-[100vw] h-[100dvh] object-cover"
       />
