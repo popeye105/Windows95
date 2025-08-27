@@ -77,22 +77,8 @@ function App() {
       return;
     }
     
-    // Open Games window by default after splash
-    if (!hasInitialized) {
-      const gamesIcon = desktopIcons.find(i => i.id === 'games');
-      if (gamesIcon) {
-        const gamesWindow = {
-          id: 'games',
-          title: gamesIcon.label,
-          icon: gamesIcon.icon,
-          component: gamesIcon.component,
-          position: { x: 50, y: 50 }
-        };
-        setOpenWindows([gamesWindow]);
-        setActiveWindow('games');
-        setHasInitialized(true);
-      }
-    }
+    // Clean boot - no windows open by default
+    setHasInitialized(true);
   };
 
   const handleMobileWarningClose = () => {
