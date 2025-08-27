@@ -139,38 +139,42 @@ function App() {
         } : {}}
       >
         {isLoading && <SplashScreen onComplete={handleSplashComplete} />}
-        <div className={`${isMobile ? 'grid grid-cols-2 gap-6 justify-items-center pt-8' : 'flex flex-col space-y-2'} p-4`}>
-          {desktopIcons.map((icon) => (
-            <DesktopIcon
-              key={icon.id}
-              icon={icon.icon}
-              label={icon.label}
-              isSelected={selectedIcon === icon.id}
-              onSelect={() => handleIconSelect(icon.id)}
-              onDoubleClick={() => handleIconDoubleClick(icon.id)}
-            />
-          ))}
-        </div>
+        {!isLoading && (
+          <>
+            <div className={`${isMobile ? 'grid grid-cols-2 gap-6 justify-items-center pt-8' : 'flex flex-col space-y-2'} p-4`}>
+              {desktopIcons.map((icon) => (
+                <DesktopIcon
+                  key={icon.id}
+                  icon={icon.icon}
+                  label={icon.label}
+                  isSelected={selectedIcon === icon.id}
+                  onSelect={() => handleIconSelect(icon.id)}
+                  onDoubleClick={() => handleIconDoubleClick(icon.id)}
+                />
+              ))}
+            </div>
 
-        {openWindows.map((window) => (
-          <Window
-            key={window.id}
-            title={window.title}
-            initialPosition={isMobile ? { x: 10, y: 10 } : window.position}
-            width={isMobile ? Math.min(window.innerWidth - 20, 350) : 500}
-            height={isMobile ? Math.min(window.innerHeight - 120, 450) : 400}
-            isActive={activeWindow === window.id}
-            onClose={() => handleWindowClose(window.id)}
-            onFocus={() => handleWindowFocus(window.id)}
-          >
-            <window.component />
-          </Window>
-        ))}
-        <StartMenu isOpen={isStartMenuOpen} onClose={handleStartMenuClose} />
-        <Taskbar 
-          onStartClick={handleStartClick} 
-          isStartMenuOpen={isStartMenuOpen}
-        />
+            {openWindows.map((window) => (
+              <Window
+                key={window.id}
+                title={window.title}
+                initialPosition={isMobile ? { x: 10, y: 10 } : window.position}
+                width={isMobile ? Math.min(window.innerWidth - 20, 350) : 500}
+                height={isMobile ? Math.min(window.innerHeight - 120, 450) : 400}
+                isActive={activeWindow === window.id}
+                onClose={() => handleWindowClose(window.id)}
+                onFocus={() => handleWindowFocus(window.id)}
+              >
+                <window.component />
+              </Window>
+            ))}
+            <StartMenu isOpen={isStartMenuOpen} onClose={handleStartMenuClose} />
+            <Taskbar 
+              onStartClick={handleStartClick} 
+              isStartMenuOpen={isStartMenuOpen}
+            />
+          </>
+        )}
       </div>
     </BackgroundContext.Provider>
   );
