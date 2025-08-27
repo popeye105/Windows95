@@ -16,6 +16,7 @@ function App() {
   const [selectedIcon, setSelectedIcon] = useState(null);
   const [openWindows, setOpenWindows] = useState([]);
   const [activeWindow, setActiveWindow] = useState(null);
+  const [minimizedWindows, setMinimizedWindows] = useState([]);
   const [hasInitialized, setHasInitialized] = useState(false);
   const [isStartMenuOpen, setIsStartMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -118,10 +119,27 @@ function App() {
 
   const handleWindowClose = (windowId) => {
     setOpenWindows(prev => prev.filter(w => w.id !== windowId));
+    setMinimizedWindows(prev => prev.filter(w => w.id !== windowId));
     if (activeWindow === windowId) {
       const remainingWindows = openWindows.filter(w => w.id !== windowId);
       setActiveWindow(remainingWindows.length > 0 ? remainingWindows[remainingWindows.length - 1].id : null);
     }
+  };
+
+  const handleWindowMinimize = (windowId) => {
+    const window = openWindows.find(w => w.id === windowId);
+    if (window && !minimizedWindows.find(w => w.id === windowId)) {
+      setMinimizedWindows(prev => [...prev, window]);
+    }
+    if (activeWindow === windowId) {
+      const visibleWindows = openWindows.filter(w => w.id !== windowId && !minimizedWindows.find(m => m.id === w.id));
+      setActiveWindow(visibleWindows.length > 0 ? visibleWindows[visibleWindows.length - 1].id : null);
+    }
+  };
+
+  const handleWindowRestore = (windowId) => {
+    setMinimizedWindows(prev => prev.filter(w => w.id !== windowId));
+    setActiveWindow(windowId);
   };
 
   const handleWindowFocus = (windowId) => {
@@ -171,24 +189,31 @@ function App() {
               ))}
             </div>
 
-            {openWindows.map((window) => (
-              <Window
-                key={window.id}
-                title={window.title}
-                initialPosition={isMobile ? { x: 10, y: 10 } : window.position}
-                width={isMobile ? Math.min(window.innerWidth - 20, 350) : 500}
-                height={isMobile ? Math.min(window.innerHeight - 120, 450) : 400}
-                isActive={activeWindow === window.id}
-                onClose={() => handleWindowClose(window.id)}
-                onFocus={() => handleWindowFocus(window.id)}
-              >
-                <window.component />
-              </Window>
-            ))}
+            {openWindows.map((window) => {
+              const isMinimized = minimizedWindows.find(w => w.id === window.id);
+              return (
+                <Window
+                  key={window.id}
+                  title={window.title}
+                  initialPosition={isMobile ? { x: 10, y: 10 } : window.position}
+                  width={isMobile ? Math.min(window.innerWidth - 20, 350) : 500}
+                  height={isMobile ? Math.min(window.innerHeight - 120, 450) : 400}
+                  isActive={activeWindow === window.id}
+                  isMinimized={!!isMinimized}
+                  onClose={() => handleWindowClose(window.id)}
+                  onFocus={() => handleWindowFocus(window.id)}
+                  onMinimize={() => handleWindowMinimize(window.id)}
+                >
+                  <window.component />
+                </Window>
+              );
+            })}
             <StartMenu isOpen={isStartMenuOpen} onClose={handleStartMenuClose} />
             <Taskbar 
               onStartClick={handleStartClick} 
               isStartMenuOpen={isStartMenuOpen}
+              minimizedWindows={minimizedWindows}
+              onWindowRestore={handleWindowRestore}
             />
           </>
         )}

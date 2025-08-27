@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const Taskbar = ({ onStartClick, isStartMenuOpen }) => {
+const Taskbar = ({ onStartClick, isStartMenuOpen, minimizedWindows = [], onWindowRestore }) => {
   const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
@@ -20,7 +20,7 @@ const Taskbar = ({ onStartClick, isStartMenuOpen }) => {
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 h-10 md:h-8 bg-win95-gray border-t-2 border-win95-light-gray flex items-center justify-between px-1 z-50">
+    <div className="fixed bottom-0 left-0 right-0 h-10 md:h-8 bg-win95-gray border-t-2 border-win95-light-gray flex items-center px-1 z-50">
       {/* Start Button */}
       <button
         onClick={onStartClick}
@@ -37,6 +37,20 @@ const Taskbar = ({ onStartClick, isStartMenuOpen }) => {
           style={{imageRendering: 'pixelated'}}
         />
       </button>
+
+      {/* Taskbar Buttons for Minimized Windows */}
+      <div className="flex-1 flex items-center gap-1 px-2">
+        {minimizedWindows.map((window) => (
+          <button
+            key={window.id}
+            onClick={() => onWindowRestore && onWindowRestore(window.id)}
+            className="bg-win95-gray border-2 border-outset hover:bg-win95-light-gray px-3 py-1 text-xs font-bold text-black max-w-32 truncate"
+            title={window.title}
+          >
+            {window.title}
+          </button>
+        ))}
+      </div>
 
       {/* Clock */}
       <div className="bg-win95-gray border-2 border-inset px-3 py-2 md:px-2 md:py-1 text-sm md:text-xs font-mono">

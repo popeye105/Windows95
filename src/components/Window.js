@@ -8,13 +8,14 @@ const Window = ({
   width = 400,
   height = 300,
   isActive = true,
-  onFocus
+  isMinimized = false,
+  onFocus,
+  onMinimize
 }) => {
   const [position, setPosition] = useState(initialPosition);
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const [isMaximized, setIsMaximized] = useState(false);
-  const [isMinimized, setIsMinimized] = useState(false);
   const [originalPosition, setOriginalPosition] = useState(initialPosition);
   const [originalSize, setOriginalSize] = useState({ width, height });
   const windowRef = useRef(null);
@@ -52,7 +53,7 @@ const Window = ({
   };
 
   const handleMinimize = () => {
-    setIsMinimized(!isMinimized);
+    onMinimize && onMinimize();
   };
 
   const handleMaximize = () => {
