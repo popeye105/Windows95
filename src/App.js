@@ -126,10 +126,6 @@ function App() {
     }
   };
 
-  if (isLoading) {
-    return <SplashScreen onComplete={handleSplashComplete} />;
-  }
-
   return (
     <BackgroundContext.Provider value={{ wallpaperUrl, setWallpaperUrl }}>
       <div
@@ -142,6 +138,7 @@ function App() {
           backgroundRepeat: 'no-repeat'
         } : {}}
       >
+        {isLoading && <SplashScreen onComplete={handleSplashComplete} />}
         <div className={`${isMobile ? 'grid grid-cols-2 gap-6 justify-items-center pt-8' : 'flex flex-col space-y-2'} p-4`}>
           {desktopIcons.map((icon) => (
             <DesktopIcon
