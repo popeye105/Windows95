@@ -126,12 +126,9 @@ function App() {
     }
   };
 
-  if (isLoading) {
-    return <SplashScreen onComplete={handleSplashComplete} />;
-  }
-
   return (
     <BackgroundContext.Provider value={{ wallpaperUrl, setWallpaperUrl }}>
+      {isLoading && <SplashScreen onComplete={handleSplashComplete} />}
       <div
         className={`h-screen overflow-hidden ${wallpaperUrl ? '' : 'bg-win95-desktop'}`}
         onClick={handleDesktopClick}
