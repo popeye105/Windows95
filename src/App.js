@@ -21,6 +21,7 @@ function App() {
   const [isStartMenuOpen, setIsStartMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [wallpaperUrl, setWallpaperUrl] = useState(null);
+  const [showMobileWarning, setShowMobileWarning] = useState(false);
 
   const desktopIcons = [
     { id: 'resume', icon: '📄', label: 'Resume', component: ResumeWindow },
@@ -70,6 +71,12 @@ function App() {
   const handleSplashComplete = () => {
     setIsLoading(false);
     
+    // Show mobile warning if on mobile device
+    if (isMobile) {
+      setShowMobileWarning(true);
+      return;
+    }
+    
     // Open Games window by default after splash
     if (!hasInitialized) {
       const gamesIcon = desktopIcons.find(i => i.id === 'games');
@@ -86,6 +93,11 @@ function App() {
         setHasInitialized(true);
       }
     }
+  };
+
+  const handleMobileWarningClose = () => {
+    setShowMobileWarning(false);
+    setHasInitialized(true);
   };
 
   const handleIconSelect = (iconId) => {
@@ -166,7 +178,7 @@ function App() {
   return (
     <BackgroundContext.Provider value={{ wallpaperUrl, setWallpaperUrl }}>
       <div
-        className={`h-screen overflow-hidden ${wallpaperUrl ? '' : 'bg-win95-desktop'}`}
+        className={`h-screen overflow-hidden ${wallpaperUrl ? '' : 'bg-win95-desktop'} ${isMobile ? 'pb-10' : ''}`}
         onClick={handleDesktopClick}
         style={wallpaperUrl ? {
           backgroundImage: `url(${wallpaperUrl})`,
@@ -176,9 +188,28 @@ function App() {
         } : {}}
       >
         {isLoading && <SplashScreen onComplete={handleSplashComplete} />}
-        {!isLoading && (
+        {!isLoading && showMobileWarning && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+            <div className="bg-win95-gray border-2 border-outset p-6 max-w-sm w-full text-center">
+              <div className="mb-4">
+                <span className="text-4xl">💻</span>
+              </div>
+              <h3 className="text-lg font-bold mb-3">Windows 95 Experience</h3>
+              <p className="text-sm mb-4 text-gray-700">
+                For the best experience, please use this on a larger screen (PC/Desktop).
+              </p>
+              <button
+                onClick={handleMobileWarningClose}
+                className="win95-button px-4 py-2 text-sm font-bold"
+              >
+                Continue Anyway
+              </button>
+            </div>
+          </div>
+        )}
+        {!isLoading && !showMobileWarning && (
           <>
-            <div className={`${isMobile ? 'grid grid-cols-2 gap-6 justify-items-center pt-8' : 'flex flex-col space-y-2'} p-4`}>
+            <div className={`${isMobile ? 'grid grid-cols-2 gap-6 justify-items-center pt-8 px-8' : 'flex flex-col space-y-2'} p-4`}>
               {desktopIcons.map((icon) => (
                 <DesktopIcon
                   key={icon.id}
