@@ -5,11 +5,10 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
   const [showGamesSubmenu, setShowGamesSubmenu] = useState(false);
   const [showSettingsDialog, setShowSettingsDialog] = useState(false);
 
-  // Reset submenu and dialog states when start menu closes
+  // Reset submenu state when start menu closes (but keep dialog state)
   useEffect(() => {
     if (!isOpen) {
       setShowGamesSubmenu(false);
-      setShowSettingsDialog(false);
     }
   }, [isOpen]);
 
