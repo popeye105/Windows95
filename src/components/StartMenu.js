@@ -12,7 +12,6 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
   ];
 
   const handleGameClick = (game) => {
-    // Create a game window component that loads the specific game
     const gameWindow = {
       id: `game-${game.name.toLowerCase().replace(/\s+/g, '-')}`,
       title: game.name,
@@ -62,11 +61,8 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
             </div>
             <span>▶</span>
             
-            {/* Games Submenu */}
             {showGamesSubmenu && (
-              <div 
-                className="absolute left-full top-0 ml-1 w-44 bg-win95-gray border-2 border-outset shadow-lg z-60"
-              >
+              <div className="absolute left-full top-0 ml-1 w-44 bg-win95-gray border-2 border-outset shadow-lg z-60">
                 <div className="p-1">
                   {games.map((game, index) => (
                     <div

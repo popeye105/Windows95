@@ -35,6 +35,9 @@ function App() {
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
+      if (window.innerWidth < 768) {
+        setShowMobileWarning(true);
+      }
     };
     
     checkMobile();
@@ -95,14 +98,12 @@ function App() {
     const icon = desktopIcons.find(i => i.id === iconId);
     if (!icon) return;
 
-    // Check if window is already open
     const existingWindow = openWindows.find(w => w.id === iconId);
     if (existingWindow) {
       setActiveWindow(iconId);
       return;
     }
 
-    // Create new window
     const newWindow = {
       id: iconId,
       title: icon.label,
@@ -119,14 +120,12 @@ function App() {
   };
 
   const handleOpenWindow = (windowConfig) => {
-    // Check if window is already open
     const existingWindow = openWindows.find(w => w.id === windowConfig.id);
     if (existingWindow) {
       setActiveWindow(windowConfig.id);
       return;
     }
 
-    // Create new window with position
     const newWindow = {
       ...windowConfig,
       position: { 

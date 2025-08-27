@@ -31,7 +31,6 @@ const MailWindow = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // Basic validation
     if (!formData.name || !formData.email) {
       setSubmitStatus('Name and Email required');
       return;
@@ -41,7 +40,6 @@ const MailWindow = () => {
     setSubmitStatus('Sending message...');
 
     try {
-      // Using Formspree for form submission
       const response = await fetch('https://formspree.io/f/xdkogkqr', {
         method: 'POST',
         headers: {
@@ -80,7 +78,6 @@ const MailWindow = () => {
         
         <form onSubmit={handleSubmit} className="flex-1 flex flex-col min-h-0">
           <div className="flex-1 space-y-3 overflow-auto">
-            {/* Name Field */}
             <div>
               <label className="block text-sm font-bold mb-1">Name</label>
               <input
@@ -92,7 +89,6 @@ const MailWindow = () => {
               />
             </div>
 
-            {/* Email Field */}
             <div>
               <label className="block text-sm font-bold mb-1">Email</label>
               <input
@@ -104,7 +100,6 @@ const MailWindow = () => {
               />
             </div>
 
-            {/* Phone Field */}
             <div>
               <label className="block text-sm font-bold mb-1">Phone Number</label>
               <input
@@ -116,7 +111,6 @@ const MailWindow = () => {
               />
             </div>
 
-            {/* Message Field */}
             <div className="flex-1 flex flex-col min-h-0" style={{ minHeight: '200px' }}>
               <label className="block text-sm font-bold mb-1">Message</label>
               <textarea
@@ -129,7 +123,6 @@ const MailWindow = () => {
             </div>
           </div>
 
-          {/* Buttons */}
           <div className="flex gap-3 justify-center mt-4 flex-shrink-0">
             <button
               type="submit"
@@ -147,7 +140,6 @@ const MailWindow = () => {
             </button>
           </div>
 
-          {/* Status Message */}
           {submitStatus && submitStatus.includes('required') && (
             <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-win95-gray border-2 border-outset p-4 shadow-lg z-50">
               <div className="text-center">
