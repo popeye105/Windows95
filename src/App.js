@@ -16,6 +16,7 @@ function App() {
   const [selectedIcon, setSelectedIcon] = useState(null);
   const [openWindows, setOpenWindows] = useState([]);
   const [activeWindow, setActiveWindow] = useState(null);
+  const [hasInitialized, setHasInitialized] = useState(false);
   const [isStartMenuOpen, setIsStartMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [wallpaperUrl, setWallpaperUrl] = useState(null);
@@ -67,6 +68,22 @@ function App() {
 
   const handleSplashComplete = () => {
     setIsLoading(false);
+    
+    // Open Games window by default after splash
+    if (!hasInitialized) {
+      const gamesIcon = desktopIcons.find(i => i.id === 'games');
+      if (gamesIcon) {
+        const gamesWindow = {
+          id: 'games',
+          title: gamesIcon.label,
+          component: gamesIcon.component,
+          position: { x: 50, y: 50 }
+        };
+        setOpenWindows([gamesWindow]);
+        setActiveWindow('games');
+        setHasInitialized(true);
+      }
+    }
   };
 
   const handleIconSelect = (iconId) => {

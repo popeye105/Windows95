@@ -159,7 +159,25 @@ function selectBackground(bgNumber) {
         }
     });
     
+    // Force video reload with proper error handling
+    bgVideo.pause();
     bgVideo.src = BACKGROUND_VIDEOS[bgNumber];
+    bgVideo.load();
+    
+    // Add error handling for video loading
+    bgVideo.onerror = function() {
+        console.error('Error loading video:', BACKGROUND_VIDEOS[bgNumber]);
+        // Fallback to a default background if video fails
+        bgVideo.style.display = 'none';
+        document.body.style.backgroundImage = `url('assets/Kitchen ${bgNumber}.${bgNumber === 3 ? 'jpeg' : 'png'}')`;
+        document.body.style.backgroundSize = 'cover';
+        document.body.style.backgroundPosition = 'center';
+    };
+    
+    bgVideo.onloadeddata = function() {
+        bgVideo.style.display = 'block';
+        bgVideo.play().catch(e => console.error('Error playing video:', e));
+    };
     
     bgVideo.style.opacity = '0.8';
     bgVideo.style.filter = 'brightness(0.8)';

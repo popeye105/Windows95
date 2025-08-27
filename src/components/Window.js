@@ -13,6 +13,10 @@ const Window = ({
   const [position, setPosition] = useState(initialPosition);
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+  const [isMaximized, setIsMaximized] = useState(false);
+  const [isMinimized, setIsMinimized] = useState(false);
+  const [originalPosition, setOriginalPosition] = useState(initialPosition);
+  const [originalSize, setOriginalSize] = useState({ width, height });
   const windowRef = useRef(null);
 
   const handleMouseDown = (e) => {
@@ -47,6 +51,24 @@ const Window = ({
     setIsDragging(false);
   };
 
+  const handleMinimize = () => {
+    setIsMinimized(!isMinimized);
+  };
+
+  const handleMaximize = () => {
+    if (isMaximized) {
+      // Restore
+      setPosition(originalPosition);
+      setIsMaximized(false);
+    } else {
+      // Maximize
+      setOriginalPosition(position);
+      setOriginalSize({ width, height });
+      setPosition({ x: 0, y: 0 });
+      setIsMaximized(true);
+    }
+  };
+
   useEffect(() => {
     if (isDragging) {
       document.addEventListener('mousemove', handleMouseMove);
@@ -58,17 +80,19 @@ const Window = ({
     }
   }, [isDragging, dragOffset]);
 
+  if (isMinimized) {
+    return null; // Hide window when minimized
+  }
+
+  const windowStyle = isMaximized 
+    ? { left: 0, top: 0, width: '100vw', height: 'calc(100vh - 32px)' }
+    : { left: position.x, top: position.y, width: width, height: height };
+
   return (
     <div
       ref={windowRef}
-      className={`absolute bg-win95-gray border-2 ${isActive ? 'border-win95-dark-gray' : 'border-gray-400'} shadow-lg`}
-      style={{
-        left: position.x,
-        top: position.y,
-        width: width,
-        height: height,
-        zIndex: isActive ? 1000 : 999
-      }}
+      className={`absolute bg-win95-gray border-2 border-outset shadow-lg ${isActive ? 'z-10' : 'z-0'}`}
+      style={windowStyle}
       onClick={() => onFocus && onFocus()}
     >
       {/* Title Bar */}
@@ -77,10 +101,30 @@ const Window = ({
         onMouseDown={handleMouseDown}
       >
         <span className="text-xs font-bold">{title}</span>
-        <div className="window-controls flex gap-1">
+        <div className="window-controls flex gap-0">
+          {/* Minimize Button */}
+          <button
+            onClick={handleMinimize}
+            className="window-control-btn"
+            title="Minimize"
+          >
+            _
+          </button>
+          
+          {/* Maximize/Restore Button */}
+          <button
+            onClick={handleMaximize}
+            className="window-control-btn"
+            title={isMaximized ? "Restore" : "Maximize"}
+          >
+            {isMaximized ? "❐" : "□"}
+          </button>
+          
+          {/* Close Button */}
           <button
             onClick={onClose}
-            className="bg-win95-gray text-black px-2 py-0 text-xs border border-win95-dark-gray hover:bg-win95-light-gray"
+            className="window-control-btn"
+            title="Close"
           >
             ×
           </button>
@@ -88,7 +132,7 @@ const Window = ({
       </div>
       
       {/* Window Content */}
-      <div className="p-2 h-full overflow-auto bg-win95-gray" style={{ height: height - 24 }}>
+      <div className="p-2 h-full overflow-auto bg-win95-gray" style={{ height: isMaximized ? 'calc(100vh - 56px)' : height - 24 }}>
         {children}
       </div>
     </div>
