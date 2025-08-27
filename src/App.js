@@ -182,7 +182,7 @@ function App() {
               </div>
               <h3 className="text-lg font-bold mb-3">Windows 95 Experience</h3>
               <p className="text-sm mb-4 text-gray-700">
-                For the best experience, please use this on a larger screen (PC/Desktop).
+                For the best experience, please use this on a larger screen (PC).
               </p>
               <button
                 onClick={handleMobileWarningClose}
