@@ -42,7 +42,7 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
 
   const handleSettingsClick = () => {
     setShowSettingsDialog(true);
-    // Don't close the start menu immediately, let the dialog appear first
+    onClose();
   };
 
   return (
@@ -146,23 +146,11 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
         <>
           <div 
             className="fixed inset-0 z-60 bg-black bg-opacity-50"
-            onClick={() => {
-              setShowSettingsDialog(false);
-              onClose();
-            }}
+            onClick={() => setShowSettingsDialog(false)}
           />
           <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-70 bg-win95-gray border-2 border-outset shadow-lg">
-            <div className="bg-win95-blue text-white px-2 py-1 win95-titlebar-text flex justify-between items-center">
+            <div className="bg-win95-blue text-white px-2 py-1 win95-titlebar-text">
               <span>Settings</span>
-              <button 
-                className="window-control-btn"
-                onClick={() => {
-                  setShowSettingsDialog(false);
-                  onClose();
-                }}
-              >
-                ×
-              </button>
             </div>
             <div className="p-4 win95-text">
               <div className="flex items-center mb-3">
@@ -173,10 +161,7 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
               <div className="flex justify-center">
                 <button 
                   className="win95-button px-4 py-1"
-                  onClick={() => {
-                    setShowSettingsDialog(false);
-                    onClose();
-                  }}
+                  onClick={() => setShowSettingsDialog(false)}
                 >
                   OK
                 </button>
