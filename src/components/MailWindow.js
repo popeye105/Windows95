@@ -74,65 +74,66 @@ const MailWindow = () => {
   };
 
   return (
-    <div className="h-full flex flex-col bg-win95-gray p-4">
-      <div className="flex-1">
-        <h2 className="text-lg font-bold mb-4 text-center">Mail Me</h2>
+    <div className="h-full flex flex-col bg-win95-gray overflow-hidden">
+      <div className="flex-1 flex flex-col p-4 min-h-0">
+        <h2 className="text-lg font-bold mb-4 text-center flex-shrink-0">Mail Me</h2>
         
-        <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Name Field */}
-          <div>
-            <label className="block text-sm font-bold mb-1">Name</label>
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleInputChange}
-              className="w-full p-2 border-2 border-inset bg-white text-black"
-              placeholder="Your full name"
-            />
-          </div>
+        <form onSubmit={handleSubmit} className="flex-1 flex flex-col min-h-0">
+          <div className="flex-1 space-y-3 overflow-auto">
+            {/* Name Field */}
+            <div>
+              <label className="block text-sm font-bold mb-1">Name</label>
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleInputChange}
+                className="w-full p-2 border-2 border-inset bg-white text-black"
+                placeholder="Your full name"
+              />
+            </div>
 
-          {/* Email Field */}
-          <div>
-            <label className="block text-sm font-bold mb-1">Email</label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleInputChange}
-              className="w-full p-2 border-2 border-inset bg-white text-black"
-              placeholder="your.email@example.com"
-            />
-          </div>
+            {/* Email Field */}
+            <div>
+              <label className="block text-sm font-bold mb-1">Email</label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                className="w-full p-2 border-2 border-inset bg-white text-black"
+                placeholder="your.email@example.com"
+              />
+            </div>
 
-          {/* Phone Field */}
-          <div>
-            <label className="block text-sm font-bold mb-1">Phone Number</label>
-            <input
-              type="tel"
-              name="phone"
-              value={formData.phone}
-              onChange={handleInputChange}
-              className="w-full p-2 border-2 border-inset bg-white text-black"
-              placeholder="Your phone number"
-            />
-          </div>
+            {/* Phone Field */}
+            <div>
+              <label className="block text-sm font-bold mb-1">Phone Number</label>
+              <input
+                type="tel"
+                name="phone"
+                value={formData.phone}
+                onChange={handleInputChange}
+                className="w-full p-2 border-2 border-inset bg-white text-black"
+                placeholder="Your phone number"
+              />
+            </div>
 
-          {/* Message Field */}
-          <div>
-            <label className="block text-sm font-bold mb-1">Message</label>
-            <textarea
-              name="message"
-              value={formData.message}
-              onChange={handleInputChange}
-              rows="6"
-              className="w-full p-2 border-2 border-inset bg-white text-black resize-none"
-              placeholder="Type your message here..."
-            />
+            {/* Message Field */}
+            <div className="flex-1 flex flex-col min-h-0">
+              <label className="block text-sm font-bold mb-1">Message</label>
+              <textarea
+                name="message"
+                value={formData.message}
+                onChange={handleInputChange}
+                className="w-full flex-1 p-2 border-2 border-inset bg-white text-black resize-none min-h-0"
+                placeholder="Type your message here..."
+              />
+            </div>
           </div>
 
           {/* Buttons */}
-          <div className="flex gap-3 justify-center mt-6">
+          <div className="flex gap-3 justify-center mt-4 flex-shrink-0">
             <button
               type="submit"
               disabled={isSubmitting}
@@ -150,11 +151,26 @@ const MailWindow = () => {
           </div>
 
           {/* Status Message */}
-          {submitStatus && (
-            <div className={`text-center text-xs mt-3 p-1 ${
+          {submitStatus && submitStatus.includes('required') && (
+            <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-win95-gray border-2 border-outset p-4 shadow-lg z-50">
+              <div className="text-center">
+                <div className="text-sm font-bold text-red-600 mb-2">⚠️ Error</div>
+                <div className="text-sm mb-3">{submitStatus}</div>
+                <button
+                  onClick={() => setSubmitStatus('')}
+                  className="win95-button px-4 py-1 text-sm"
+                >
+                  OK
+                </button>
+              </div>
+            </div>
+          )}
+          
+          {submitStatus && !submitStatus.includes('required') && (
+            <div className={`text-center text-xs mt-2 p-1 flex-shrink-0 ${
               submitStatus.includes('successfully') 
                 ? 'text-green-600' 
-                : submitStatus.includes('Failed') || submitStatus.includes('required')
+                : submitStatus.includes('Failed')
                 ? 'text-red-600'
                 : 'text-blue-600'
             }`}>
@@ -162,16 +178,6 @@ const MailWindow = () => {
             </div>
           )}
         </form>
-
-        {/* Instructions */}
-        <div className="mt-6 p-3 border-2 border-inset bg-gray-100">
-          <h3 className="text-sm font-bold mb-2">📋 Instructions:</h3>
-          <ul className="text-xs space-y-1">
-            <li>• Fill in your details and message</li>
-            <li>• Click Submit to send your message</li>
-            <li>• Use Clear to reset all fields</li>
-          </ul>
-        </div>
       </div>
     </div>
   );
