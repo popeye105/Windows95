@@ -132,7 +132,7 @@ const MailWindow = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-bold mb-1">Phone Number</label>
+              <label className="block text-sm font-bold mb-1">Phone Number (Optional)</label>
               <input
                 type="tel"
                 name="phone"
