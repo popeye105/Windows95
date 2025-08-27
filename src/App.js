@@ -29,7 +29,6 @@ function App() {
     { id: 'projects', icon: '💼', label: 'Projects', component: ProjectsWindow },
     { id: 'mail', icon: '📧', label: 'Mail Me', component: MailWindow },
     { id: 'drawings', icon: '🎨', label: 'Drawings', component: DrawingsWindow },
-    { id: 'games', icon: '🎮', label: 'Games', component: GamesWindow },
     { id: 'bg', icon: '🖼️', label: 'Change Background', component: ChangeBackgroundWindow },
   ];
 

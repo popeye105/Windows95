@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const StartMenu = ({ isOpen, onClose }) => {
+  const [showGamesSubmenu, setShowGamesSubmenu] = useState(false);
+
   if (!isOpen) return null;
 
-  const menuItems = [];
+  const games = [
+    { name: 'Snake', url: '/games/snake.html' },
+    { name: 'Minesweeper', url: '/games/minesweeper.html' },
+    { name: 'Cooking Game', url: '/games/cooking/index.html' }
+  ];
 
-  const handleItemClick = (url) => {
+  const handleGameClick = (url) => {
     window.open(url, '_blank');
     onClose();
   };
@@ -25,16 +31,39 @@ const StartMenu = ({ isOpen, onClose }) => {
         </div>
         
         <div className="p-1">
-          {menuItems.length === 0 && (
-            <div className="px-2 py-2 text-xs text-win95-dark-gray">No shortcuts yet</div>
-          )}
-          
-          <hr className="my-1 border-win95-dark-gray" />
-          
-          <div className="flex items-center px-2 py-1 text-xs text-win95-dark-gray">
-            <span className="mr-2">⚙️</span>
-            Settings
+          <div 
+            className="flex items-center justify-between px-2 py-1 text-xs hover:bg-win95-light-gray cursor-pointer"
+            onMouseEnter={() => setShowGamesSubmenu(true)}
+            onMouseLeave={() => setShowGamesSubmenu(false)}
+          >
+            <div className="flex items-center">
+              <span className="mr-2">🎮</span>
+              Games
+            </div>
+            <span>▶</span>
           </div>
+          
+          {/* Games Submenu */}
+          {showGamesSubmenu && (
+            <div 
+              className="absolute left-full top-0 ml-1 w-40 bg-win95-gray border-2 border-outset shadow-lg z-60"
+              onMouseEnter={() => setShowGamesSubmenu(true)}
+              onMouseLeave={() => setShowGamesSubmenu(false)}
+            >
+              <div className="p-1">
+                {games.map((game, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center px-2 py-1 text-xs hover:bg-win95-light-gray cursor-pointer"
+                    onClick={() => handleGameClick(game.url)}
+                  >
+                    <span className="mr-2">🎯</span>
+                    {game.name}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </>

@@ -120,13 +120,14 @@ const MailWindow = () => {
             </div>
 
             {/* Message Field */}
-            <div className="flex-1 flex flex-col min-h-0">
+            <div className="flex-1 flex flex-col min-h-0" style={{ minHeight: '200px' }}>
               <label className="block text-sm font-bold mb-1">Message</label>
               <textarea
                 name="message"
                 value={formData.message}
                 onChange={handleInputChange}
-                className="w-full flex-1 p-2 border-2 border-inset bg-white text-black resize-none min-h-0"
+                className="w-full flex-1 p-2 border-2 border-inset bg-white text-black resize-none"
+                style={{ minHeight: '180px' }}
                 placeholder="Type your message here..."
               />
             </div>
