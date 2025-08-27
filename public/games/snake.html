@@ -115,18 +115,34 @@
         }
 
         function generateFood() {
-            food = {
-                x: randomTile(),
-                y: randomTile()
-            };
-
-            // Make sure food doesn't spawn on snake
-            for (let segment of snake) {
-                if (segment.x === food.x && segment.y === food.y) {
-                    generateFood();
+            let attempts = 0;
+            const maxAttempts = 100;
+            
+            do {
+                food = {
+                    x: randomTile(),
+                    y: randomTile()
+                };
+                attempts++;
+                
+                // Check if food position is valid (not on snake)
+                let validPosition = true;
+                for (let segment of snake) {
+                    if (segment.x === food.x && segment.y === food.y) {
+                        validPosition = false;
+                        break;
+                    }
+                }
+                
+                if (validPosition) {
                     return;
                 }
-            }
+                
+            } while (attempts < maxAttempts);
+            
+            // Fallback: if we can't find a valid position, place food at (0,0)
+            // This should rarely happen unless the snake fills almost the entire board
+            food = { x: 0, y: 0 };
         }
 
         function resetGame() {

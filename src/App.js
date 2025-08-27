@@ -10,6 +10,7 @@ import ProjectsWindow from './components/ProjectsWindow';
 import DrawingsWindow from './components/DrawingsWindow';
 import GamesWindow from './components/GamesWindow';
 import ChangeBackgroundWindow from './components/ChangeBackgroundWindow';
+import MailWindow from './components/MailWindow';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -26,6 +27,7 @@ function App() {
   const desktopIcons = [
     { id: 'resume', icon: '📄', label: 'Resume', component: ResumeWindow },
     { id: 'projects', icon: '💼', label: 'Projects', component: ProjectsWindow },
+    { id: 'mail', icon: '📧', label: 'Mail Me', component: MailWindow },
     { id: 'drawings', icon: '🎨', label: 'Drawings', component: DrawingsWindow },
     { id: 'games', icon: '🎮', label: 'Games', component: GamesWindow },
     { id: 'bg', icon: '🖼️', label: 'Change Background', component: ChangeBackgroundWindow },
