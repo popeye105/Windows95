@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import MusicWindow from './MusicWindow';
 
 const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
   const [showGamesSubmenu, setShowGamesSubmenu] = useState(false);
@@ -74,10 +75,7 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
               onOpenWindow({
                 id: 'music',
                 title: 'My Music',
-                component: () => {
-                  const MusicWindow = require('./MusicWindow').default;
-                  return <MusicWindow />;
-                }
+                component: () => <MusicWindow />
               });
               onClose();
             }}
