@@ -133,8 +133,10 @@ const Window = ({
       </div>
       
       {/* Window Content */}
-      <div className="p-2 h-full overflow-auto bg-win95-gray" style={{ height: isMaximized ? 'calc(100vh - 56px)' : height - 24 }}>
-        {children}
+      <div className="p-2 bg-win95-gray flex flex-col" style={{ height: isMaximized ? 'calc(100vh - 56px)' : height - 24 }}>
+        <div className="flex-1 overflow-hidden">
+          {children}
+        </div>
       </div>
     </div>
   );

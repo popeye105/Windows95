@@ -7,10 +7,10 @@ const DrawingsWindow = () => {
   useEffect(() => {
     // Load the actual drawings from the drawings folder
     const actualDrawings = [
-      { id: 1, name: 'AOT', filename: 'AOT.jpg' },
-      { id: 2, name: 'TVD', filename: 'TVD.jpg' },
-      { id: 3, name: 'SG', filename: 'SG.jpg' },
-      { id: 4, name: 'SL', filename: 'SL.jpg' },
+      { id: 1, name: 'AOT', filename: 'AOT.jpg', description: 'Attack on Titan' },
+      { id: 2, name: 'TVD', filename: 'TVD.jpg', description: 'Damon from TVD' },
+      { id: 3, name: 'SG', filename: 'SG.jpg', description: 'Selena Gomez' },
+      { id: 4, name: 'SL', filename: 'SL.jpg', description: 'Solo Leveling' },
     ];
     setDrawings(actualDrawings);
   }, []);
@@ -29,7 +29,10 @@ const DrawingsWindow = () => {
         // Image Viewer
         <div className="h-full flex flex-col">
           <div className="p-2 border-b border-win95-dark-gray flex justify-between items-center">
-            <span className="text-sm font-bold">{selectedImage.name}</span>
+            <div className="flex flex-col">
+              <span className="text-sm font-bold">{selectedImage.name}</span>
+              <span className="text-xs text-gray-600">{selectedImage.description}</span>
+            </div>
             <button
               onClick={closeImageViewer}
               className="win95-button text-xs px-2 py-1"
@@ -64,7 +67,7 @@ const DrawingsWindow = () => {
                 className="bg-white border-2 border-outset p-2 cursor-pointer hover:bg-win95-light-gray"
                 onClick={() => openImage(drawing)}
               >
-                <div className="aspect-square bg-win95-light-gray border border-win95-dark-gray flex items-center justify-center">
+                <div className="aspect-square bg-win95-light-gray border border-win95-dark-gray flex items-center justify-center mb-2">
                   <img
                     src={`/drawings/${drawing.filename}`}
                     alt={drawing.name}
@@ -77,6 +80,10 @@ const DrawingsWindow = () => {
                   <div className="text-xs text-win95-dark-gray hidden">
                     🎨 {drawing.name}
                   </div>
+                </div>
+                <div className="text-center">
+                  <div className="text-sm font-bold text-gray-800">{drawing.name}</div>
+                  <div className="text-xs text-gray-600">{drawing.description}</div>
                 </div>
               </div>
             ))}
