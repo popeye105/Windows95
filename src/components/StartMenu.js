@@ -1,8 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import MusicWindow from './MusicWindow';
 
 const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
   const [showGamesSubmenu, setShowGamesSubmenu] = useState(false);
+  const [showSettingsDialog, setShowSettingsDialog] = useState(false);
+
+  // Reset submenu state when start menu closes
+  useEffect(() => {
+    if (!isOpen) {
+      setShowGamesSubmenu(false);
+    }
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -28,6 +36,11 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
 
   const handleGitHubClick = () => {
     window.open('https://github.com/ariz-24', '_blank');
+    onClose();
+  };
+
+  const handleSettingsClick = () => {
+    setShowSettingsDialog(true);
     onClose();
   };
 
@@ -89,7 +102,10 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
             My Music
           </div>
           
-          <div className="flex items-center px-2 py-1 win95-start-menu-item cursor-pointer">
+          <div 
+            className="flex items-center px-2 py-1 win95-start-menu-item cursor-pointer"
+            onClick={handleSettingsClick}
+          >
             <span className="mr-2">⚙️</span>
             Settings
           </div>
@@ -123,6 +139,42 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
           </div>
         </div>
       </div>
+
+      {/* Settings Dialog */}
+      {showSettingsDialog && (
+        <>
+          <div 
+            className="fixed inset-0 z-60 bg-black bg-opacity-50"
+            onClick={() => setShowSettingsDialog(false)}
+          />
+          <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-70 bg-win95-gray border-2 border-outset shadow-lg">
+            <div className="bg-win95-blue text-white px-2 py-1 win95-titlebar-text flex justify-between items-center">
+              <span>Settings</span>
+              <button 
+                className="window-control-btn"
+                onClick={() => setShowSettingsDialog(false)}
+              >
+                ×
+              </button>
+            </div>
+            <div className="p-4 win95-text">
+              <div className="flex items-center mb-3">
+                <span className="mr-2 text-lg">⚠️</span>
+                <span className="font-bold">Information</span>
+              </div>
+              <p className="mb-4">Functionality under development</p>
+              <div className="flex justify-center">
+                <button 
+                  className="win95-button px-4 py-1"
+                  onClick={() => setShowSettingsDialog(false)}
+                >
+                  OK
+                </button>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </>
   );
 };
