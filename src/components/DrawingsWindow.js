@@ -30,7 +30,6 @@ const DrawingsWindow = () => {
         <div className="h-full flex flex-col">
           <div className="p-2 border-b border-win95-dark-gray flex justify-between items-center">
             <div className="flex flex-col">
-              <span className="text-sm font-bold">{selectedImage.name}</span>
               <span className="text-xs text-gray-600">{selectedImage.description}</span>
             </div>
             <button
@@ -82,7 +81,6 @@ const DrawingsWindow = () => {
                   </div>
                 </div>
                 <div className="text-center">
-                  <div className="text-sm font-bold text-gray-800">{drawing.name}</div>
                   <div className="text-xs text-gray-600">{drawing.description}</div>
                 </div>
               </div>

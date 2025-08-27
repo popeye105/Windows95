@@ -209,7 +209,7 @@ function App() {
                 onClick={handleMobileWarningClose}
                 className="win95-button px-4 py-2 text-sm font-bold"
               >
-                Continue Anyway
+                Continue
               </button>
             </div>
           </div>

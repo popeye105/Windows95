@@ -7,21 +7,26 @@
     <style>
         body {
             margin: 0;
-            padding: 0; /* remove padding to avoid scroll */
+            padding: 0;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            overflow: hidden; /* hide any overflow to prevent scrollbars */
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
             background-color: #c0c0c0;
             font-family: 'MS Sans Serif', sans-serif;
         }
         .game-container {
-            text-align: center;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            align-items: center;
+            justify-content: center;
         }
         canvas {
             border: 2px solid #000;
             background-color: #000;
+            max-width: calc(100vw - 20px);
+            max-height: calc(100vh - 100px);
         }
         .score {
             font-size: 18px;
