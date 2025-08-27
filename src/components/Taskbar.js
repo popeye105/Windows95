@@ -24,14 +24,18 @@ const Taskbar = ({ onStartClick, isStartMenuOpen }) => {
       {/* Start Button */}
       <button
         onClick={onStartClick}
-        className={`flex items-center px-3 py-2 md:px-2 md:py-1 text-sm md:text-xs font-bold ${
+        className={`${
           isStartMenuOpen 
-            ? 'bg-win95-dark-gray border-2 border-inset' 
-            : 'bg-win95-gray border-2 border-outset hover:bg-win95-light-gray'
+            ? 'border-2 border-inset' 
+            : 'border-2 border-outset hover:brightness-110'
         }`}
       >
-        <span className="mr-1">🪟</span>
-        Start
+        <img 
+          src="https://github.com/ariz17/Windows95/raw/060561348c25c2f4d58f176f4205ac1a01c456b0/sm%20logo.png"
+          alt="Start"
+          className="h-8 md:h-6"
+          style={{imageRendering: 'pixelated'}}
+        />
       </button>
 
       {/* Clock */}

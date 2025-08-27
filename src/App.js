@@ -8,7 +8,6 @@ import StartMenu from './components/StartMenu';
 import ResumeWindow from './components/ResumeWindow';
 import ProjectsWindow from './components/ProjectsWindow';
 import DrawingsWindow from './components/DrawingsWindow';
-import MiniBrowserWindow from './components/MiniBrowserWindow';
 import GamesWindow from './components/GamesWindow';
 import ChangeBackgroundWindow from './components/ChangeBackgroundWindow';
 
@@ -26,7 +25,6 @@ function App() {
     { id: 'projects', icon: '💼', label: 'Projects', component: ProjectsWindow },
     { id: 'drawings', icon: '🎨', label: 'Drawings', component: DrawingsWindow },
     { id: 'games', icon: '🎮', label: 'Games', component: GamesWindow },
-    { id: 'browser', icon: '🌐', label: 'Browser', component: MiniBrowserWindow },
     { id: 'bg', icon: '🖼️', label: 'Change Background', component: ChangeBackgroundWindow },
   ];
 
