@@ -6,13 +6,18 @@ const StartMenu = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   const games = [
-    { name: 'Snake', url: '/games/snake.html' },
-    { name: 'Minesweeper', url: '/games/minesweeper.html' },
-    { name: 'Cooking Game', url: '/games/cooking/index.html' }
+    { name: 'Snake', icon: '🐍', url: '/games/snake.html' },
+    { name: 'Minesweeper', icon: '💣', url: '/games/minesweeper.html' },
+    { name: 'Cooking Game', icon: '👨‍🍳', url: '/games/cooking/index.html' }
   ];
 
   const handleGameClick = (url) => {
     window.open(url, '_blank');
+    onClose();
+  };
+
+  const handleLinkedInClick = () => {
+    window.open('https://www.linkedin.com/in/arbab-rizvi-3217b9366?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app', '_blank');
     onClose();
   };
 
@@ -32,38 +37,55 @@ const StartMenu = ({ isOpen, onClose }) => {
         
         <div className="p-1">
           <div 
-            className="flex items-center justify-between px-2 py-1 text-xs hover:bg-win95-light-gray cursor-pointer"
+            className="relative flex items-center justify-between px-2 py-1 text-xs hover:bg-win95-light-gray cursor-pointer"
             onMouseEnter={() => setShowGamesSubmenu(true)}
-            onMouseLeave={() => setShowGamesSubmenu(false)}
           >
             <div className="flex items-center">
               <span className="mr-2">🎮</span>
               Games
             </div>
             <span>▶</span>
+            
+            {/* Games Submenu */}
+            {showGamesSubmenu && (
+              <div 
+                className="absolute left-full top-0 ml-1 w-44 bg-win95-gray border-2 border-outset shadow-lg z-60"
+                onMouseLeave={() => setShowGamesSubmenu(false)}
+              >
+                <div className="p-1">
+                  {games.map((game, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center px-2 py-1 text-xs hover:bg-win95-light-gray cursor-pointer"
+                      onClick={() => handleGameClick(game.url)}
+                    >
+                      <span className="mr-2">{game.icon}</span>
+                      {game.name}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
           
-          {/* Games Submenu */}
-          {showGamesSubmenu && (
-            <div 
-              className="absolute left-full top-0 ml-1 w-40 bg-win95-gray border-2 border-outset shadow-lg z-60"
-              onMouseEnter={() => setShowGamesSubmenu(true)}
-              onMouseLeave={() => setShowGamesSubmenu(false)}
-            >
-              <div className="p-1">
-                {games.map((game, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center px-2 py-1 text-xs hover:bg-win95-light-gray cursor-pointer"
-                    onClick={() => handleGameClick(game.url)}
-                  >
-                    <span className="mr-2">🎯</span>
-                    {game.name}
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+          <div className="flex items-center px-2 py-1 text-xs hover:bg-win95-light-gray cursor-pointer">
+            <span className="mr-2">⚙️</span>
+            Settings
+          </div>
+          
+          <hr className="my-1 border-win95-dark-gray" />
+          
+          <div className="px-2 py-1 text-xs font-bold text-win95-dark-gray">
+            Connect
+          </div>
+          
+          <div 
+            className="flex items-center px-2 py-1 text-xs hover:bg-win95-light-gray cursor-pointer"
+            onClick={handleLinkedInClick}
+          >
+            <span className="mr-2">💼</span>
+            LinkedIn
+          </div>
         </div>
       </div>
     </>
