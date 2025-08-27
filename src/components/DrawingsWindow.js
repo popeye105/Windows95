@@ -5,15 +5,14 @@ const DrawingsWindow = () => {
   const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
-    // In a real app, you'd fetch this from an API or file system
-    // For now, we'll simulate some drawings
-    const mockDrawings = [
-      { id: 1, name: 'Digital Portrait', filename: 'portrait.jpg' },
-      { id: 2, name: 'Landscape Study', filename: 'landscape.jpg' },
-      { id: 3, name: 'Character Design', filename: 'character.jpg' },
-      { id: 4, name: 'Abstract Art', filename: 'abstract.jpg' },
+    // Load the actual drawings from the drawings folder
+    const actualDrawings = [
+      { id: 1, name: 'AOT', filename: 'AOT.jpg' },
+      { id: 2, name: 'TVD', filename: 'TVD.jpg' },
+      { id: 3, name: 'SG', filename: 'SG.jpg' },
+      { id: 4, name: 'SL', filename: 'SL.jpg' },
     ];
-    setDrawings(mockDrawings);
+    setDrawings(actualDrawings);
   }, []);
 
   const openImage = (drawing) => {
@@ -61,7 +60,7 @@ const DrawingsWindow = () => {
                 className="bg-white border-2 border-outset p-2 cursor-pointer hover:bg-win95-light-gray"
                 onClick={() => openImage(drawing)}
               >
-                <div className="aspect-square bg-win95-light-gray border border-win95-dark-gray mb-2 flex items-center justify-center">
+                <div className="aspect-square bg-win95-light-gray border border-win95-dark-gray flex items-center justify-center">
                   <img
                     src={`/drawings/${drawing.filename}`}
                     alt={drawing.name}
@@ -75,7 +74,6 @@ const DrawingsWindow = () => {
                     🎨 {drawing.name}
                   </div>
                 </div>
-                <div className="text-xs text-center font-bold">{drawing.name}</div>
               </div>
             ))}
           </div>
