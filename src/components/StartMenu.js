@@ -20,9 +20,8 @@ const StartMenu = ({ isOpen, onClose }) => {
       
       {/* Menu */}
       <div className="fixed bottom-8 left-1 w-48 bg-win95-gray border-2 border-outset shadow-lg z-50">
-        <div className="bg-gray-300 text-black px-1 py-1 text-xs font-bold flex items-center border-2 border-outset">
-          <img src="/windows95-logo.svg" alt="Windows 95" className="w-4 h-4 mr-1" style={{imageRendering: 'pixelated'}} />
-          Start
+        <div className="bg-win95-blue text-white px-2 py-1 text-xs font-bold">
+          Windows 95
         </div>
         
         <div className="p-1">

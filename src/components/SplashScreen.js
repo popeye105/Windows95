@@ -13,7 +13,7 @@ const SplashScreen = ({ onComplete }) => {
       setIsExiting(true);
     }, 2500);
 
-    // Complete after fade out animation
+    // Complete exactly at 3 seconds
     const completeTimer = setTimeout(() => {
       onComplete();
     }, 3000);
