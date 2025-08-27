@@ -141,16 +141,18 @@ const MailWindow = () => {
           </div>
 
           {submitStatus && submitStatus.includes('required') && (
-            <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-win95-gray border-2 border-outset p-4 shadow-lg z-50">
-              <div className="text-center">
-                <div className="text-sm font-bold text-red-600 mb-2">⚠️ Error</div>
-                <div className="text-sm mb-3">{submitStatus}</div>
-                <button
-                  onClick={() => setSubmitStatus('')}
-                  className="win95-button px-4 py-1 text-sm"
-                >
-                  OK
-                </button>
+            <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+              <div className="bg-win95-gray border-2 border-outset p-4 shadow-lg max-w-xs w-full mx-4">
+                <div className="text-center">
+                  <div className="text-sm font-bold text-red-600 mb-2">⚠️ Error</div>
+                  <div className="text-sm mb-3">{submitStatus}</div>
+                  <button
+                    onClick={() => setSubmitStatus('')}
+                    className="win95-button px-4 py-1 text-sm"
+                  >
+                    OK
+                  </button>
+                </div>
               </div>
             </div>
           )}

@@ -8,26 +8,15 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
   const games = [
     { name: 'Snake', icon: '🐍', url: '/games/snake.html' },
     { name: 'Minesweeper', icon: '💣', url: '/games/minesweeper.html' },
-    { name: 'Cooking Game', icon: '👨‍🍳', url: '/games/cooking/index.html' }
+    { name: 'Cooking Game', icon: '🍳', url: '/games/cooking/index.html' }
   ];
 
   const handleGameClick = (game) => {
-    const gameWindow = {
-      id: `game-${game.name.toLowerCase().replace(/\s+/g, '-')}`,
+    onOpenWindow({
+      id: `game-${game.name.toLowerCase()}`,
       title: game.name,
-      component: () => (
-        <div className="h-full flex flex-col">
-          <iframe
-            src={game.url}
-            className="w-full h-full"
-            title={game.name}
-            allow="fullscreen"
-            allowFullScreen
-          />
-        </div>
-      )
-    };
-    onOpenWindow(gameWindow);
+      component: () => <iframe src={game.url} className="w-full h-full border-none" title={game.name} />
+    });
     onClose();
   };
 
@@ -77,6 +66,24 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
                 </div>
               </div>
             )}
+          </div>
+          
+          <div 
+            className="flex items-center px-2 py-1 text-xs hover:bg-win95-light-gray cursor-pointer"
+            onClick={() => {
+              onOpenWindow({
+                id: 'music',
+                title: 'My Music',
+                component: () => {
+                  const MusicWindow = require('./MusicWindow').default;
+                  return <MusicWindow />;
+                }
+              });
+              onClose();
+            }}
+          >
+            <span className="mr-2">🎵</span>
+            My Music
           </div>
           
           <div className="flex items-center px-2 py-1 text-xs hover:bg-win95-light-gray cursor-pointer">

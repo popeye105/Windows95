@@ -8,7 +8,7 @@ const wallpapers = [
 ];
 
 const ChangeBackgroundWindow = () => {
-  const { wallpaperUrl, setWallpaperUrl } = useContext(BackgroundContext);
+  const { setWallpaperUrl } = useContext(BackgroundContext);
 
   const apply = (src) => {
     setWallpaperUrl(src);
