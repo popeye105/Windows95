@@ -13,7 +13,9 @@ module.exports = {
         'win95-desktop': '#008080',
       },
       fontFamily: {
-        'ms-sans': ['MS Sans Serif', 'sans-serif'],
+        'ms-sans': ['VT323', 'Courier New', 'monospace'],
+        'win95': ['VT323', 'Courier New', 'monospace'],
+        'win95-mono': ['VT323', 'Courier New', 'monospace'],
       },
       boxShadow: {
         'win95-inset': 'inset -1px -1px #0a0a0a, inset 1px 1px #dfdfdf, inset -2px -2px #808080, inset 2px 2px #c0c0c0',

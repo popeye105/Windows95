@@ -29,7 +29,7 @@ const SplashScreen = ({ onComplete }) => {
         alt="Windows 95"
         className="w-full h-full object-cover"
       />
-      <div className="absolute bottom-16 left-0 right-0 text-center text-black text-sm md:text-base font-bold opacity-90 tracking-widest select-none">
+      <div className="absolute bottom-16 left-0 right-0 text-center text-black text-2xl md:text-3xl font-bold opacity-90 tracking-widest select-none">
         LOADING...
       </div>
     </div>

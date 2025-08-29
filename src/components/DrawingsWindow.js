@@ -30,7 +30,7 @@ const DrawingsWindow = () => {
         <div className="h-full flex flex-col">
           <div className="p-2 border-b border-win95-dark-gray flex justify-between items-center">
             <div className="flex flex-col">
-              <span className="text-xs text-gray-600">{selectedImage.description}</span>
+              <span className="text-lg text-gray-600">{selectedImage.description}</span>
             </div>
             <button
               onClick={closeImageViewer}
@@ -39,7 +39,11 @@ const DrawingsWindow = () => {
               ← Back
             </button>
           </div>
-          <div className="flex-1 bg-white border-2 border-inset flex items-center justify-center overflow-hidden" style={{ minHeight: 0 }}>
+          <div className="flex-1 bg-white border-2 border-inset flex items-center justify-center overflow-hidden" style={{ 
+            minHeight: 0,
+            transform: 'translateZ(0)',
+            willChange: 'transform'
+          }}>
             <img
               src={`/drawings/${selectedImage.filename}`}
               alt={selectedImage.name}
@@ -48,7 +52,11 @@ const DrawingsWindow = () => {
                 maxWidth: 'calc(100% - 8px)', 
                 maxHeight: 'calc(100% - 8px)',
                 width: 'auto',
-                height: 'auto'
+                height: 'auto',
+                imageRendering: 'auto',
+                transform: 'scale(1)',
+                transformOrigin: 'center',
+                display: 'block'
               }}
               onError={(e) => {
                 e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjY2NjIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vdCBmb3VuZDwvdGV4dD48L3N2Zz4=';
@@ -71,6 +79,12 @@ const DrawingsWindow = () => {
                     src={`/drawings/${drawing.filename}`}
                     alt={drawing.name}
                     className="max-w-full max-h-full object-cover"
+                    style={{
+                      imageRendering: 'auto',
+                      transform: 'scale(1)',
+                      transformOrigin: 'center',
+                      display: 'block'
+                    }}
                     onError={(e) => {
                       e.target.style.display = 'none';
                       e.target.nextSibling.style.display = 'block';
@@ -81,7 +95,7 @@ const DrawingsWindow = () => {
                   </div>
                 </div>
                 <div className="text-center">
-                  <div className="text-xs text-gray-600">{drawing.description}</div>
+                  <div className="text-lg text-gray-600">{drawing.description}</div>
                 </div>
               </div>
             ))}
