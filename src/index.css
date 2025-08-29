@@ -16,7 +16,6 @@ body {
   -moz-osx-font-smoothing: unset;
   image-rendering: pixelated;
   image-rendering: -moz-crisp-edges;
-  image-rendering: crisp-edges;
   background-color: #008080;
 }
 
