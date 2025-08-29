@@ -186,9 +186,9 @@ function App() {
   return (
     <BackgroundContext.Provider value={{ wallpaperUrl, setWallpaperUrl }}>
       <div
-        className={`h-screen overflow-hidden ${wallpaperUrl ? '' : 'bg-win95-desktop'} ${isMobile ? 'pb-10' : ''}`}
+        className={`h-screen overflow-hidden ${!isLoading && wallpaperUrl ? '' : 'bg-win95-desktop'} ${isMobile ? 'pb-10' : ''}`}
         onClick={handleDesktopClick}
-        style={wallpaperUrl ? {
+        style={!isLoading && wallpaperUrl ? {
           backgroundImage: `url(${wallpaperUrl})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
