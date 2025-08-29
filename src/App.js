@@ -23,6 +23,7 @@ function App() {
   const [isMobile, setIsMobile] = useState(false);
   const [wallpaperUrl, setWallpaperUrl] = useState(null);
   const [wallpaperLoaded, setWallpaperLoaded] = useState(false);
+  const defaultWallpaper = '#008080'; // Default teal/green background
   const [showMobileWarning, setShowMobileWarning] = useState(false);
 
   const desktopIcons = [
@@ -190,14 +191,16 @@ function App() {
   return (
     <BackgroundContext.Provider value={{ wallpaperUrl, setWallpaperUrl }}>
       <div
-        className={`h-screen overflow-hidden ${wallpaperLoaded && wallpaperUrl && !isLoading ? '' : 'bg-win95-desktop'} ${isMobile ? 'pb-10' : ''}`}
+        className={`h-screen overflow-hidden ${isMobile ? 'pb-10' : ''}`}
         onClick={handleDesktopClick}
         style={wallpaperLoaded && wallpaperUrl && !isLoading ? {
           backgroundImage: `url(${wallpaperUrl})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat'
-        } : {}}
+        } : {
+          backgroundColor: defaultWallpaper
+        }}
       >
         {isLoading && <SplashScreen onComplete={handleSplashComplete} />}
         {!isLoading && showMobileWarning && (
