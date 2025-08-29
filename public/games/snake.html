@@ -37,6 +37,53 @@
             margin-top: 10px;
             font-size: 12px;
         }
+        
+        /* Mobile optimizations */
+        @media (max-width: 768px) {
+            .game-container {
+                padding: 5px;
+                justify-content: flex-start;
+            }
+            canvas {
+                width: min(95vw, 95vh);
+                height: min(95vw, 95vh);
+                max-width: none;
+                max-height: none;
+            }
+            .score {
+                font-size: 16px;
+                margin: 5px 0;
+            }
+            .controls {
+                font-size: 11px;
+                margin-top: 5px;
+                text-align: center;
+            }
+        }
+        
+        /* Fullscreen mobile portrait */
+        @media (max-width: 768px) and (orientation: portrait) {
+            .game-container {
+                height: 100vh;
+                justify-content: center;
+            }
+            canvas {
+                width: 90vw;
+                height: 90vw;
+            }
+        }
+        
+        /* Fullscreen mobile landscape */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .game-container {
+                height: 100vh;
+                justify-content: center;
+            }
+            canvas {
+                width: 85vh;
+                height: 85vh;
+            }
+        }
     </style>
 </head>
 <body>
@@ -159,6 +206,35 @@
             generateFood();
         }
 
+        // Touch controls for mobile
+        if (window.innerWidth <= 768) {
+            let startX, startY;
+            
+            canvas.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                if (!running) running = true;
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+            });
+            
+            canvas.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                const deltaX = e.changedTouches[0].clientX - startX;
+                const deltaY = e.changedTouches[0].clientY - startY;
+                
+                if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 30) {
+                    if (deltaX > 0 && dx !== -1) { nextDx = 1; nextDy = 0; }
+                    else if (deltaX < 0 && dx !== 1) { nextDx = -1; nextDy = 0; }
+                } else if (Math.abs(deltaY) > 30) {
+                    if (deltaY > 0 && dy !== -1) { nextDx = 0; nextDy = 1; }
+                    else if (deltaY < 0 && dy !== 1) { nextDx = 0; nextDy = -1; }
+                }
+            });
+            
+            document.querySelector('.controls').textContent = 'Swipe to control the snake';
+        }
+        
+        // Keyboard controls for desktop
         document.addEventListener('keydown', (e) => {
             // start game on first key
             if (!running && (e.key.startsWith('Arrow'))) {

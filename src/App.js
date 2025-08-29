@@ -75,9 +75,10 @@ function App() {
   const handleSplashComplete = () => {
     setIsLoading(false);
     
-    // Show mobile warning if on mobile device
+    // Show mobile warning if on mobile device, but allow Mail Me app to work
     if (isMobile) {
       setShowMobileWarning(true);
+      setHasInitialized(true); // Allow desktop to be interactive
       return;
     }
     

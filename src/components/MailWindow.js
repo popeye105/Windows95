@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const MailWindow = () => {
   const [formData, setFormData] = useState({
@@ -9,6 +9,20 @@ const MailWindow = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState('');
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -104,11 +118,11 @@ const MailWindow = () => {
 
   return (
     <div className="h-full flex flex-col bg-win95-gray overflow-hidden">
-      <div className="flex-1 flex flex-col p-4 min-h-0">
-        <h2 className="text-lg font-bold mb-4 text-center flex-shrink-0">Mail Me</h2>
+      <div className={`flex-1 flex flex-col ${isMobile ? 'p-2' : 'p-4'} min-h-0`}>
+        <h2 className={`${isMobile ? 'text-base' : 'text-lg'} font-bold ${isMobile ? 'mb-2' : 'mb-4'} text-center flex-shrink-0`}>Mail Me</h2>
         
         <form onSubmit={handleSubmit} className="flex-1 flex flex-col min-h-0">
-          <div className="flex-1 space-y-3 overflow-auto">
+          <div className={`flex-1 ${isMobile ? 'space-y-2' : 'space-y-3'} overflow-auto ${isMobile ? 'pb-2' : ''}`}>
             <div>
               <label className="block text-sm font-bold mb-1">Name</label>
               <input
@@ -116,7 +130,7 @@ const MailWindow = () => {
                 name="name"
                 value={formData.name}
                 onChange={handleInputChange}
-                className="w-full p-2 border-2 border-inset bg-white text-black"
+                className={`w-full ${isMobile ? 'p-1.5' : 'p-2'} border-2 border-inset bg-white text-black text-sm`}
               />
             </div>
 
@@ -127,7 +141,7 @@ const MailWindow = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleInputChange}
-                className="w-full p-2 border-2 border-inset bg-white text-black"
+                className={`w-full ${isMobile ? 'p-1.5' : 'p-2'} border-2 border-inset bg-white text-black text-sm`}
               />
             </div>
 
@@ -138,34 +152,34 @@ const MailWindow = () => {
                 name="phone"
                 value={formData.phone}
                 onChange={handleInputChange}
-                className="w-full p-2 border-2 border-inset bg-white text-black"
+                className={`w-full ${isMobile ? 'p-1.5' : 'p-2'} border-2 border-inset bg-white text-black text-sm`}
               />
             </div>
 
-            <div className="flex-1 flex flex-col min-h-0" style={{ minHeight: '200px' }}>
+            <div className="flex-1 flex flex-col min-h-0" style={{ minHeight: isMobile ? '120px' : '200px' }}>
               <label className="block text-sm font-bold mb-1">Message</label>
               <textarea
                 name="message"
                 value={formData.message}
                 onChange={handleInputChange}
-                className="w-full flex-1 p-2 border-2 border-inset bg-white text-black resize-none"
-                style={{ minHeight: '180px' }}
+                className={`w-full flex-1 ${isMobile ? 'p-1.5' : 'p-2'} border-2 border-inset bg-white text-black resize-none text-sm`}
+                style={{ minHeight: isMobile ? '100px' : '180px' }}
               />
             </div>
           </div>
 
-          <div className="flex gap-3 justify-center mt-4 flex-shrink-0">
+          <div className={`flex gap-2 justify-center ${isMobile ? 'mt-2' : 'mt-4'} flex-shrink-0 ${isMobile ? 'pb-2' : ''}`}>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="win95-button px-6 py-2 font-bold text-sm disabled:opacity-50"
+              className={`win95-button ${isMobile ? 'px-4 py-1.5' : 'px-6 py-2'} font-bold text-xs disabled:opacity-50`}
             >
               {isSubmitting ? 'Sending...' : '📤 Submit'}
             </button>
             <button
               type="button"
               onClick={handleClear}
-              className="win95-button px-6 py-2 font-bold text-sm"
+              className={`win95-button ${isMobile ? 'px-4 py-1.5' : 'px-6 py-2'} font-bold text-xs`}
             >
               🗑️ Clear
             </button>
@@ -189,7 +203,7 @@ const MailWindow = () => {
           )}
           
           {submitStatus && !submitStatus.includes('required') && (
-            <div className={`text-center text-xs mt-2 p-1 flex-shrink-0 ${
+            <div className={`text-center text-xs ${isMobile ? 'mt-1' : 'mt-2'} p-1 flex-shrink-0 ${
               submitStatus.includes('successfully') 
                 ? 'text-green-600' 
                 : submitStatus.includes('Failed')

@@ -14,13 +14,59 @@
     .cell.flag { color:#c00; }
     .num1{ color:#0000ff;} .num2{color:#008000;} .num3{color:#ff0000;} .num4{color:#000080;} .num5{color:#800000;} .num6{color:#008080;} .num7{color:#000000;} .num8{color:#808080;}
     button { font-family:inherit; padding:4px 8px; }
+    
+    /* Mobile optimizations */
+    @media (max-width: 768px) {
+      body { height: 100vh; overflow: hidden; }
+      .wrap { 
+        max-width: 100vw; 
+        max-height: 100vh; 
+        overflow: auto; 
+        padding: 5px;
+        border: 1px solid #000;
+      }
+      .top { 
+        font-size: 14px; 
+        margin-bottom: 5px;
+        flex-wrap: wrap;
+        gap: 5px;
+      }
+      .cell { 
+        width: 24px; 
+        height: 24px; 
+        font-size: 12px;
+      }
+      .board {
+        gap: 1px;
+        padding: 1px;
+      }
+      button {
+        padding: 2px 6px;
+        font-size: 12px;
+      }
+    }
+    
+    /* Fullscreen mobile */
+    @media (max-width: 768px) and (orientation: portrait) {
+      .wrap {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      .board {
+        flex: 1;
+        display: grid;
+        align-content: start;
+        overflow: auto;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="wrap">
     <div class="top">
       <div>🚩 <span id="flags"></span></div>
-      <button id="reset">🙂 New</button>
+      <button id="reset">💡 New</button>
       <div>⏱️ <span id="timer">0</span>s</div>
     </div>
     <div id="board" class="board"></div>
@@ -140,13 +186,19 @@
     function updateFlags(){ flagsEl.textContent = `${flagged.size}/${MINES}`; }
 
     boardEl.addEventListener('contextmenu', e=> e.preventDefault());
-    boardEl.addEventListener('mousedown', (e)=>{
-      const target = e.target.closest('.cell');
+    // Mobile detection
+    const isMobile = window.innerWidth <= 768;
+    
+    // Touch and mouse event handlers
+    let touchTimer = null;
+    
+    function handleCellInteraction(target, isLongPress = false) {
       if(!target || gameOver) return;
       const r = +target.dataset.r, c = +target.dataset.c;
       if(!startTime){ startTime = Date.now(); timerId = setInterval(()=>{ timerEl.textContent = Math.floor((Date.now()-startTime)/1000); }, 1000); }
       const k = key(r,c);
-      if(e.button === 2){ // right click flag
+      
+      if(isLongPress || (!isMobile && event.button === 2)){ // long press or right click for flag
         if(!revealed.has(k)){
           if(flagged.has(k)) flagged.delete(k); else flagged.add(k);
           updateFlags();
@@ -157,6 +209,39 @@
       if(flagged.has(k)) return;
       revealCell(r,c);
       render();
+    }
+    
+    // Mouse events for desktop
+    boardEl.addEventListener('mousedown', (e)=>{
+      const target = e.target.closest('.cell');
+      handleCellInteraction(target);
+    });
+    
+    // Touch events for mobile
+    boardEl.addEventListener('touchstart', (e)=>{
+      e.preventDefault();
+      const target = e.target.closest('.cell');
+      if(!target) return;
+      
+      touchTimer = setTimeout(() => {
+        handleCellInteraction(target, true); // long press for flag
+      }, 500);
+    });
+    
+    boardEl.addEventListener('touchend', (e)=>{
+      e.preventDefault();
+      const target = e.target.closest('.cell');
+      if(touchTimer) {
+        clearTimeout(touchTimer);
+        handleCellInteraction(target, false); // short tap for reveal
+      }
+    });
+    
+    boardEl.addEventListener('touchcancel', (e)=>{
+      if(touchTimer) {
+        clearTimeout(touchTimer);
+        touchTimer = null;
+      }
     });
 
     resetBtn.addEventListener('click', init);
