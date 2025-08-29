@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import MusicWindow from './MusicWindow';
 
 const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
   const [showGamesSubmenu, setShowGamesSubmenu] = useState(false);
@@ -55,12 +54,17 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
           />
           
           {/* Menu */}
-          <div className="fixed bottom-8 left-1 w-48 bg-win95-gray border-2 border-outset shadow-lg z-50 win95-start-menu">
-        <div className="bg-win95-blue text-white px-2 py-1 win95-titlebar-text">
-          Windows 95
+          <div className="fixed bottom-8 left-1 bg-win95-gray border-2 border-outset shadow-lg z-50 win95-start-menu flex">
+        {/* Vertical Windows 95 branding */}
+        <div className="bg-win95-dark-gray text-white flex items-center justify-center w-8 min-h-full border-r border-win95-dark-gray">
+          <div className="transform -rotate-90 whitespace-nowrap text-base font-bold tracking-widest">
+            Windows 95
+          </div>
         </div>
         
-        <div className="p-1">
+        {/* Menu content */}
+        <div className="w-44">
+          <div className="p-1">
           <div 
             className="relative flex items-center justify-between px-2 py-1 win95-start-menu-item cursor-pointer"
             onClick={() => setShowGamesSubmenu(!showGamesSubmenu)}
@@ -92,11 +96,7 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
           <div 
             className="flex items-center px-2 py-1 win95-start-menu-item cursor-pointer"
             onClick={() => {
-              onOpenWindow({
-                id: 'music',
-                title: 'My Music',
-                component: () => <MusicWindow />
-              });
+              // Music functionality removed
               onClose();
             }}
           >
@@ -139,8 +139,9 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
             </div>
             GitHub
           </div>
+          </div>
         </div>
-      </div>
+        </div>
         </>
       )}
 
