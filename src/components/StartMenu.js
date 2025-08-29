@@ -30,7 +30,7 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
   };
 
   const handleLinkedInClick = () => {
-    window.open('https://www.linkedin.com/in/arbab-rizvi-3217b9366?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app', '_blank');
+    window.open('https://www.linkedin.com/in/mohd-arbab-rizvi-3217b9366?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app', '_blank');
     onClose();
   };
 
