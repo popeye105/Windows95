@@ -198,9 +198,6 @@ function App() {
         {!isLoading && showMobileWarning && (
           <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
             <div className="bg-win95-gray border-2 border-outset p-6 max-w-sm w-full text-center">
-              <div className="mb-6">
-                <span className="text-4xl">💻</span>
-              </div>
               <h3 className="text-lg font-bold mb-3">Windows 95</h3>
               <p className="text-sm mb-4 text-gray-700">
                 For the best experience, please use this on a larger screen (PC).
