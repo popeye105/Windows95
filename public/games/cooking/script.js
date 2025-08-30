@@ -137,16 +137,17 @@ function selectChef(chefType) {
 
 function showBackgroundSelection() {
     const chefName = chefNameInput.value.trim();
-    if (chefName) {
-        chefNameDisplay.textContent = chefName;
-        chefSelectionScreen.classList.add('fade-out');
-        setTimeout(() => {
-            chefSelectionScreen.classList.add('hidden');
-            backgroundSelectionScreen.classList.remove('hidden');
-        }, 180);
-    } else {
+    if (!chefName) {
         alert("Please enter a name to continue.");
+        return;
     }
+    
+    chefNameDisplay.textContent = chefName;
+    chefSelectionScreen.classList.add('fade-out');
+    setTimeout(() => {
+        chefSelectionScreen.classList.add('hidden');
+        backgroundSelectionScreen.classList.remove('hidden');
+    }, 180);
 }
 
 function selectBackground(bgNumber) {
@@ -187,6 +188,13 @@ function selectBackground(bgNumber) {
 }
 
 function startGame() {
+    // Check if a background is selected
+    const hasSelectedBackground = document.querySelector('.bg-selection-option.selected');
+    if (!hasSelectedBackground) {
+        alert("Choose any one of them");
+        return;
+    }
+    
     backgroundSelectionScreen.classList.add('fade-out');
     
     bgVideo.style.opacity = '1';
@@ -464,7 +472,15 @@ function restartGame() {
     newOrder();
 }
 
-startButton.addEventListener('click', showNameInput);
+startButton.addEventListener('click', () => {
+    // Check if a chef is selected
+    const hasSelectedChef = document.querySelector('.chef-selection-option.selected');
+    if (!hasSelectedChef) {
+        alert("Select any one");
+        return;
+    }
+    showNameInput();
+});
 startButton.addEventListener('mousedown', () => startButton.classList.add('btn-press'));
 startButton.addEventListener('mouseup', () => startButton.classList.remove('btn-press'));
 
