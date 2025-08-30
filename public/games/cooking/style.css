@@ -543,6 +543,8 @@ button, .hint-button {
         padding: 1rem;
         max-height: 90vh;
         margin: 0.5rem auto;
+        display: flex;
+        flex-direction: column;
     }
     
     .game-container h1 {
@@ -572,27 +574,56 @@ button, .hint-button {
     
     .bg-selection-option,
     .chef-selection-option {
-        width: 100%;
-        max-width: 200px;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 15px;
-        padding: 15px;
-        text-align: left;
-    }
-    
-    .bg-preview,
-    .chef-preview {
-        width: 80px;
-        height: 60px;
-        flex-shrink: 0;
-    }
-    
-    .chef-preview {
-        width: 80px;
-        height: 80px;
+        width: 120px;
+        height: 120px;
         border-radius: 50%;
+    }
+
+    /* Game layout optimization for mobile */
+    .game-area {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        gap: 1rem;
+    }
+
+    .top-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .timer-display, .hint-btn {
+        order: 1;
+    }
+
+    .customer-section {
+        order: 2;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .bottom-section {
+        order: 3;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+
+    #serve-btn {
+        order: 1;
+    }
+
+    #reset-btn {
+        order: 3;
     }
     
     /* Customer area mobile optimization */
@@ -648,12 +679,7 @@ button, .hint-button {
     .chef-info img {
         width: 80px;
         height: 80px;
-    }
-    
-    .chef-info p {
-        font-size: 0.8rem;
-        padding: 0.25rem 0.5rem;
-        max-width: 150px;
+        border-radius: 50%;
     }
     
     /* Hint content mobile optimization */
@@ -663,7 +689,7 @@ button, .hint-button {
         left: 50%;
         transform: translate(-50%, -50%);
         max-width: 90vw;
-        min-width: auto;
+        max-height: 80vh;
         width: auto;
     }
     
@@ -671,16 +697,16 @@ button, .hint-button {
     #instructions-modal .bg-white {
         margin: 1rem;
         max-height: 85vh;
-        width: calc(100% - 2rem);
+        overflow-y: auto;
     }
     
-    #game-over-modal .bg-white {
-        margin: 1rem;
-        width: calc(100% - 2rem);
+    #instructions-modal h3 {
+        font-size: 1.2rem;
     }
     
-    .grid.grid-cols-1.md\:grid-cols-2 {
-        grid-template-columns: 1fr;
+    #instructions-modal p,
+    #instructions-modal li {
+        font-size: 0.9rem;
     }
 }
 

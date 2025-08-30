@@ -49,14 +49,14 @@
     /* Fullscreen mobile */
     @media (max-width: 768px) and (orientation: portrait) {
       .wrap {
-        height: 100vh;
+        height: calc(100vh - 10px);
         display: flex;
         flex-direction: column;
+        box-sizing: border-box;
       }
       .board {
         flex: 1;
-        display: grid;
-        align-content: start;
+        min-height: 0;
         overflow: auto;
       }
     }
