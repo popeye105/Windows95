@@ -29,11 +29,11 @@ const ChangeBackgroundWindow = () => {
         </div>
       </div>
       <div className="flex-1 overflow-auto p-3">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {wallpapers.map((w) => (
             <button key={w.src} className="bg-white border-2 border-inset p-2 text-left" onClick={() => apply(w.src)}>
               <div className="mb-2 text-xs font-bold">{w.name}{wallpaperUrl === w.src ? ' (Selected)' : ''}</div>
-              <img src={w.src} alt={w.name} className="w-full h-32 object-cover border" />
+              <img src={w.src} alt={w.name} className="w-full h-48 object-contain border" />
             </button>
           ))}
         </div>
