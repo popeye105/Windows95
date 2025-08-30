@@ -36,9 +36,6 @@ function App() {
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
-      if (window.innerWidth < 768) {
-        setShowMobileWarning(true);
-      }
     };
     
     checkMobile();
@@ -190,23 +187,7 @@ function App() {
         } : {}}
       >
         {isLoading && <SplashScreen onComplete={handleSplashComplete} />}
-        {!isLoading && showMobileWarning && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-            <div className="bg-win95-gray border-2 border-outset p-6 max-w-sm w-full text-center">
-              <h3 className="text-lg font-bold mb-3">Windows 95</h3>
-              <p className="text-sm mb-4 text-gray-700">
-                For the best experience, please use this on a larger screen (PC).
-              </p>
-              <button
-                onClick={handleMobileWarningClose}
-                className="win95-button px-4 py-2 text-sm font-bold"
-              >
-                Continue
-              </button>
-            </div>
-          </div>
-        )}
-        {!isLoading && !showMobileWarning && (
+        {!isLoading && (
           <>
             <div className={`${isMobile ? 'desktop-icons-container' : 'flex flex-col space-y-2 p-4'}`}>
               {desktopIcons.map((icon) => (
