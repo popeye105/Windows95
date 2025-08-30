@@ -534,8 +534,8 @@ button, .hint-button {
     }
     
     #loading-screen p {
-        font-size: 1.5rem;
-        margin-top: 1.5rem;
+        font-size: 1.2rem;
+        margin-top: 1rem;
     }
     
     .game-container {
@@ -548,8 +548,8 @@ button, .hint-button {
     }
     
     .game-container h1 {
-        font-size: 1.5rem;
-        margin-bottom: 1rem;
+        font-size: 1.3rem;
+        margin-bottom: 0.75rem;
     }
     
     .intro-card {
@@ -579,52 +579,6 @@ button, .hint-button {
         border-radius: 50%;
     }
 
-    /* Game layout optimization for mobile */
-    .game-area {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        gap: 1rem;
-    }
-
-    .top-section {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-        margin-bottom: 1rem;
-    }
-
-    .timer-display, .hint-btn {
-        order: 1;
-    }
-
-    .customer-section {
-        order: 2;
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
-    .bottom-section {
-        order: 3;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 1rem;
-        margin-top: 1rem;
-    }
-
-    #serve-btn {
-        order: 1;
-    }
-
-    #reset-btn {
-        order: 3;
-    }
     
     /* Customer area mobile optimization */
     .customer-controls {
