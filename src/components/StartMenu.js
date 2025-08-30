@@ -21,6 +21,59 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
   if (!isOpen && !showSettingsDialog) return null;
 
   const handleGameClick = (game) => {
+    // Check if it's cooking game on mobile
+    if (game.name === 'Cook it' && window.innerWidth <= 768 && 'ontouchstart' in window) {
+      // Show mobile warning popup
+      const popup = document.createElement('div');
+      popup.className = 'fixed top-4 left-1/2 transform -translate-x-1/2 bg-yellow-100 border-2 border-gray-400 px-4 py-3 z-50 rounded shadow-lg text-center';
+      popup.style.cssText = `
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #ffffe1;
+        border: 2px outset #c0c0c0;
+        padding: 12px 16px;
+        z-index: 10001;
+        font-family: 'MS Sans Serif', sans-serif;
+        box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+        max-width: 300px;
+        text-align: center;
+        animation: slideDown 0.5s ease-out;
+      `;
+      popup.innerHTML = `
+        <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+          <span style="font-size: 16px;">⚠️</span>
+          <span style="font-size: 11px; color: #000; line-height: 1.3;">Cook it :- Playable on PC only</span>
+        </div>
+      `;
+      
+      // Add animation keyframes if not already present
+      if (!document.querySelector('#slideDownKeyframes')) {
+        const style = document.createElement('style');
+        style.id = 'slideDownKeyframes';
+        style.textContent = `
+          @keyframes slideDown {
+            from { top: -100px; opacity: 0; }
+            to { top: 20px; opacity: 1; }
+          }
+        `;
+        document.head.appendChild(style);
+      }
+      
+      document.body.appendChild(popup);
+      
+      // Auto-remove after 3 seconds
+      setTimeout(() => {
+        if (popup.parentNode) {
+          popup.parentNode.removeChild(popup);
+        }
+      }, 3000);
+      
+      onClose();
+      return;
+    }
+    
     onOpenWindow({
       id: `game-${game.name.toLowerCase()}`,
       title: game.name,

@@ -168,7 +168,7 @@ const MailWindow = () => {
             </div>
           </div>
 
-          <div className={`flex gap-2 justify-center ${isMobile ? 'mt-2' : 'mt-4'} flex-shrink-0 ${isMobile ? 'pb-2' : ''}`}>
+          <div className={`flex gap-2 justify-center ${isMobile ? 'mt-2' : 'mt-4'} flex-shrink-0 ${isMobile ? 'pb-2' : ''}`} style={isMobile ? { marginBottom: '20px' } : {}}>
             <button
               type="submit"
               disabled={isSubmitting}
