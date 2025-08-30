@@ -231,7 +231,9 @@
                 }
             });
             
-            document.querySelector('.controls').textContent = 'Swipe to control the snake';
+            // Check if mobile device
+            const isMobile = window.innerWidth <= 768;
+            document.querySelector('.controls').textContent = isMobile ? 'Swipe to control the snake' : 'Use Arrow Keys to control the snake';
         }
         
         // Keyboard controls for desktop
