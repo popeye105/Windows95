@@ -31,8 +31,8 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
         top: 20px;
         left: 50%;
         transform: translateX(-50%);
-        background: #ffffe1;
-        border: 2px outset #c0c0c0;
+        background: lightyellow;
+        border: 2px outset silver;
         padding: 12px 16px;
         z-index: 10001;
         font-family: 'MS Sans Serif', sans-serif;
@@ -44,7 +44,7 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
       popup.innerHTML = `
         <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
           <span style="font-size: 16px;">⚠️</span>
-          <span style="font-size: 11px; color: #000; line-height: 1.3;">Cook it :- Playable on PC only</span>
+          <span style="font-size: 11px; color: black; line-height: 1.3;">Cook it :- Playable on PC only</span>
         </div>
       `;
       
@@ -74,10 +74,14 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
       return;
     }
     
+    // Check if mobile device
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
     onOpenWindow({
       id: `game-${game.name.toLowerCase()}`,
       title: game.name,
-      component: () => <iframe src={game.url} className="w-full h-full border-none" title={game.name} />
+      component: () => <iframe src={game.url} className="w-full h-full border-none" title={game.name} />,
+      isMaximized: isMobile ? (game.name === 'Snake' || game.name === 'Minesweeper') : true
     });
     onClose();
   };

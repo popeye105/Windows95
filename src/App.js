@@ -123,7 +123,8 @@ function App() {
       position: { 
         x: 50 + openWindows.length * 30, 
         y: 50 + openWindows.length * 30 
-      }
+      },
+      isMaximized: windowConfig.isMaximized || false
     };
 
     setOpenWindows(prev => [...prev, newWindow]);
@@ -213,6 +214,7 @@ function App() {
                   height={isMobile ? Math.min(window.innerHeight - 80, 450) : 400}
                   isActive={activeWindow === window.id}
                   isMinimized={!!isMinimized}
+                  isMaximized={window.isMaximized}
                   onClose={() => handleWindowClose(window.id)}
                   onFocus={() => handleWindowFocus(window.id)}
                   onMinimize={() => handleWindowMinimize(window.id)}

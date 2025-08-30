@@ -10,12 +10,13 @@ const Window = ({
   isActive = true,
   isMinimized = false,
   onFocus,
-  onMinimize
+  onMinimize,
+  isMaximized: initialMaximized = false
 }) => {
   const [position, setPosition] = useState(initialPosition);
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
-  const [isMaximized, setIsMaximized] = useState(false);
+  const [isMaximized, setIsMaximized] = useState(initialMaximized);
   const [originalPosition, setOriginalPosition] = useState(initialPosition);
   const [originalSize, setOriginalSize] = useState({ width, height });
   const windowRef = useRef(null);
@@ -105,7 +106,7 @@ const Window = ({
         className={`${isActive ? 'bg-win95-blue' : 'bg-gray-500'} text-white px-2 py-1 flex justify-between items-center cursor-move select-none`}
         onMouseDown={handleMouseDown}
       >
-        <span className="text-xs font-bold">{title}</span>
+        <span className="text-sm font-bold tracking-wide">{title}</span>
         <div className="window-controls flex gap-0">
           {/* Minimize Button */}
           <button
