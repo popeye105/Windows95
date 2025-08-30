@@ -33,7 +33,9 @@ const ChangeBackgroundWindow = () => {
           {wallpapers.map((w) => (
             <button key={w.src} className="bg-white border-2 border-inset p-2 text-left" onClick={() => apply(w.src)}>
               <div className="mb-2 text-xs font-bold">{w.name}{wallpaperUrl === w.src ? ' (Selected)' : ''}</div>
-              <img src={w.src} alt={w.name} className="w-full h-48 object-contain border" />
+              <div className="w-full h-32 bg-gray-100 border flex items-center justify-center" style={{aspectRatio: '16/9'}}>
+                <img src={w.src} alt={w.name} className="max-w-full max-h-full object-contain" style={{imageRendering: 'auto'}} />
+              </div>
             </button>
           ))}
         </div>
