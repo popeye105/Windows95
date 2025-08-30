@@ -210,7 +210,7 @@ function App() {
                   title={window.title}
                   initialPosition={isMobile ? { x: 10, y: 10 } : window.position}
                   width={isMobile ? Math.min(window.innerWidth - 20, 350) : 500}
-                  height={isMobile ? Math.min(window.innerHeight - 120, 450) : 400}
+                  height={isMobile ? Math.min(window.innerHeight - 80, 450) : 400}
                   isActive={activeWindow === window.id}
                   isMinimized={!!isMinimized}
                   onClose={() => handleWindowClose(window.id)}
