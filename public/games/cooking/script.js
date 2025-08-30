@@ -138,7 +138,7 @@ function selectChef(chefType) {
 function showBackgroundSelection() {
     const chefName = chefNameInput.value.trim();
     if (!chefName) {
-        alert("Please enter a name to continue.");
+        showWindows95Dialog("Cook it :-", "Please enter a name to continue");
         return;
     }
     
@@ -191,7 +191,7 @@ function startGame() {
     // Check if a background is selected
     const hasSelectedBackground = document.querySelector('.bg-selection-option.selected');
     if (!hasSelectedBackground) {
-        alert("Choose any one of them");
+        showWindows95Dialog("Cook it :-", "Please choose a background to continue");
         return;
     }
     
@@ -476,7 +476,7 @@ startButton.addEventListener('click', () => {
     // Check if a chef is selected
     const hasSelectedChef = document.querySelector('.chef-selection-option.selected');
     if (!hasSelectedChef) {
-        alert("Select any one");
+        showWindows95Dialog("Cook it :-", "Please select a chef to continue");
         return;
     }
     showNameInput();
@@ -541,6 +541,25 @@ instructionsModal.addEventListener('click', (e) => {
 hintBtn.addEventListener('click', showHint);
 hintBtn.addEventListener('mousedown', () => hintBtn.classList.add('btn-press'));
 hintBtn.addEventListener('mouseup', () => hintBtn.classList.remove('btn-press'));
+
+// Windows 95 style popup function
+function showWindows95Dialog(title, message) {
+    const popup = document.createElement('div');
+    popup.className = 'windows95-popup';
+    popup.innerHTML = `
+        <div class="popup-content">
+            <span class="popup-icon">⚠️</span>
+            <span class="popup-message">${message}</span>
+        </div>
+    `;
+    document.body.appendChild(popup);
+    
+    // Auto remove after 3 seconds
+    setTimeout(() => {
+        popup.remove();
+    }, 3000);
+}
+
 restartBtn.addEventListener('mousedown', () => restartBtn.classList.add('btn-press'));
 restartBtn.addEventListener('mouseup', () => restartBtn.classList.remove('btn-press'));
 restartBtn.addEventListener('click', restartGame);

@@ -85,8 +85,12 @@ const Window = ({
     return null; // Hide window when minimized
   }
 
+  // Mobile detection for taskbar spacing
+  const isMobile = window.innerWidth <= 768;
+  const mobileTaskbarHeight = isMobile ? 80 : 40;
+  
   const windowStyle = isMaximized 
-    ? { left: 0, top: 0, width: '100vw', height: 'calc(100vh - 40px)' }
+    ? { left: 0, top: 0, width: '100vw', height: `calc(100vh - ${mobileTaskbarHeight}px)` }
     : { left: position.x, top: position.y, width: width, height: height };
 
   return (
@@ -133,7 +137,7 @@ const Window = ({
       </div>
       
       {/* Window Content */}
-      <div className="p-2 bg-win95-gray flex flex-col" style={{ height: isMaximized ? 'calc(100vh - 64px)' : height - 24 }}>
+      <div className="p-2 bg-win95-gray flex flex-col" style={{ height: isMaximized ? `calc(100vh - ${mobileTaskbarHeight + 24}px)` : height - 24 }}>
         <div className="flex-1 overflow-hidden">
           {children}
         </div>
