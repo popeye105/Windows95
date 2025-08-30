@@ -197,11 +197,22 @@
             <div id="timer" class="timer-badge hidden">15s</div>
         </div>
         
-        <div class="game-area">
-            <div class="top-section">
-                <div class="timer-display">
-                    Score: <span id="score">0</span>
-                </div>
+        <div class="score-display mb-2">
+            Score: <span id="score">0</span>
+        </div>
+
+        <div class="customer-area mb-3">
+            <div class="customer-controls">
+                <button id="serve-btn" class="bg-green-500 text-white font-bold py-1.5 px-3 rounded-lg hover:bg-green-600 transition">
+                    Serve
+                </button>
+                <img id="customer-image" src="" alt="Customer" class="customer-image">
+                <button id="reset-btn" class="bg-red-500 text-white font-bold py-1.5 px-3 rounded-lg hover:bg-red-600 transition">
+                    Reset
+                </button>
+            </div>
+            <div class="order-hint-container">
+                <h2 id="customer-order" class="text-xl font-semibold text-gray-700">Awaiting Order...</h2>
                 <div class="hint-section">
                     <button id="hint-btn" class="hint-button">
                         <i class="fas fa-lightbulb"></i>
@@ -212,20 +223,6 @@
                         <div id="hint-ingredients" class="hint-ingredients"></div>
                     </div>
                 </div>
-            </div>
-
-            <div class="customer-section">
-                <img id="customer-image" src="" alt="Customer" class="customer-image">
-                <h2 id="customer-order" class="text-xl font-semibold text-gray-700">Awaiting Order...</h2>
-            </div>
-
-            <div class="bottom-section">
-                <button id="serve-btn" class="bg-green-500 text-white font-bold py-1.5 px-3 rounded-lg hover:bg-green-600 transition">
-                    Serve
-                </button>
-                <button id="reset-btn" class="bg-red-500 text-white font-bold py-1.5 px-3 rounded-lg hover:bg-red-600 transition">
-                    Reset
-                </button>
             </div>
         </div>
         
