@@ -66,7 +66,7 @@
   <div class="wrap">
     <div class="top">
       <div>🚩 <span id="flags"></span></div>
-      <button id="reset">💡 New</button>
+      <button id="reset">💡 New Game</button>
       <div>⏱️ <span id="timer">0</span>s</div>
     </div>
     <div id="board" class="board"></div>
@@ -152,6 +152,7 @@
       revealed.add(k);
       if(grid[r][c] === -1){
         gameOver = true;
+        if (timerId) clearInterval(timerId);
         revealAllMines();
         alert('Boom! Game over.');
         return;
@@ -162,6 +163,7 @@
       // Win check
       if(revealed.size === ROWS*COLS - MINES){
         gameOver = true;
+        if (timerId) clearInterval(timerId);
         alert('You win!');
       }
     }

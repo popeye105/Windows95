@@ -10,6 +10,7 @@ import ProjectsWindow from './components/ProjectsWindow';
 import DrawingsWindow from './components/DrawingsWindow';
 import ChangeBackgroundWindow from './components/ChangeBackgroundWindow';
 import MailWindow from './components/MailWindow';
+import MusicWindow from './components/MusicWindow';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);

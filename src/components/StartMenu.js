@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import MusicWindow from './MusicWindow';
 
 const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
   const [showGamesSubmenu, setShowGamesSubmenu] = useState(false);
@@ -14,7 +15,7 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
   const games = [
     { name: 'Snake', icon: '🐍', url: '/games/snake.html' },
     { name: 'Minesweeper', icon: '💣', url: '/games/minesweeper.html' },
-    { name: 'Cooking Game', icon: '🍳', url: '/games/cooking/index.html' }
+    { name: 'Cook it', icon: '🍳', url: '/games/cooking/index.html' }
   ];
 
   if (!isOpen && !showSettingsDialog) return null;
@@ -96,7 +97,11 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
           <div 
             className="flex items-center px-2 py-1 win95-start-menu-item cursor-pointer"
             onClick={() => {
-              // Music functionality removed
+              onOpenWindow({
+                id: 'music',
+                title: 'My Music',
+                component: MusicWindow
+              });
               onClose();
             }}
           >
