@@ -17,21 +17,21 @@
     @media (max-width: 768px) {
       body { padding: 2px; }
       .wrap { padding: 12px; max-width: 100vw; }
-      .board { gap: 0px; padding: 3px; }
-      .cell { width: 24px; height: 24px; min-width: 24px; min-height: 24px; font-size: 12px; border: 1px outset white; margin: 0; }
-      .cell.revealed { border: 1px inset white; margin: 0; }
-      .top { font-size: 16px; justify-content: space-between; margin-bottom: 8px; }
-      button { padding: 8px 14px; font-size: 16px; }
+      .board { gap: 1px; padding: 3px; }
+      .cell { width: 28px; height: 28px; min-width: 28px; min-height: 28px; font-size: 14px; border: 2px outset white; margin: 0; }
+      .cell.revealed { border: 2px inset white; margin: 0; }
+      .top { font-size: 18px; justify-content: space-between; margin-bottom: 10px; }
+      button { padding: 10px 16px; font-size: 18px; }
     }
     @media (max-width: 480px) {
-      .cell { width: 14px; height: 14px; min-width: 14px; min-height: 14px; font-size: 7px; }
-      .top { font-size: 11px; }
-      button { padding: 3px 6px; font-size: 11px; }
+      .cell { width: 24px; height: 24px; min-width: 24px; min-height: 24px; font-size: 12px; }
+      .top { font-size: 16px; }
+      button { padding: 8px 12px; font-size: 16px; }
     }
     @media (max-width: 400px) {
-      .cell { width: 12px; height: 12px; min-width: 12px; min-height: 12px; font-size: 6px; }
-      .top { font-size: 10px; }
-      button { padding: 2px 4px; font-size: 10px; }
+      .cell { width: 20px; height: 20px; min-width: 20px; min-height: 20px; font-size: 10px; }
+      .top { font-size: 14px; }
+      button { padding: 6px 10px; font-size: 14px; }
     }
   </style>
 </head>
@@ -55,7 +55,7 @@
     function init(){
       // Responsive grid columns
       const isMobile = window.innerWidth <= 768;
-      const cellSize = isMobile ? (window.innerWidth <= 400 ? '12px' : window.innerWidth <= 480 ? '14px' : '24px') : '28px';
+      const cellSize = isMobile ? (window.innerWidth <= 400 ? '20px' : window.innerWidth <= 480 ? '24px' : '28px') : '28px';
       boardEl.style.gridTemplateColumns = `repeat(${COLS}, ${cellSize})`;
       
       grid = Array.from({length:ROWS}, ()=> Array.from({length:COLS}, ()=>0));
