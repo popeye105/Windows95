@@ -8,11 +8,11 @@ const MusicWindow = () => {
   const audioRef = useRef(null);
 
   const songs = [
-    { id: 1, name: 'Electronic Investigation', file: '/songs/Electronic Investigation.mp3' },
-    { id: 2, name: 'Historical Background', file: '/songs/Historical Background.mp3' },
-    { id: 3, name: 'Inspirational Instrument', file: '/songs/Inspirational Instrument.mp3' },
-    { id: 4, name: 'Jazz Elevator', file: '/songs/Jazz Elevator.mp3' },
-    { id: 5, name: 'Undertone World', file: '/songs/Undertone World.mp3' }
+    { id: 1, name: 'Praise The Lord - A$AP Rocky', file: '/songs/Praise The Lord - A$AP Rocky.mp3' },
+    { id: 2, name: 'My Mind & Me - Selena Gomez', file: '/songs/My Mind & Me - Selena Gomez.mp3' },
+    { id: 3, name: 'Night Changes - One Direction', file: '/songs/Night Changes - One Direction.mp3' },
+    { id: 4, name: 'Demons - Imagine Dragons', file: '/songs/Demons - Imagine Dragons.mp3' },
+    { id: 5, name: 'Running Away From Home - SP', file: '/songs/Running Away From Home - SP.mp3' }
   ];
 
   const playSong = (song) => {
