@@ -157,6 +157,7 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
               onOpenWindow({
                 id: 'music',
                 title: 'My Music',
+                icon: '🎵',
                 component: MusicWindow
               });
               onClose();

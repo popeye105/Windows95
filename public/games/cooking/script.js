@@ -12,8 +12,8 @@ let lastRecipeName = '';
 let timerInterval = null;
 let timeLeft = 15;
 let strikes = 0;
-let selectedBackground = 1;
-let selectedChef = 'female';
+let selectedBackground = null;
+let selectedChef = null;
 const MAX_STRIKES = 3;
 const ORDER_TIME_LIMIT = 15;
 const BACKGROUND_VIDEOS = {
@@ -111,6 +111,12 @@ async function loadGameData() {
 }
 
 function showNameInput() {
+    // Check if a chef is selected
+    if (!selectedChef || selectedChef === null) {
+        alert('Choose your Chef first.');
+        return;
+    }
+    
     introScreen.classList.add('fade-out');
     setTimeout(() => {
         introScreen.classList.add('hidden');
@@ -137,17 +143,16 @@ function selectChef(chefType) {
 
 function showBackgroundSelection() {
     const chefName = chefNameInput.value.trim();
-    if (!chefName) {
-        showWindows95Dialog("Cook it :-", "Please enter a name to continue");
-        return;
+    if (chefName) {
+        chefNameDisplay.textContent = chefName;
+        chefSelectionScreen.classList.add('fade-out');
+        setTimeout(() => {
+            chefSelectionScreen.classList.add('hidden');
+            backgroundSelectionScreen.classList.remove('hidden');
+        }, 180);
+    } else {
+        alert("Enter a name to continue.");
     }
-    
-    chefNameDisplay.textContent = chefName;
-    chefSelectionScreen.classList.add('fade-out');
-    setTimeout(() => {
-        chefSelectionScreen.classList.add('hidden');
-        backgroundSelectionScreen.classList.remove('hidden');
-    }, 180);
 }
 
 function selectBackground(bgNumber) {
@@ -160,25 +165,7 @@ function selectBackground(bgNumber) {
         }
     });
     
-    // Force video reload with proper error handling
-    bgVideo.pause();
     bgVideo.src = BACKGROUND_VIDEOS[bgNumber];
-    bgVideo.load();
-    
-    // Add error handling for video loading
-    bgVideo.onerror = function() {
-        console.error('Error loading video:', BACKGROUND_VIDEOS[bgNumber]);
-        // Fallback to a default background if video fails
-        bgVideo.style.display = 'none';
-        document.body.style.backgroundImage = `url('assets/Kitchen ${bgNumber}.${bgNumber === 3 ? 'jpeg' : 'png'}')`;
-        document.body.style.backgroundSize = 'cover';
-        document.body.style.backgroundPosition = 'center';
-    };
-    
-    bgVideo.onloadeddata = function() {
-        bgVideo.style.display = 'block';
-        bgVideo.play().catch(e => console.error('Error playing video:', e));
-    };
     
     bgVideo.style.opacity = '0.8';
     bgVideo.style.filter = 'brightness(0.8)';
@@ -189,9 +176,8 @@ function selectBackground(bgNumber) {
 
 function startGame() {
     // Check if a background is selected
-    const hasSelectedBackground = document.querySelector('.bg-selection-option.selected');
-    if (!hasSelectedBackground) {
-        showWindows95Dialog("Cook it :-", "Please choose a background to continue");
+    if (!selectedBackground || selectedBackground === null) {
+        alert('Select a background to start.');
         return;
     }
     
@@ -472,15 +458,7 @@ function restartGame() {
     newOrder();
 }
 
-startButton.addEventListener('click', () => {
-    // Check if a chef is selected
-    const hasSelectedChef = document.querySelector('.chef-selection-option.selected');
-    if (!hasSelectedChef) {
-        showWindows95Dialog("Cook it :-", "Please select a chef to continue");
-        return;
-    }
-    showNameInput();
-});
+startButton.addEventListener('click', showNameInput);
 startButton.addEventListener('mousedown', () => startButton.classList.add('btn-press'));
 startButton.addEventListener('mouseup', () => startButton.classList.remove('btn-press'));
 
@@ -541,25 +519,6 @@ instructionsModal.addEventListener('click', (e) => {
 hintBtn.addEventListener('click', showHint);
 hintBtn.addEventListener('mousedown', () => hintBtn.classList.add('btn-press'));
 hintBtn.addEventListener('mouseup', () => hintBtn.classList.remove('btn-press'));
-
-// Windows 95 style popup function
-function showWindows95Dialog(title, message) {
-    const popup = document.createElement('div');
-    popup.className = 'windows95-popup';
-    popup.innerHTML = `
-        <div class="popup-content">
-            <span class="popup-icon">⚠️</span>
-            <span class="popup-message">${message}</span>
-        </div>
-    `;
-    document.body.appendChild(popup);
-    
-    // Auto remove after 3 seconds
-    setTimeout(() => {
-        popup.remove();
-    }, 3000);
-}
-
 restartBtn.addEventListener('mousedown', () => restartBtn.classList.add('btn-press'));
 restartBtn.addEventListener('mouseup', () => restartBtn.classList.remove('btn-press'));
 restartBtn.addEventListener('click', restartGame);

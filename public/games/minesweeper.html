@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Minesweeper</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   <style>
     body { margin: 0; padding: 0; display: flex; align-items: center; justify-content: center; height: 100vh; overflow: hidden; background: silver; font-family: 'MS Sans Serif', sans-serif; }
     .wrap { background: white; border: 2px solid black; padding: 10px; max-width: calc(100vw - 20px); max-height: calc(100vh - 20px); overflow: auto; }
@@ -113,9 +114,12 @@
           div.dataset.r=r; div.dataset.c=c;
           const k=key(r,c);
           if(revealed.has(k)) revealCellDiv(div, r, c);
-              boardEl.appendChild(div);
+          boardEl.appendChild(div);
         }
       }
+      if (timerId) clearInterval(timerId);
+      revealAllMines();
+      alert('Boom! Game over.');
     }
 
     function revealCell(r,c){
