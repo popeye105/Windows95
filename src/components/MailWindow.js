@@ -61,7 +61,7 @@ const MailWindow = () => {
     setSubmitStatus('Sending message...');
 
     try {
-      const response = await fetch('https://formspree.io/f/xeoloobg', {
+      const response = await fetch('https://formspree.io/f/mjkabyqe', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
