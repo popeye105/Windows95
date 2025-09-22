@@ -248,6 +248,11 @@ code {
   color: #ffffff !important;
 }
 
+.win95-submenu-arrow {
+  font-size: 12px;
+  color: #000000;
+}
+
 /* Windows 95 Text Styling */
 .win95-text {
   font-family: 'VT323', 'Courier New', monospace;

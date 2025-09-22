@@ -1,24 +1,147 @@
 import React, { useState, useEffect } from 'react';
 import MusicWindow from './MusicWindow';
 
+// Simple Date & Time Widget
+const DateTimeWidget = () => {
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  useEffect(() => {
+    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  // Simple calendar grid
+  const getDaysInMonth = () => {
+    const year = currentTime.getFullYear();
+    const month = currentTime.getMonth();
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const today = currentTime.getDate();
+    
+    const days = [];
+    // Empty cells for days before month starts
+    for (let i = 0; i < firstDay; i++) {
+      days.push(null);
+    }
+    // Days of the month
+    for (let day = 1; day <= daysInMonth; day++) {
+      days.push(day);
+    }
+    return { days, today };
+  };
+
+  const { days, today } = getDaysInMonth();
+
+  // Simple analog clock
+  const getClockHands = () => {
+    const hours = currentTime.getHours() % 12;
+    const minutes = currentTime.getMinutes();
+    const seconds = currentTime.getSeconds();
+    
+    return {
+      hour: (hours * 30) + (minutes * 0.5), // 30 degrees per hour + minute adjustment
+      minute: minutes * 6, // 6 degrees per minute
+      second: seconds * 6  // 6 degrees per second
+    };
+  };
+
+  const { hour, minute, second } = getClockHands();
+
+  return (
+    <div className="flex flex-col space-y-4">
+      {/* Calendar */}
+      <div className="text-center">
+        <div className="font-bold mb-2">Date</div>
+        <div className="bg-win95-gray border-2 border-inset p-2">
+          <div className="grid grid-cols-7 gap-1 text-xs">
+            {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map(day => (
+              <div key={day} className="text-center font-bold p-1 bg-win95-light-gray">{day}</div>
+            ))}
+            {days.map((day, i) => (
+              <div key={i} className={`text-center p-1 ${day === today ? 'bg-blue-600 text-white' : 'bg-white'}`}>
+                {day || ''}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Analog Clock */}
+      <div className="text-center">
+        <div className="font-bold mb-2">Time</div>
+        <div className="relative w-32 h-32 mx-auto bg-gray-200 rounded-full border-2 border-inset">
+          {/* Clock face dots */}
+          {[...Array(12)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute w-1 h-1 bg-black"
+              style={{
+                top: '10px',
+                left: '50%',
+                transformOrigin: '0 54px',
+                transform: `translateX(-50%) rotate(${i * 30}deg)`
+              }}
+            />
+          ))}
+          
+          {/* Hour hand */}
+          <div
+            className="absolute w-1 bg-black rounded"
+            style={{
+              height: '25px',
+              top: '39px',
+              left: '50%',
+              transformOrigin: 'bottom center',
+              transform: `translateX(-50%) rotate(${hour}deg)`
+            }}
+          />
+          
+          {/* Minute hand */}
+          <div
+            className="absolute w-0.5 bg-black rounded"
+            style={{
+              height: '35px',
+              top: '29px',
+              left: '50%',
+              transformOrigin: 'bottom center',
+              transform: `translateX(-50%) rotate(${minute}deg)`
+            }}
+          />
+          
+          {/* Second hand */}
+          <div
+            className="absolute w-px bg-red-500 rounded"
+            style={{
+              height: '40px',
+              top: '24px',
+              left: '50%',
+              transformOrigin: 'bottom center',
+              transform: `translateX(-50%) rotate(${second}deg)`
+            }}
+          />
+          
+          {/* Center dot */}
+          <div className="absolute w-2 h-2 bg-black rounded-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
   const [showGamesSubmenu, setShowGamesSubmenu] = useState(false);
-  const [showSettingsDialog, setShowSettingsDialog] = useState(false);
+  const [showSettingsSubmenu, setShowSettingsSubmenu] = useState(false);
+  const [showInfoDialog, setShowInfoDialog] = useState(false);
+  const [showDateTimeDialog, setShowDateTimeDialog] = useState(false);
+  const [isShuttingDown, setIsShuttingDown] = useState(false);
 
   // Reset submenu state when start menu closes (but keep dialog state)
   useEffect(() => {
     if (!isOpen) {
       setShowGamesSubmenu(false);
+      setShowSettingsSubmenu(false);
     }
   }, [isOpen]);
-
-  const games = [
-    { name: 'Snake', icon: '🐍', url: '/games/snake.html' },
-    { name: 'Minesweeper', icon: '💣', url: '/games/minesweeper.html' },
-    { name: 'Cook it', icon: '🍳', url: '/games/cooking/index.html' }
-  ];
-
-  if (!isOpen && !showSettingsDialog) return null;
 
   const handleGameClick = (game) => {
     // Check if it's cooking game on mobile
@@ -92,14 +215,72 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
   };
 
   const handleGitHubClick = () => {
-    window.open('https://github.com/ariz-24', '_blank');
+    window.open('https://github.com/ariz-17', '_blank');
     onClose();
   };
 
-  const handleSettingsClick = () => {
-    setShowSettingsDialog(true);
+  const handleInfoClick = () => {
     onClose();
+    setShowInfoDialog(true);
   };
+
+  const handleDateTimeClick = () => {
+    onClose();
+    setShowDateTimeDialog(true);
+  };
+
+  // Menu data configuration
+  const menuData = {
+    games: {
+      items: [
+        { name: 'Snake', icon: '🐍', url: '/games/snake.html' },
+        { name: 'Minesweeper', icon: '💣', url: '/games/minesweeper.html' },
+        { name: 'Cook it', icon: '🍳', url: '/games/cooking/index.html' }
+      ],
+      show: showGamesSubmenu,
+      onClick: handleGameClick
+    },
+    settings: {
+      items: [
+        { name: 'Date & Time', icon: '🕐' },
+        { name: 'Info', icon: 'ℹ️' }
+      ],
+      show: showSettingsSubmenu,
+      onClick: (item) => {
+        if (item.name === 'Date & Time') {
+          handleDateTimeClick();
+        } else if (item.name === 'Info') {
+          handleInfoClick();
+        }
+      }
+    }
+  };
+
+  // Unified submenu renderer
+  const renderSubmenu = (menuKey) => {
+    const menu = menuData[menuKey];
+    return menu.show && (
+      <>
+        <div className="absolute left-full top-0 w-1 h-full z-60"></div>
+        <div className="absolute left-full top-0 ml-1 w-44 bg-win95-gray border-2 border-outset shadow-lg z-60 win95-start-menu">
+          <div className="p-1">
+            {menu.items.map((item, index) => (
+              <div
+                key={index}
+                className="flex items-center px-2 py-1 win95-start-menu-item cursor-pointer"
+                onClick={() => menu.onClick(item)}
+              >
+                <span className="mr-2">{item.icon}</span>
+                {item.name}
+              </div>
+            ))}
+          </div>
+        </div>
+      </>
+    );
+  };
+
+  if (!isOpen && !showInfoDialog && !showDateTimeDialog && !isShuttingDown) return null;
 
   return (
     <>
@@ -124,31 +305,18 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
         <div className="w-44">
           <div className="p-1">
           <div 
-            className="relative flex items-center justify-between px-2 py-1 win95-start-menu-item cursor-pointer"
-            onClick={() => setShowGamesSubmenu(!showGamesSubmenu)}
+            className="relative"
+            onMouseEnter={() => setShowGamesSubmenu(true)}
+            onMouseLeave={() => setShowGamesSubmenu(false)}
           >
-            <div className="flex items-center">
-              <span className="mr-2">🎮</span>
-              Games
-            </div>
-            <span>▶</span>
-            
-            {showGamesSubmenu && (
-              <div className="absolute left-full top-0 ml-1 w-44 bg-win95-gray border-2 border-outset shadow-lg z-60 win95-start-menu">
-                <div className="p-1">
-                  {games.map((game, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center px-2 py-1 win95-start-menu-item cursor-pointer"
-                      onClick={() => handleGameClick(game)}
-                    >
-                      <span className="mr-2">{game.icon}</span>
-                      {game.name}
-                    </div>
-                  ))}
-                </div>
+            <div className="flex items-center justify-between px-2 py-1 win95-start-menu-item cursor-pointer">
+              <div className="flex items-center">
+                <span className="mr-2">🎮</span>
+                Games
               </div>
-            )}
+              <span className="win95-submenu-arrow">▶</span>
+            </div>
+            {renderSubmenu('games')}
           </div>
           
           <div 
@@ -168,11 +336,18 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
           </div>
           
           <div 
-            className="flex items-center px-2 py-1 win95-start-menu-item cursor-pointer"
-            onClick={handleSettingsClick}
+            className="relative"
+            onMouseEnter={() => setShowSettingsSubmenu(true)}
+            onMouseLeave={() => setShowSettingsSubmenu(false)}
           >
-            <span className="mr-2">⚙️</span>
-            Settings
+            <div className="flex items-center justify-between px-2 py-1 win95-start-menu-item cursor-pointer">
+              <div className="flex items-center">
+                <span className="mr-2">⚙️</span>
+                Settings
+              </div>
+              <span className="win95-submenu-arrow">▶</span>
+            </div>
+            {renderSubmenu('settings')}
           </div>
           
           <hr className="my-1 border-win95-dark-gray" />
@@ -208,31 +383,80 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
         </>
       )}
 
-      {/* Settings Dialog */}
-      {showSettingsDialog && (
+      {/* Info Dialog */}
+      {showInfoDialog && (
         <>
           <div 
             className="fixed inset-0 z-60 bg-black bg-opacity-50"
-            onClick={() => setShowSettingsDialog(false)}
+            onClick={() => setShowInfoDialog(false)}
           />
-          <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-70 bg-win95-gray border-2 border-outset shadow-lg">
-            <div className="bg-win95-blue text-white px-2 py-1 win95-titlebar-text">
-              <span>Settings</span>
+          <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-70 bg-win95-gray border-2 border-outset shadow-lg w-80">
+            <div className="bg-win95-blue text-white px-2 py-1 flex justify-between items-center cursor-move select-none">
+              <span className="text-sm font-bold tracking-wide">About:-</span>
+              <div className="window-controls flex gap-0">
+                {/* Minimize button */}
+                <button className="window-control-btn" title="Minimize">
+                  _
+                </button>
+                {/* Maximize button (non-functional) */}
+                <button className="window-control-btn" title="Maximize">
+                  □
+                </button>
+                {/* Close button */}
+                <button 
+                  className="window-control-btn"
+                  onClick={() => setShowInfoDialog(false)}
+                  title="Close"
+                >
+                  ×
+                </button>
+              </div>
             </div>
             <div className="p-4 win95-text">
               <div className="flex items-center mb-3">
-                <span className="mr-2 text-lg">⚠️</span>
-                <span className="font-bold">Information</span>
+                <span className="mr-2 text-lg">ℹ️</span>
+                <span className="font-bold">Portfolio Information</span>
               </div>
-              <p className="mb-4">Functionality under development</p>
-              <div className="flex justify-center">
+              <p className="mb-4">
+                {/* Placeholder for portfolio description - will be filled later */}
+                Portfolio description coming soon...
+              </p>
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* Date & Time Dialog */}
+      {showDateTimeDialog && (
+        <>
+          <div 
+            className="fixed inset-0 z-60 bg-black bg-opacity-50"
+            onClick={() => setShowDateTimeDialog(false)}
+          />
+          <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-70 bg-win95-gray border-2 border-outset shadow-lg w-96">
+            <div className="bg-win95-blue text-white px-2 py-1 flex justify-between items-center cursor-move select-none">
+              <span className="text-sm font-bold tracking-wide">Date & Time Properties</span>
+              <div className="window-controls flex gap-0">
+                {/* Minimize button */}
+                <button className="window-control-btn" title="Minimize">
+                  _
+                </button>
+                {/* Maximize button (non-functional) */}
+                <button className="window-control-btn" title="Maximize">
+                  □
+                </button>
+                {/* Close button */}
                 <button 
-                  className="win95-button px-4 py-1"
-                  onClick={() => setShowSettingsDialog(false)}
+                  className="window-control-btn"
+                  onClick={() => setShowDateTimeDialog(false)}
+                  title="Close"
                 >
-                  OK
+                  ×
                 </button>
               </div>
+            </div>
+            <div className="p-4 win95-text">
+              <DateTimeWidget />
             </div>
           </div>
         </>

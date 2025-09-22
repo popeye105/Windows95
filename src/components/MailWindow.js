@@ -156,14 +156,14 @@ const MailWindow = () => {
               />
             </div>
 
-            <div className="flex-1 flex flex-col min-h-0" style={{ minHeight: isMobile ? '120px' : '200px' }}>
+            <div className="flex-1 flex flex-col min-h-0" style={{ minHeight: isMobile ? '80px' : '120px' }}>
               <label className="block text-sm font-bold mb-1">Message</label>
               <textarea
                 name="message"
                 value={formData.message}
                 onChange={handleInputChange}
                 className={`w-full flex-1 ${isMobile ? 'p-1.5' : 'p-2'} border-2 border-inset bg-white text-black resize-none text-sm`}
-                style={{ minHeight: isMobile ? '100px' : '180px' }}
+                style={{ minHeight: isMobile ? '60px' : '100px' }}
               />
             </div>
           </div>
@@ -203,7 +203,7 @@ const MailWindow = () => {
           )}
           
           {submitStatus && !submitStatus.includes('required') && (
-            <div className={`text-center text-xs ${isMobile ? 'mt-1' : 'mt-2'} p-1 flex-shrink-0 ${
+            <div className={`text-center text-xs mt-1 p-1 flex-shrink-0 ${
               submitStatus.includes('successfully') 
                 ? 'text-green-600' 
                 : submitStatus.includes('Failed')
