@@ -11,11 +11,11 @@ let recipeQueue = [];
 let lastRecipeName = '';
 let timerInterval = null;
 let timeLeft = 15;
-let strikes = 0;
+let gameTimerInterval = null;
+let gameTimeLeft = 120; // 2 minutes in seconds
 let selectedBackground = null;
 let selectedChef = null;
-const MAX_STRIKES = 3;
-const ORDER_TIME_LIMIT = 15;
+const ORDER_TIME_LIMIT = 10;
 const BACKGROUND_VIDEOS = {
     1: 'assets/Background Vid.mov',
     2: 'assets/Background Vid 3.mp4',
@@ -30,6 +30,8 @@ const gameContainer = document.querySelector('.game-container');
 const scoreDisplay = document.getElementById('score');
 const customerOrderDisplay = document.getElementById('customer-order');
 const timerDisplay = document.getElementById('timer');
+const gameTimerDisplay = document.getElementById('game-timer');
+const finalScoreDisplay = document.getElementById('final-score');
 const customerImageDisplay = document.getElementById('customer-image');
 const statusMessageDisplay = document.getElementById('status-message');
 const ingredientButtonsContainer = document.getElementById('ingredient-buttons-container');
@@ -191,8 +193,8 @@ function startGame() {
         backgroundSelectionScreen.classList.add('hidden');
         gameContainer.classList.remove('hidden');
         chefInfo.classList.remove('hidden');
-        strikes = 0;
         gameContainer.classList.remove('disabled-overlay');
+        startGameTimer(); // Start the 2-minute game timer
         newOrder();
     }, 180);
 }
@@ -261,8 +263,8 @@ function newOrder() {
     if (!customers || customers.length === 0) {
         return;
     }
-    if (strikes >= MAX_STRIKES) {
-        endGame();
+    if (gameTimeLeft <= 0) {
+        endGameByTime();
         return;
     }
     stopTimer();
@@ -345,19 +347,24 @@ function resetGame() {
 }
 
 function showScoreChange(amount, isPositive) {
-    const scoreChangeElement = document.createElement('div');
-    scoreChangeElement.className = `score-change ${isPositive ? 'score-positive' : 'score-negative'}`;
-    scoreChangeElement.textContent = `${isPositive ? '+' : ''}${amount}`;
+    const scoreText = document.createElement('div');
+    scoreText.textContent = isPositive ? '+' + amount : amount;
+    scoreText.style.position = 'absolute';
+    scoreText.style.color = isPositive ? 'green' : 'red';
+    scoreText.style.fontWeight = 'bold';
+    scoreText.style.fontSize = '20px';
+    scoreText.style.zIndex = '100';
     
-    const rect = scoreDisplay.getBoundingClientRect();
-    scoreChangeElement.style.left = `${rect.left + rect.width / 2}px`;
-    scoreChangeElement.style.top = `${rect.top}px`;
+    // Position it next to the score display
+    const scoreRect = scoreDisplay.getBoundingClientRect();
+    scoreText.style.left = (scoreRect.right + 10) + 'px';
+    scoreText.style.top = scoreRect.top + 'px';
     
-    document.body.appendChild(scoreChangeElement);
+    document.body.appendChild(scoreText);
     
-    setTimeout(() => {
-        document.body.removeChild(scoreChangeElement);
-    }, 1000);
+    setTimeout(function() {
+        document.body.removeChild(scoreText);
+    }, 1500);
 }
 
 function showHint() {
@@ -393,6 +400,33 @@ function showHint() {
     hintContent.classList.add('fade-in');
 }
 
+function startGameTimer() {
+    gameTimeLeft = 120; // Reset to 2 minutes
+    updateGameTimerDisplay();
+    gameTimerInterval = setInterval(() => {
+        gameTimeLeft -= 1;
+        updateGameTimerDisplay();
+        if (gameTimeLeft <= 0) {
+            stopGameTimer();
+            endGameByTime();
+        }
+    }, 1000);
+}
+
+function stopGameTimer() {
+    if (gameTimerInterval) {
+        clearInterval(gameTimerInterval);
+        gameTimerInterval = null;
+    }
+}
+
+function updateGameTimerDisplay() {
+    const minutes = Math.floor(gameTimeLeft / 60);
+    const seconds = gameTimeLeft % 60;
+    const formattedTime = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    gameTimerDisplay.textContent = formattedTime;
+}
+
 function startTimer() {
     timeLeft = ORDER_TIME_LIMIT;
     timerDisplay.textContent = `${timeLeft}s`;
@@ -418,32 +452,28 @@ function stopTimer() {
 }
 
 function handleTimeout() {
-    showScoreChange(-5, false);
+    showScoreChange(-10, false);
     
-    score = Math.max(0, score - 5);
-    strikes += 1;
+    score = Math.max(0, score - 10);
     scoreDisplay.textContent = score;
-    statusMessageDisplay.textContent = "Time's up! -5 points";
-    if (strikes >= MAX_STRIKES) {
-        endGame();
-        return;
-    }
     setTimeout(() => {
         resetGame();
         newOrder();
     }, 800);
 }
 
-function endGame() {
-    statusMessageDisplay.textContent = 'Game over! You ran out of time.';
+function endGameByTime() {
+    statusMessageDisplay.textContent = 'Time\'s up! Game over!';
     stopTimer();
+    stopGameTimer();
     gameContainer.classList.add('disabled-overlay');
+    finalScoreDisplay.textContent = score;
     gameOverModal.classList.remove('hidden');
 }
 
+
 function restartGame() {
     score = 0;
-    strikes = 0;
     scoreDisplay.textContent = score;
     selectedIngredients = [];
     lastCustomerIndex = -1;
@@ -455,6 +485,7 @@ function restartGame() {
     resetGame();
     rebuildCustomerQueue();
     rebuildRecipeQueue();
+    startGameTimer(); // Restart the 2-minute game timer
     newOrder();
 }
 
@@ -529,5 +560,5 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => loadingScreen.classList.add('hidden'), 160);
         introScreen.classList.remove('hidden');
         loadGameData();
-    }, 3000);
+    }, 2000);
 });
