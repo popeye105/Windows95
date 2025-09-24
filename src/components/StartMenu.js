@@ -299,7 +299,7 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
         {/* Vertical Windows 95 branding */}
         <div className="bg-win95-dark-gray text-white flex items-center justify-center w-8 min-h-full border-r border-win95-dark-gray">
           <div className="transform -rotate-90 whitespace-nowrap text-base font-bold tracking-widest">
-            Windows 95
+            Vintage 2.0
           </div>
         </div>
         
@@ -415,13 +415,8 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
               </div>
             </div>
             <div className="p-4 win95-text">
-              <div className="flex items-center mb-3">
-                <span className="mr-2 text-lg">ℹ️</span>
-                <span className="font-bold">Portfolio Information</span>
-              </div>
               <p className="mb-4">
-                {/* Placeholder for portfolio description - will be filled later */}
-                Portfolio description coming soon...
+                Welcome to Vintage 2.0, a retro desktop experience that recreates the classic Windows 95 interface with modern feel. Features interactive games, music player and much more.
               </p>
             </div>
           </div>

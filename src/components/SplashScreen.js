@@ -1,37 +1,45 @@
 import React, { useEffect, useState } from 'react';
 
 const SplashScreen = ({ onComplete }) => {
-  const [isExiting, setIsExiting] = useState(false);
+  const [phase, setPhase] = useState('loading'); // 'loading', 'fadeToBlack', 'complete'
 
   useEffect(() => {
-    // Start fade out after 2.8 seconds
-    const fadeOutTimer = setTimeout(() => {
-      setIsExiting(true);
-    }, 2800);
+    // Show loading screen for 2 seconds
+    const fadeToBlackTimer = setTimeout(() => {
+      setPhase('fadeToBlack');
+    }, 2000);
 
-    // Complete exactly at 3 seconds
+    // Complete after black screen (0.5 second later)
     const completeTimer = setTimeout(() => {
+      setPhase('complete');
       onComplete();
-    }, 3000);
+    }, 2500);
 
     return () => {
-      clearTimeout(fadeOutTimer);
+      clearTimeout(fadeToBlackTimer);
       clearTimeout(completeTimer);
     };
   }, [onComplete]);
 
+  if (phase === 'complete') return null;
+
   return (
-    <div className={`fixed inset-0 z-50 overflow-hidden transition-opacity duration-200 ${
-      !isExiting ? 'opacity-100' : 'opacity-0'
-    }`}>
-      <img
-        src="https://github.com/ariz17/Windows95/raw/060561348c25c2f4d58f176f4205ac1a01c456b0/Windows%2095%20theme.jpeg"
-        alt="Windows 95"
-        className="w-full h-full object-cover"
-      />
-      <div className="absolute bottom-16 left-0 right-0 text-center text-black text-2xl md:text-3xl font-bold opacity-90 tracking-widest select-none">
-        LOADING...
+    <div className="fixed inset-0 z-50 overflow-hidden">
+      {/* Loading Screen */}
+      <div className={`absolute inset-0 transition-opacity duration-500 ${
+        phase === 'loading' ? 'opacity-100' : 'opacity-0'
+      }`}>
+        <img
+          src="/Loading Screen.png"
+          alt="Loading Screen"
+          className="w-full h-full object-cover"
+        />
       </div>
+      
+      {/* Black Screen Transition */}
+      <div className={`absolute inset-0 bg-black transition-opacity duration-500 ${
+        phase === 'fadeToBlack' ? 'opacity-100' : 'opacity-0'
+      }`} />
     </div>
   );
 };
