@@ -168,7 +168,7 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
       popup.innerHTML = `
         <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
           <span style="font-size: 16px;">⚠️</span>
-          <span style="font-size: 11px; color: black; line-height: 1.3;">Cook it :- Playable on PC only</span>
+          <span style="font-size: 11px; color: black; line-height: 1.3;">Cook it :- Playable on PC</span>
         </div>
       `;
       
