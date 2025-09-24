@@ -40,13 +40,9 @@ body {
     border: 3px solid transparent;
     border-radius: 10px;
     padding: 10px;
-    transition: all 0.3s ease;
+    /* transition: all 0.3s ease; */
 }
 
-.bg-selection-option:hover,
-.chef-selection-option:hover {
-    transform: translateY(-5px);
-}
 
 .bg-selection-option.selected,
 .chef-selection-option.selected {
@@ -82,41 +78,17 @@ body {
     display: block;
 }
 
-/* Fix male chef image */
+/* Fix male chef image rendering issues */
 .chef-selection-option[data-chef="male"] img,
 #cook-model[src*="Chef 2.jpg"] {
-    filter: blur(0.3px);
-    transform: translateZ(0);
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-/* Kitchen preview images now use actual different images instead of filters */
-
-.bg-preview::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-    color: white;
-    font-size: 12px;
-    font-weight: bold;
-    padding: 4px 0;
-    text-align: center;
-    z-index: 1;
-}
-
-.bg-preview-1::after {
-    content: "Kitchen 1";
-}
-
-.bg-preview-2::after {
-    content: "Kitchen 2";
-}
-
-.bg-preview-3::after {
-    content: "Kitchen 3";
-}
 .game-container {
     max-width: 800px;
     width: 90%;
@@ -127,10 +99,8 @@ body {
     border-radius: 1.5rem;
     box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 10px -2px rgba(0, 0, 0, 0.05);
     padding: 1.5rem;
-    z-index: 20;
     position: relative;
-    display: flex;
-    flex-direction: column;
+    z-index: 1;
 }
 .customer-area {
     background: transparent;
@@ -182,13 +152,13 @@ body {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.2s ease;
+    /* transition: all 0.2s ease; */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .hint-button:hover {
     background-color: #f59e0b;
-    transform: scale(1.1);
+    /* No transform animation */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
@@ -263,7 +233,7 @@ body {
 
 .disabled-overlay {
     pointer-events: none;
-    opacity: 0.6;
+    /* opacity: 0.6; - Removed to keep game container fully opaque */
 }
 .customer-image {
     width: 120px;
@@ -290,34 +260,38 @@ body {
 .ingredient-btn {
     background-color: #4f46e5;
     color: white;
-    padding: 0.4rem 0.8rem;
-    border-radius: 0.5rem;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.4rem;
     font-weight: bold;
     text-transform: uppercase;
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* transition: all 0.3s ease; */
+    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
     position: relative;
     transform: translateY(0);
-    font-size: 0.8rem;
-    min-width: 70px;
+    font-size: 0.75rem;
+    min-width: 55px;
+    margin: 0.08rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    gap: 0.2rem;
 }
 .ingredient-btn:hover {
     background-color: #4338ca;
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-    transform: translateY(-2px);
+    /* No shadow or transform animation */
 }
 .ingredient-btn.active {
     background-color: #10b981;
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-    transform: translateY(-2px);
+    /* No shadow or transform animation */
     pointer-events: none;
     opacity: 0.95;
 }
 
 /* Smooth press transitions for all buttons */
 button, .ingredient-btn, .hint-button {
-    transition: transform 120ms ease, box-shadow 150ms ease, background-color 200ms ease;
+    /* transition: transform 120ms ease, box-shadow 150ms ease, background-color 200ms ease; */
     /* Touch-friendly sizing */
     min-height: 44px;
     touch-action: manipulation;
@@ -335,12 +309,11 @@ button, .ingredient-btn, .hint-button {
 /* Smooth animation helpers */
 .fade-in { animation: fadeIn 200ms ease both; }
 .fade-out { animation: fadeOut 150ms ease both; }
-.btn-press { transform: scale(0.97) !important; }
 
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(4px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 @keyframes fadeOut {
@@ -348,23 +321,15 @@ button, .ingredient-btn, .hint-button {
     to { opacity: 0; transform: translateY(-4px); }
 }
 
-/* Modal pop animation */
-#instructions-modal > div,
-#game-over-modal > div {
-    animation: modalPop 220ms ease both;
-}
+/* Modal pop animation - removed for instructions */
+/* Game over modal - no animation */
 
 @keyframes modalPop {
     from { opacity: 0; transform: scale(0.95); }
     to { opacity: 1; transform: scale(1); }
 }
 
-/* Hint popover subtle drop */
-.hint-content { animation: hintDrop 180ms ease both; }
-@keyframes hintDrop {
-    from { opacity: 0; transform: translate(-50%, -6px); }
-    to { opacity: 1; transform: translate(-50%, 0); }
-}
+/* Hint popover - no animation */
 .status-message {
     font-size: 1.25rem;
     font-weight: bold;
@@ -453,9 +418,6 @@ button, .ingredient-btn, .hint-button {
     display: none !important;
 }
 
-#game-over-modal.hidden {
-    display: none !important;
-}
 
 /* Loading screen responsive design */
 #loading-screen {
@@ -668,10 +630,6 @@ button, .ingredient-btn, .hint-button {
         width: calc(100% - 2rem);
     }
     
-    #game-over-modal .bg-white {
-        margin: 1rem;
-        width: calc(100% - 2rem);
-    }
     
     .grid.grid-cols-1.md\:grid-cols-2 {
         grid-template-columns: 1fr;

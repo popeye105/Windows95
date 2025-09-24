@@ -12,7 +12,7 @@ let lastRecipeName = '';
 let timerInterval = null;
 let timeLeft = 15;
 let gameTimerInterval = null;
-let gameTimeLeft = 120; // 2 minutes in seconds
+let gameTimeLeft = 120; 
 let selectedBackground = null;
 let selectedChef = null;
 const ORDER_TIME_LIMIT = 10;
@@ -31,7 +31,6 @@ const scoreDisplay = document.getElementById('score');
 const customerOrderDisplay = document.getElementById('customer-order');
 const timerDisplay = document.getElementById('timer');
 const gameTimerDisplay = document.getElementById('game-timer');
-const finalScoreDisplay = document.getElementById('final-score');
 const customerImageDisplay = document.getElementById('customer-image');
 const statusMessageDisplay = document.getElementById('status-message');
 const ingredientButtonsContainer = document.getElementById('ingredient-buttons-container');
@@ -50,31 +49,34 @@ const closeInstructions = document.getElementById('close-instructions');
 const hintBtn = document.getElementById('hint-btn');
 const hintContent = document.getElementById('hint-content');
 const hintIngredients = document.getElementById('hint-ingredients');
-const gameOverModal = document.getElementById('game-over-modal');
 const bgVideo = document.getElementById('bg-video');
-const restartBtn = document.getElementById('restart-btn');
 const bgSelectionOptions = document.querySelectorAll('.bg-selection-option');
 const chefSelectionOptions = document.querySelectorAll('.chef-selection-option');
 
 const ingredientIcons = {
-    'chocolate icecream': '🍦',
+    'icecream': '🍦',
     'milk': '🥛',
     'sugar': '🍬',
     'water': '💧',
-    'lemon': '🍋',
     'bread': '🍞',
+    'lemon': '🍋',
     'patty': '🥩',
-    'cheese': '🧀',
     'potato': '🥔',
+    'cheese': '🧀',
     'flour': '🌾',
     'oil': '🧴',
-    'dough': '🍞',
+    'dough': '🥖',
     'tomato': '🍅',
     'pepperoni': '🍕',
     'salt': '🧂',
     'chicken': '🍗',
     'chocos fills': '🍫',
-    'coffee powder': '☕'
+    'coffee powder': '☕',
+    'rice': '🍚',
+    'spices': '🌶️',
+    'paneer': '⬜',
+    'yogurt': '🥣',
+    'ghee': '🟨'
 };
 
 function getIngredientIcon(name) {
@@ -82,7 +84,7 @@ function getIngredientIcon(name) {
 }
 async function loadGameData() {
     recipes = {
-        'Chocolate Milkshake': ['chocolate icecream', 'milk', 'sugar'],
+        'Icecream': ['icecream'],
         'Milk': ['milk', 'sugar'],
         'Lemonade': ['water', 'sugar', 'lemon'],
         'Coffee': ['coffee powder', 'milk', 'sugar'],
@@ -91,7 +93,13 @@ async function loadGameData() {
         'Pizza': ['dough', 'cheese', 'tomato', 'pepperoni'],
         'French Fries': ['potato', 'oil', 'salt'],
         'Chocos': ['chocos fills', 'sugar', 'milk'],
-        'Chicken Wings': ['chicken', 'flour', 'oil']
+        'Chicken Wings': ['chicken', 'flour', 'oil'],
+        'Biryani': ['rice', 'chicken', 'spices', 'yogurt'],
+        'Lassi': ['yogurt', 'sugar', 'milk'],
+        'Butter Paneer': ['paneer', 'tomato', 'spices', 'ghee'],
+        'Aloo Paratha': ['flour', 'potato', 'ghee', 'spices', 'salt'],
+        'Idli': ['rice', 'flour', 'yogurt', 'salt'],
+        'Samosa': ['flour', 'potato', 'oil', 'spices', 'salt']
     };
 
     customers = [
@@ -102,9 +110,12 @@ async function loadGameData() {
         { name: 'Customer 5', image: 'assets/Customer 5.png' }
     ];
 
-    const uniq = new Set();
-    Object.values(recipes).forEach(arr => arr.forEach(i => uniq.add(i)));
-    ingredients = Array.from(uniq);
+    ingredients = [
+        'icecream', 'milk', 'sugar', 'water', 'bread', 'lemon', 'patty', 
+        'potato', 'cheese', 'flour', 'oil', 'dough', 'tomato', 'pepperoni', 
+        'salt', 'chicken', 'chocos fills', 'coffee powder', 'rice', 
+        'spices', 'paneer', 'yogurt', 'ghee'
+    ];
 
     recipeNameList = Object.keys(recipes);
     rebuildCustomerQueue();
@@ -242,7 +253,7 @@ function rebuildCustomerQueue() {
     customerQueue = Array.from({ length: customers.length }, (_, i) => i);
     shuffleArray(customerQueue);
     if (customerQueue.length > 1 && customerQueue[0] === lastCustomerIndex) {
-        // Swap first with a different element to avoid consecutive repeat
+        
         [customerQueue[0], customerQueue[1]] = [customerQueue[1], customerQueue[0]];
     }
 }
@@ -295,7 +306,7 @@ function newOrder() {
     customerImageDisplay.classList.remove('fade-in');
     void customerImageDisplay.offsetWidth;
     customerImageDisplay.classList.add('fade-in');
-    statusMessageDisplay.textContent = 'Choose your ingredients and serve!';
+    statusMessageDisplay.textContent = 'Choose your ingredients and serve';
     
     hintContent.classList.add('hidden');
 
@@ -310,10 +321,7 @@ function serveOrder() {
     if (sortedSelected.length === sortedOrder.length && 
         sortedSelected.every((value, index) => value === sortedOrder[index])) {
         
-        statusMessageDisplay.textContent = "Correct! Order served successfully!";
-        statusMessageDisplay.classList.remove('fade-in');
-        void statusMessageDisplay.offsetWidth;
-        statusMessageDisplay.classList.add('fade-in');
+        statusMessageDisplay.textContent = "Correct! Order served successfully";
         
         showScoreChange(10, true);
         
@@ -325,10 +333,7 @@ function serveOrder() {
             newOrder();
         }, 1000);
     } else {
-        statusMessageDisplay.textContent = "Incorrect recipe. Try again!";
-        statusMessageDisplay.classList.remove('fade-in');
-        void statusMessageDisplay.offsetWidth;
-        statusMessageDisplay.classList.add('fade-in');
+        statusMessageDisplay.textContent = "Incorrect recipe! Try again";
         
         showScoreChange(-5, false);
         
@@ -463,35 +468,17 @@ function handleTimeout() {
 }
 
 function endGameByTime() {
-    statusMessageDisplay.textContent = 'Time\'s up! Game over!';
     stopTimer();
     stopGameTimer();
+    statusMessageDisplay.textContent = 'Game Over!';
+    statusMessageDisplay.style.color = 'red';
+    statusMessageDisplay.style.fontWeight = 'bold';
     gameContainer.classList.add('disabled-overlay');
-    finalScoreDisplay.textContent = score;
-    gameOverModal.classList.remove('hidden');
 }
 
 
-function restartGame() {
-    score = 0;
-    scoreDisplay.textContent = score;
-    selectedIngredients = [];
-    lastCustomerIndex = -1;
-    lastRecipeName = '';
-    customerQueue = [];
-    recipeQueue = [];
-    gameContainer.classList.remove('disabled-overlay');
-    gameOverModal.classList.add('hidden');
-    resetGame();
-    rebuildCustomerQueue();
-    rebuildRecipeQueue();
-    startGameTimer(); // Restart the 2-minute game timer
-    newOrder();
-}
 
 startButton.addEventListener('click', showNameInput);
-startButton.addEventListener('mousedown', () => startButton.classList.add('btn-press'));
-startButton.addEventListener('mouseup', () => startButton.classList.remove('btn-press'));
 
 // Chef selection event listeners
 chefSelectionOptions.forEach(option => {
@@ -499,8 +486,6 @@ chefSelectionOptions.forEach(option => {
 });
 
 continueToBackgroundBtn.addEventListener('click', showBackgroundSelection);
-continueToBackgroundBtn.addEventListener('mousedown', () => continueToBackgroundBtn.classList.add('btn-press'));
-continueToBackgroundBtn.addEventListener('mouseup', () => continueToBackgroundBtn.classList.remove('btn-press'));
 
 // Background selection event listeners
 bgSelectionOptions.forEach(option => {
@@ -508,37 +493,24 @@ bgSelectionOptions.forEach(option => {
 });
 
 startGameButton.addEventListener('click', startGame);
-startGameButton.addEventListener('mousedown', () => startGameButton.classList.add('btn-press'));
-startGameButton.addEventListener('mouseup', () => startGameButton.classList.remove('btn-press'));
 chefNameInput.addEventListener('keypress', function(event) {
     if (event.key === 'Enter') {
         showBackgroundSelection();
     }
 });
 serveButton.addEventListener('click', serveOrder);
-serveButton.addEventListener('mousedown', () => serveButton.classList.add('btn-press'));
-serveButton.addEventListener('mouseup', () => serveButton.classList.remove('btn-press'));
 resetButton.addEventListener('click', () => {
     resetGame();
     statusMessageDisplay.textContent = 'Ingredients reset. Try again.';
-    statusMessageDisplay.classList.remove('fade-in');
-    void statusMessageDisplay.offsetWidth;
-    statusMessageDisplay.classList.add('fade-in');
 });
-resetButton.addEventListener('mousedown', () => resetButton.classList.add('btn-press'));
-resetButton.addEventListener('mouseup', () => resetButton.classList.remove('btn-press'));
 
 instructionsBtn.addEventListener('click', () => {
     instructionsModal.classList.remove('hidden');
 });
-instructionsBtn.addEventListener('mousedown', () => instructionsBtn.classList.add('btn-press'));
-instructionsBtn.addEventListener('mouseup', () => instructionsBtn.classList.remove('btn-press'));
 
 closeInstructions.addEventListener('click', () => {
     instructionsModal.classList.add('hidden');
 });
-closeInstructions.addEventListener('mousedown', () => closeInstructions.classList.add('btn-press'));
-closeInstructions.addEventListener('mouseup', () => closeInstructions.classList.remove('btn-press'));
 
 instructionsModal.addEventListener('click', (e) => {
     if (e.target === instructionsModal) {
@@ -548,11 +520,6 @@ instructionsModal.addEventListener('click', (e) => {
 
 // Hint button event listener
 hintBtn.addEventListener('click', showHint);
-hintBtn.addEventListener('mousedown', () => hintBtn.classList.add('btn-press'));
-hintBtn.addEventListener('mouseup', () => hintBtn.classList.remove('btn-press'));
-restartBtn.addEventListener('mousedown', () => restartBtn.classList.add('btn-press'));
-restartBtn.addEventListener('mouseup', () => restartBtn.classList.remove('btn-press'));
-restartBtn.addEventListener('click', restartGame);
 
 document.addEventListener('DOMContentLoaded', function() {
     setTimeout(() => {

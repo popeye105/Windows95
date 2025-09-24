@@ -73,19 +73,19 @@
                     <div class="bg-preview bg-preview-1">
                         <img src="assets/Kitchen 1.png" alt="Background 1" class="preview-img">
                     </div>
-                    <p>Background 1</p>
+                    <p>Morning</p>
                 </div>
                 <div class="bg-selection-option" data-bg="2">
                     <div class="bg-preview bg-preview-2">
                         <img src="assets/Kitchen 2.png" alt="Background 2" class="preview-img">
                     </div>
-                    <p>Background 2</p>
+                    <p>Evening</p>
                 </div>
                 <div class="bg-selection-option" data-bg="3">
                     <div class="bg-preview bg-preview-3">
                         <img src="assets/Kitchen 3.jpeg" alt="Background 3" class="preview-img">
                     </div>
-                    <p>Background 3</p>
+                    <p>Night</p>
                 </div>
             </div>
             <div class="mt-6 flex justify-center">
@@ -126,8 +126,8 @@
                     <h4 class="text-lg font-semibold text-purple-600 mb-2">🍽️ Available Recipes</h4>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                         <div class="bg-gray-50 p-3 rounded">
-                            <h5 class="font-semibold text-gray-800">Chocolate Milkshake</h5>
-                            <p class="text-sm text-gray-600">Chocolate Icecream + Milk + Sugar</p>
+                            <h5 class="font-semibold text-gray-800">Icecream</h5>
+                            <p class="text-sm text-gray-600">Icecream</p>
                         </div>
                         <div class="bg-gray-50 p-3 rounded">
                             <h5 class="font-semibold text-gray-800">Milk</h5>
@@ -165,6 +165,30 @@
                             <h5 class="font-semibold text-gray-800">Chicken Wings</h5>
                             <p class="text-sm text-gray-600">Chicken + Flour + Oil</p>
                         </div>
+                        <div class="bg-gray-50 p-3 rounded">
+                            <h5 class="font-semibold text-gray-800">Biryani</h5>
+                            <p class="text-sm text-gray-600">Rice + Chicken + Spices + Yogurt</p>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded">
+                            <h5 class="font-semibold text-gray-800">Lassi</h5>
+                            <p class="text-sm text-gray-600">Yogurt + Sugar + Milk</p>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded">
+                            <h5 class="font-semibold text-gray-800">Butter Paneer</h5>
+                            <p class="text-sm text-gray-600">Paneer + Tomato + Spices + Ghee</p>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded">
+                            <h5 class="font-semibold text-gray-800">Aloo Paratha</h5>
+                            <p class="text-sm text-gray-600">Flour + Potato + Ghee + Spices + Salt</p>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded">
+                            <h5 class="font-semibold text-gray-800">Idli</h5>
+                            <p class="text-sm text-gray-600">Rice + Flour + Yogurt + Salt</p>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded">
+                            <h5 class="font-semibold text-gray-800">Samosa</h5>
+                            <p class="text-sm text-gray-600">Flour + Potato + Oil + Spices + Salt</p>
+                        </div>
                     </div>
                 </div>
                 
@@ -173,16 +197,6 @@
         </div>
     </div>
 
-    <div id="game-over-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-lg max-w-md w-full p-6 text-center">
-            <h3 class="text-2xl font-bold text-gray-800 mb-2">Time's Up!</h3>
-            <div class="text-3xl font-bold text-blue-600 mb-4">
-                Your Score: <span id="final-score">0</span>
-            </div>
-            <p class="text-gray-600 mb-6">Great job! Try to beat your high score!</p>
-            <button id="restart-btn" class="bg-blue-600 text-white font-bold py-2 px-5 rounded-lg hover:bg-blue-700 transition">Play Again</button>
-        </div>
-    </div>
 
     <div class="game-container hidden">
         <div class="game-timer-container">
@@ -192,7 +206,7 @@
         <h1 class="text-2xl font-extrabold text-gray-800 mb-2">Order Up! 👨‍🍳</h1>
         
         <div class="score-display mb-2">
-            Score: <span id="score">0</span>
+            Your Score: <span id="score">0</span>
         </div>
 
         <div class="customer-area mb-3">
