@@ -41,9 +41,7 @@ code {
   -moz-osx-font-smoothing: unset;
 }
 
-.win95-button:active {
-  border: 2px inset #c0c0c0;
-}
+/* Removed active animation for win95-button */
 
 /* Window control buttons */
 .window-control-btn {
@@ -73,13 +71,7 @@ code {
   background: #dfdfdf;
 }
 
-.window-control-btn:active {
-  border-top: 2px solid #808080;
-  border-left: 2px solid #808080;
-  border-right: 2px solid #ffffff;
-  border-bottom: 2px solid #ffffff;
-  background: #c0c0c0;
-}
+/* Removed active click animations for window control buttons */
 
 .win95-titlebar {
   background: linear-gradient(90deg, #000080 0%, #0000ff 100%);

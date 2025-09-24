@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import MusicWindow from './MusicWindow';
+import GameWindow from './GameWindow';
 
 // Simple Date & Time Widget
 const DateTimeWidget = () => {
@@ -203,7 +204,8 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
     onOpenWindow({
       id: `game-${game.name.toLowerCase()}`,
       title: game.name,
-      component: () => <iframe src={game.url} className="w-full h-full border-none" title={game.name} />,
+      icon: game.icon,
+      component: () => <GameWindow gameUrl={game.url} gameName={game.name} />,
       isMaximized: isMobile ? (game.name === 'Snake' || game.name === 'Minesweeper') : true
     });
     onClose();

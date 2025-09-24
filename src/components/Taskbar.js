@@ -20,7 +20,7 @@ const Taskbar = ({ onStartClick, isStartMenuOpen, minimizedWindows = [], onWindo
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 h-10 md:h-8 bg-win95-gray border-t-2 border-win95-light-gray flex items-center px-1 z-50 overflow-hidden">
+    <div className="fixed bottom-0 left-0 right-0 h-11 md:h-9 bg-win95-gray border-t-2 border-win95-light-gray flex items-center px-1 z-50 overflow-hidden">
       {/* Start Button */}
       <button
         onClick={onStartClick}
@@ -33,7 +33,7 @@ const Taskbar = ({ onStartClick, isStartMenuOpen, minimizedWindows = [], onWindo
         <img 
           src="https://github.com/ariz17/Windows95/raw/060561348c25c2f4d58f176f4205ac1a01c456b0/sm%20logo.png"
           alt="Start"
-          className="h-8 md:h-6"
+          className="h-9 md:h-7"
           style={{imageRendering: 'pixelated'}}
         />
       </button>
@@ -55,7 +55,7 @@ const Taskbar = ({ onStartClick, isStartMenuOpen, minimizedWindows = [], onWindo
       </div>
 
       {/* Clock */}
-      <div className="bg-win95-gray border-2 border-inset px-3 py-2 md:px-2 md:py-1 text-lg md:text-base font-mono">
+      <div className="bg-win95-gray border-2 border-inset px-3 py-2 md:px-2 md:py-1 text-xl md:text-lg font-mono">
         {formatTime(currentTime)}
       </div>
     </div>

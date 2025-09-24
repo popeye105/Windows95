@@ -97,7 +97,7 @@ const Window = ({
   return (
     <div
       ref={windowRef}
-      className={`absolute bg-win95-gray border-2 border-outset shadow-lg ${isActive ? 'z-10' : 'z-0'}`}
+      className={`absolute bg-win95-gray shadow-lg ${isActive ? 'z-10' : 'z-0'}`}
       style={windowStyle}
       onClick={() => onFocus && onFocus()}
     >
