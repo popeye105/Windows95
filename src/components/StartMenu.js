@@ -427,6 +427,10 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
               <p>
                 Welcome to a retro desktop experience that recreates the classic Windows 95 interface with modern feel. Features interactive games, music player and much more.
               </p>
+              
+              <div className="text-center mt-4 pt-3 border-t border-gray-300">
+                <p className="text-sm text-gray-600">Made by: Arbab Rizvi</p>
+              </div>
             </div>
           </div>
         </>
