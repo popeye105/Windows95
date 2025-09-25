@@ -16,7 +16,7 @@ const Taskbar = ({ onStartClick, isStartMenuOpen, minimizedWindows = [], onWindo
       hour: '2-digit', 
       minute: '2-digit',
       hour12: true 
-    });
+    }).toUpperCase();
   };
 
   return (

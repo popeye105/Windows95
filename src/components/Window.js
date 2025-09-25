@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 
 const Window = ({ 
   title, 
+  icon,
   children, 
   onClose, 
   initialPosition = { x: 100, y: 100 },
@@ -106,7 +107,10 @@ const Window = ({
         className={`${isActive ? 'bg-win95-blue' : 'bg-gray-500'} text-white px-2 py-1 flex justify-between items-center cursor-move select-none`}
         onMouseDown={handleMouseDown}
       >
-        <span className="text-sm font-bold tracking-wide">{title}</span>
+        <div className="flex items-center">
+          {icon && <span className="mr-2 text-sm">{icon}</span>}
+          <span className="text-sm font-bold tracking-wide">{title}</span>
+        </div>
         <div className="window-controls flex gap-0">
           {/* Minimize Button */}
           <button

@@ -209,6 +209,7 @@ function App() {
                 <Window
                   key={window.id}
                   title={window.title}
+                  icon={window.icon}
                   initialPosition={isMobile ? { x: 10, y: 10 } : window.position}
                   width={isMobile ? Math.min(window.innerWidth - 20, 350) : 500}
                   height={isMobile ? Math.min(window.innerHeight - 80, 450) : (window.id === 'mail' ? 500 : 400)}
