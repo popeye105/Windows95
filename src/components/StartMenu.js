@@ -417,12 +417,12 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
             <div className="p-4 win95-text">
               <div className="flex items-center">
                 <img 
-                  src="/Start logo.png" 
+                  src="/Menu.png" 
                   alt="Vintage 2.0 Logo" 
                   className="w-8 h-8 mr-1.5"
-                  style={{imageRendering: 'pixelated'}}
+                  style={{imageRendering: 'auto'}}
                 />
-                <h2 className="text-xl font-bold text-black">Vintage 2.0</h2>
+                <h2 className="text-2xl font-bold text-black">Vintage 2.0</h2>
               </div>
               <p>
                 Welcome to a retro desktop experience that recreates the classic Windows 95 interface with modern feel. Features interactive games, music player and much more.
