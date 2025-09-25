@@ -122,7 +122,6 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
   const [showSettingsSubmenu, setShowSettingsSubmenu] = useState(false);
   const [showInfoDialog, setShowInfoDialog] = useState(false);
   const [showDateTimeDialog, setShowDateTimeDialog] = useState(false);
-  const [isShuttingDown, setIsShuttingDown] = useState(false);
 
   useEffect(() => {
     if (!isOpen) {
@@ -134,7 +133,6 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
   const handleGameClick = (game) => {
     if (game.name === 'Cook it' && window.innerWidth <= 768 && 'ontouchstart' in window) {
       const popup = document.createElement('div');
-      popup.className = 'fixed top-4 left-1/2 transform -translate-x-1/2 bg-yellow-100 border-2 border-gray-400 px-4 py-3 z-50 rounded shadow-lg text-center';
       popup.style.cssText = `
         position: fixed;
         top: 20px;
@@ -148,7 +146,6 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
         box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
         max-width: 300px;
         text-align: center;
-        animation: slideDown 0.5s ease-out;
       `;
       popup.innerHTML = `
         <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
@@ -157,17 +154,6 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
         </div>
       `;
       
-      if (!document.querySelector('#slideDownKeyframes')) {
-        const style = document.createElement('style');
-        style.id = 'slideDownKeyframes';
-        style.textContent = `
-          @keyframes slideDown {
-            from { top: -100px; opacity: 0; }
-            to { top: 20px; opacity: 1; }
-          }
-        `;
-        document.head.appendChild(style);
-      }
       
       document.body.appendChild(popup);
       
@@ -252,7 +238,7 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
     );
   };
 
-  if (!isOpen && !showInfoDialog && !showDateTimeDialog && !isShuttingDown) return null;
+  if (!isOpen && !showInfoDialog && !showDateTimeDialog) return null;
 
   return (
     <>
@@ -348,22 +334,10 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
       {/* Info Dialog */}
       {showInfoDialog && (
         <>
-          <div 
-            className="fixed inset-0 z-60 bg-black bg-opacity-50"
-            onClick={() => setShowInfoDialog(false)}
-          />
           <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-70 bg-win95-gray shadow-lg w-80">
             <div className="bg-win95-blue text-white px-2 py-1 flex justify-between items-center cursor-move select-none">
               <span className="text-sm font-bold tracking-wide">ℹ️ About</span>
               <div className="window-controls flex gap-0">
-                {/* Minimize button */}
-                <button className="window-control-btn">
-                  _
-                </button>
-                {/* Maximize button (non-functional) */}
-                <button className="window-control-btn">
-                  □
-                </button>
                 {/* Close button */}
                 <button 
                   className="window-control-btn"
@@ -384,7 +358,7 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
                 <h2 className="text-5xl font-bold text-black" style={{fontSize: '48px'}}>Vintage 2.0</h2>
               </div>
               <p>
-                Welcome to a retro desktop experience that recreates the classic Windows 95 interface with modern feel. Features interactive games, music player and much more.
+                Welcome to a retro desktop experience that recreates the classic Windows 95 like interface with modern feel. Features interactive games, music player and much more.
               </p>
               
               <div className="text-center mt-4 pt-3 border-t border-gray-300">
@@ -398,22 +372,10 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
       {/* Date & Time Dialog */}
       {showDateTimeDialog && (
         <>
-          <div 
-            className="fixed inset-0 z-60 bg-black bg-opacity-50"
-            onClick={() => setShowDateTimeDialog(false)}
-          />
           <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-70 bg-win95-gray shadow-lg w-96">
             <div className="bg-win95-blue text-white px-2 py-1 flex justify-between items-center cursor-move select-none">
               <span className="text-sm font-bold tracking-wide">🕐 Date & Time Properties</span>
               <div className="window-controls flex gap-0">
-                {/* Minimize button */}
-                <button className="window-control-btn">
-                  _
-                </button>
-                {/* Maximize button (non-functional) */}
-                <button className="window-control-btn">
-                  □
-                </button>
                 {/* Close button */}
                 <button 
                   className="window-control-btn"
