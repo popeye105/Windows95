@@ -394,7 +394,7 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
           />
           <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-70 bg-win95-gray border-2 border-outset shadow-lg w-80">
             <div className="bg-win95-blue text-white px-2 py-1 flex justify-between items-center cursor-move select-none">
-              <span className="text-sm font-bold tracking-wide">About:-</span>
+              <span className="text-sm font-bold tracking-wide">About</span>
               <div className="window-controls flex gap-0">
                 {/* Minimize button */}
                 <button className="window-control-btn" title="Minimize">
@@ -422,7 +422,7 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
                   className="w-8 h-8 mr-1.5"
                   style={{imageRendering: 'pixelated'}}
                 />
-                <h2 className="text-xl font-bold text-black">Vintage 2.0</h2>
+                <h2 className="text-xl font-bold text-black">Vintage 2.0:-</h2>
               </div>
               <p>
                 Welcome to a retro desktop experience that recreates the classic Windows 95 interface with modern feel. Features interactive games, music player and much more.
