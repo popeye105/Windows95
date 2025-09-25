@@ -10,7 +10,7 @@ module.exports = {
         'win95-dark-gray': '#808080',
         'win95-light-gray': '#dfdfdf',
         'win95-blue': '#000080',
-        'win95-desktop': '#008080',
+        'win95-desktop': '#663399',
       },
       fontFamily: {
         'ms-sans': ['VT323', 'Courier New', 'monospace'],
