@@ -30,7 +30,7 @@ const SplashScreen = ({ onComplete }) => {
         phase === 'loading' ? 'opacity-100' : 'opacity-0'
       }`}>
         <img
-          src="/Loading Screen.png"
+          src="/Loading Screen.jpg"
           alt="Loading Screen"
           className="w-full h-full object-cover"
         />
