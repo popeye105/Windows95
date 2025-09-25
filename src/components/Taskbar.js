@@ -21,24 +21,26 @@ const Taskbar = ({ onStartClick, isStartMenuOpen, minimizedWindows = [], onWindo
 
   return (
     <div className="fixed bottom-0 left-0 right-0 h-11 md:h-9 bg-win95-gray border-t-2 border-win95-light-gray flex items-center px-1 z-50 overflow-hidden">
-      {/* Start Button */}
       <button
         onClick={onStartClick}
-        className={`${
+        className={`inline-flex items-center gap-1 px-2 pt-0 pb-0 -mt-0.5 bg-win95-gray border-2 border-black cursor-pointer text-xs font-normal leading-none ${
           isStartMenuOpen 
-            ? 'border-2 border-inset' 
-            : 'border-2 border-outset hover:brightness-110'
+            ? 'shadow-[inset_2px_2px_#808080,inset_-2px_-2px_#fff]'
+            : 'shadow-[inset_-2px_-2px_#808080,inset_2px_2px_#fff] hover:brightness-105'
         }`}
+        style={{
+          fontFamily: "'VT323', 'Courier New', monospace"
+        }}
       >
         <img 
-          src="https://github.com/ariz17/Windows95/raw/060561348c25c2f4d58f176f4205ac1a01c456b0/sm%20logo.png"
+          src="/Menu.png"
           alt="Start"
-          className="h-9 md:h-7"
+          className="w-5 h-5"
           style={{imageRendering: 'pixelated'}}
         />
+        Start
       </button>
 
-      {/* Taskbar Buttons for Minimized Windows */}
       <div className="flex-1 flex items-center gap-1 px-2 overflow-hidden min-w-0">
         {minimizedWindows.map((window) => (
           <button
@@ -54,7 +56,6 @@ const Taskbar = ({ onStartClick, isStartMenuOpen, minimizedWindows = [], onWindo
         ))}
       </div>
 
-      {/* Clock */}
       <div className="bg-win95-gray border-2 border-inset px-3 py-2 md:px-2 md:py-1 text-xl md:text-lg font-mono">
         {formatTime(currentTime)}
       </div>

@@ -112,36 +112,29 @@ const Window = ({
           <span className="text-sm font-bold tracking-wide">{title}</span>
         </div>
         <div className="window-controls flex gap-0">
-          {/* Minimize Button */}
           <button
             onClick={handleMinimize}
             className="window-control-btn"
-            title="Minimize"
           >
             _
           </button>
           
-          {/* Maximize/Restore Button */}
           <button
             onClick={handleMaximize}
             className="window-control-btn"
-            title={isMaximized ? "Restore" : "Maximize"}
           >
             {isMaximized ? "❐" : "□"}
           </button>
           
-          {/* Close Button */}
           <button
             onClick={onClose}
             className="window-control-btn"
-            title="Close"
           >
             ×
           </button>
         </div>
       </div>
       
-      {/* Window Content */}
       <div className="p-2 bg-win95-gray flex flex-col" style={{ height: isMaximized ? `calc(100vh - ${mobileTaskbarHeight + 24}px)` : height - 24 }}>
         <div className="flex-1 overflow-hidden">
           {children}

@@ -18,12 +18,10 @@ function App() {
   const [openWindows, setOpenWindows] = useState([]);
   const [activeWindow, setActiveWindow] = useState(null);
   const [minimizedWindows, setMinimizedWindows] = useState([]);
-  const [hasInitialized, setHasInitialized] = useState(false);
   const [isStartMenuOpen, setIsStartMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [wallpaperUrl, setWallpaperUrl] = useState(null);
   const [wallpaperLoaded, setWallpaperLoaded] = useState(false);
-  const [showMobileWarning, setShowMobileWarning] = useState(false);
 
   const desktopIcons = [
     { id: 'resume', icon: '📄', label: 'Resume', component: ResumeWindow },
@@ -34,14 +32,11 @@ function App() {
   ];
 
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
     
     checkMobile();
     window.addEventListener('resize', checkMobile);
     
-    // Prevent zoom on double tap for mobile
     document.addEventListener('touchstart', function(event) {
       if (event.touches.length > 1) {
         event.preventDefault();
@@ -62,7 +57,6 @@ function App() {
     };
   }, []);
 
-  // Load saved wallpaper once
   useEffect(() => {
     try {
       const saved = localStorage.getItem('wallpaperUrl');
@@ -73,18 +67,10 @@ function App() {
     }
   }, []);
 
-  const handleSplashComplete = () => {
-    setIsLoading(false);
-    setHasInitialized(true);
-  };
+  const handleSplashComplete = () => setIsLoading(false);
 
-  const handleMobileWarningClose = () => {
-    setShowMobileWarning(false);
-  };
 
-  const handleIconSelect = (iconId) => {
-    setSelectedIcon(iconId);
-  };
+  const handleIconSelect = (iconId) => setSelectedIcon(iconId);
 
   const handleIconDoubleClick = (iconId) => {
     const icon = desktopIcons.find(i => i.id === iconId);
@@ -156,17 +142,11 @@ function App() {
     setActiveWindow(windowId);
   };
 
-  const handleWindowFocus = (windowId) => {
-    setActiveWindow(windowId);
-  };
+  const handleWindowFocus = (windowId) => setActiveWindow(windowId);
 
-  const handleStartClick = () => {
-    setIsStartMenuOpen(!isStartMenuOpen);
-  };
+  const handleStartClick = () => setIsStartMenuOpen(!isStartMenuOpen);
 
-  const handleStartMenuClose = () => {
-    setIsStartMenuOpen(false);
-  };
+  const handleStartMenuClose = () => setIsStartMenuOpen(false);
 
   const handleDesktopClick = (e) => {
     if (e.target === e.currentTarget) {
