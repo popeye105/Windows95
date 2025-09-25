@@ -27,10 +27,10 @@ const ChangeBackgroundWindow = () => {
         <span className="text-sm font-bold">Select a Wallpaper</span>
         <button className="win95-button text-xs px-2 py-1" onClick={clear}>Default Color</button>
       </div>
-      <div className="flex-1 overflow-y-auto p-3" style={{ maxHeight: isMobile ? 'calc(100vh - 200px)' : 'auto' }}>
+      <div className="flex-1 overflow-y-auto p-3 border border-gray-400 bg-white m-2" style={{ maxHeight: isMobile ? 'calc(100vh - 200px)' : 'auto' }}>
         <div className={`grid gap-3 ${isMobile ? 'grid-cols-1' : 'sm:grid-cols-2 lg:grid-cols-3'}`}>
           {wallpapers.map((w) => (
-            <button key={w.src} className="bg-white border-2 border-inset p-2 hover:bg-gray-50" onClick={() => apply(w.src)}>
+            <button key={w.src} className="bg-white border border-gray-400 p-2 hover:bg-gray-50" onClick={() => apply(w.src)}>
               <div className="mb-2 text-xs font-bold">{w.name}{wallpaperUrl === w.src ? ' (Selected)' : ''}</div>
               <div className="w-full h-32 bg-gray-100 border flex items-center justify-center">
                 <img src={w.src} alt={w.name} className="max-w-full max-h-full object-contain" />

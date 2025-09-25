@@ -10,7 +10,7 @@ const ResumeWindow = () => {
 
   return (
     <div className="h-full flex flex-col">
-      <div className="flex-1 overflow-auto p-4 bg-white border-2 border-inset">
+      <div className="flex-1 overflow-auto p-4 bg-white border border-gray-400">
         {/* Intentionally left blank */}
       </div>
     </div>

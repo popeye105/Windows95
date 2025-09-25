@@ -56,7 +56,7 @@ const Taskbar = ({ onStartClick, isStartMenuOpen, minimizedWindows = [], onWindo
         ))}
       </div>
 
-      <div className="bg-win95-gray border-2 border-inset px-3 py-2 md:px-2 md:py-1 text-xl md:text-lg font-mono">
+      <div className="bg-win95-gray border border-gray-400 px-3 py-2 md:px-2 md:py-1 text-xl md:text-lg font-mono">
         {formatTime(currentTime)}
       </div>
     </div>

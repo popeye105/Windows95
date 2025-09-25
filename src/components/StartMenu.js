@@ -47,7 +47,7 @@ const DateTimeWidget = () => {
     <div className="flex flex-col space-y-4">
       <div className="text-center">
         <div className="font-bold mb-2">Date</div>
-        <div className="bg-win95-gray border-2 border-inset p-2">
+        <div className="bg-win95-gray border border-gray-400 p-2">
           <div className="grid grid-cols-7 gap-1 text-xs">
             {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map(day => (
               <div key={day} className="text-center font-bold p-1 bg-win95-light-gray">{day}</div>
@@ -63,7 +63,7 @@ const DateTimeWidget = () => {
 
       <div className="text-center">
         <div className="font-bold mb-2">Time</div>
-        <div className="relative w-32 h-32 mx-auto bg-gray-200 rounded-full border-2 border-inset">
+        <div className="relative w-32 h-32 mx-auto bg-gray-200 rounded-full border border-gray-400">
           {[...Array(12)].map((_, i) => (
             <div
               key={i}
@@ -234,7 +234,7 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
     return menu.show && (
       <>
         <div className="absolute left-full top-0 w-1 h-full z-60"></div>
-        <div className="absolute left-full top-0 ml-1 w-44 bg-win95-gray border-2 border-outset shadow-lg z-60 win95-start-menu">
+        <div className="absolute left-full top-0 ml-1 w-44 bg-win95-gray shadow-lg z-60 win95-start-menu">
           <div className="p-1">
             {menu.items.map((item, index) => (
               <div
@@ -263,7 +263,7 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
             onClick={onClose}
           />
           
-          <div className="fixed bottom-8 left-1 bg-win95-gray border-2 border-outset shadow-lg z-50 win95-start-menu flex">
+          <div className="fixed bottom-8 left-1 bg-win95-gray shadow-lg z-50 win95-start-menu flex">
         <div className="bg-win95-dark-gray text-white flex items-center justify-center w-8 min-h-full border-r border-win95-dark-gray">
           <div className="transform -rotate-90 whitespace-nowrap text-base font-bold tracking-widest">
             Vintage 2.0
@@ -352,7 +352,7 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
             className="fixed inset-0 z-60 bg-black bg-opacity-50"
             onClick={() => setShowInfoDialog(false)}
           />
-          <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-70 bg-win95-gray border-2 border-outset shadow-lg w-80">
+          <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-70 bg-win95-gray shadow-lg w-80">
             <div className="bg-win95-blue text-white px-2 py-1 flex justify-between items-center cursor-move select-none">
               <span className="text-sm font-bold tracking-wide">ℹ️ About</span>
               <div className="window-controls flex gap-0">
@@ -402,7 +402,7 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
             className="fixed inset-0 z-60 bg-black bg-opacity-50"
             onClick={() => setShowDateTimeDialog(false)}
           />
-          <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-70 bg-win95-gray border-2 border-outset shadow-lg w-96">
+          <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-70 bg-win95-gray shadow-lg w-96">
             <div className="bg-win95-blue text-white px-2 py-1 flex justify-between items-center cursor-move select-none">
               <span className="text-sm font-bold tracking-wide">🕐 Date & Time Properties</span>
               <div className="window-controls flex gap-0">

@@ -44,12 +44,8 @@ const MusicWindow = () => {
 
   return (
     <div className="h-full flex flex-col bg-win95-gray overflow-hidden">
-      <div className="flex-shrink-0 p-2 border-b border-win95-dark-gray">
-        <h2 className="text-sm font-bold text-center">🎵 My Music</h2>
-      </div>
-      
       <div className="flex-1 flex flex-col min-h-0">
-        <div className="flex-1 bg-white border-2 border-inset m-2 overflow-auto">
+        <div className="flex-1 bg-white border border-gray-400 m-2 overflow-auto">
           <div className="divide-y divide-gray-200">
             {songs.map((song) => (
               <div
@@ -73,7 +69,7 @@ const MusicWindow = () => {
         </div>
 
         {currentSong && (
-          <div className="flex-shrink-0 mx-2 mb-2 p-2 bg-white border-2 border-inset">
+          <div className="flex-shrink-0 mx-2 mb-2 p-2 bg-white border border-gray-400">
             <div className="text-center mb-2">
               <div className="text-xs font-bold truncate">{currentSong.name}</div>
               <div className="text-xs text-gray-600">

@@ -39,7 +39,7 @@ const DrawingsWindow = () => {
               ← Back
             </button>
           </div>
-          <div className="flex-1 bg-white border-2 border-inset flex items-center justify-center overflow-hidden" style={{ 
+          <div className="flex-1 bg-white border border-gray-400 flex items-center justify-center overflow-hidden" style={{ 
             minHeight: 0,
             transform: 'translateZ(0)',
             willChange: 'transform'
@@ -66,12 +66,12 @@ const DrawingsWindow = () => {
         </div>
       ) : (
         // Gallery Grid
-        <div className="h-full overflow-auto p-2">
+        <div className="h-full overflow-auto p-2 border border-gray-400 bg-white m-2">
           <div className="grid grid-cols-2 gap-2">
             {drawings.map((drawing) => (
               <div
                 key={drawing.id}
-                className="bg-white border-2 border-outset p-2 cursor-pointer hover:bg-win95-light-gray"
+                className="bg-white border border-gray-400 p-2 cursor-pointer hover:bg-win95-light-gray"
                 onClick={() => openImage(drawing)}
               >
                 <div className="aspect-square bg-win95-light-gray border border-win95-dark-gray flex items-center justify-center mb-2">

@@ -98,8 +98,8 @@ const Window = ({
   return (
     <div
       ref={windowRef}
-      className={`absolute bg-win95-gray shadow-lg ${isActive ? 'z-10' : 'z-0'}`}
-      style={windowStyle}
+      className={`absolute bg-win95-gray border border-white shadow-lg ${isActive ? 'z-10' : 'z-0'}`}
+      style={{...windowStyle, boxSizing: 'border-box'}}
       onClick={() => onFocus && onFocus()}
     >
       {/* Title Bar */}
@@ -135,7 +135,7 @@ const Window = ({
         </div>
       </div>
       
-      <div className="p-2 bg-win95-gray flex flex-col" style={{ height: isMaximized ? `calc(100vh - ${mobileTaskbarHeight + 24}px)` : height - 24 }}>
+      <div className="p-2 flex flex-col" style={{ height: isMaximized ? `calc(100vh - ${mobileTaskbarHeight + 28}px)` : height - 28 }}>
         <div className="flex-1 overflow-hidden">
           {children}
         </div>

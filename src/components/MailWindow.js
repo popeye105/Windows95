@@ -119,10 +119,8 @@ const MailWindow = () => {
   return (
     <div className="h-full flex flex-col bg-win95-gray overflow-hidden">
       <div className={`flex-1 flex flex-col ${isMobile ? 'p-2' : 'p-4'} min-h-0`}>
-        <h2 className={`${isMobile ? 'text-base' : 'text-lg'} font-bold ${isMobile ? 'mb-2' : 'mb-4'} text-center flex-shrink-0`}>Mail Me</h2>
-        
         <form onSubmit={handleSubmit} className="flex-1 flex flex-col min-h-0">
-          <div className={`flex-1 ${isMobile ? 'space-y-2' : 'space-y-3'} overflow-auto ${isMobile ? 'pb-2' : ''}`}>
+          <div className={`flex-1 ${isMobile ? 'space-y-2' : 'space-y-3'} overflow-auto ${isMobile ? 'pb-2' : ''} border border-gray-400 p-2 m-2`}>
             <div>
               <label className="block text-sm font-bold mb-1">Name</label>
               <input
@@ -130,7 +128,7 @@ const MailWindow = () => {
                 name="name"
                 value={formData.name}
                 onChange={handleInputChange}
-                className={`w-full ${isMobile ? 'p-1.5' : 'p-2'} border-2 border-inset bg-white text-black text-sm`}
+                className={`w-full ${isMobile ? 'p-1.5' : 'p-2'} border border-gray-400 bg-white text-black text-sm`}
               />
             </div>
 
@@ -141,7 +139,7 @@ const MailWindow = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleInputChange}
-                className={`w-full ${isMobile ? 'p-1.5' : 'p-2'} border-2 border-inset bg-white text-black text-sm`}
+                className={`w-full ${isMobile ? 'p-1.5' : 'p-2'} border border-gray-400 bg-white text-black text-sm`}
               />
             </div>
 
@@ -152,7 +150,7 @@ const MailWindow = () => {
                 name="phone"
                 value={formData.phone}
                 onChange={handleInputChange}
-                className={`w-full ${isMobile ? 'p-1.5' : 'p-2'} border-2 border-inset bg-white text-black text-sm`}
+                className={`w-full ${isMobile ? 'p-1.5' : 'p-2'} border border-gray-400 bg-white text-black text-sm`}
               />
             </div>
 
@@ -162,7 +160,7 @@ const MailWindow = () => {
                 name="message"
                 value={formData.message}
                 onChange={handleInputChange}
-                className={`w-full flex-1 ${isMobile ? 'p-1.5' : 'p-2'} border-2 border-inset bg-white text-black resize-none text-sm`}
+                className={`w-full flex-1 ${isMobile ? 'p-1.5' : 'p-2'} border border-gray-400 bg-white text-black resize-none text-sm`}
                 style={{ minHeight: isMobile ? '60px' : '100px' }}
               />
             </div>

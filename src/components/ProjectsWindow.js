@@ -6,8 +6,8 @@ const ProjectsWindow = () => {
   };
 
   return (
-    <div className="h-full overflow-auto p-4">
-      <div className="bg-white border-2 border-inset p-6 text-xs text-win95-dark-gray">
+    <div className="h-full overflow-auto p-2 border border-gray-400 bg-white m-2">
+      <div className="p-6 text-xs text-win95-dark-gray">
         {/* Projects will be added later */}
       </div>
     </div>
