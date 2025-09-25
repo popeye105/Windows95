@@ -123,7 +123,7 @@ const Window = ({
             onClick={handleMaximize}
             className="window-control-btn"
           >
-            {isMaximized ? "❐" : "□"}
+            □
           </button>
           
           <button

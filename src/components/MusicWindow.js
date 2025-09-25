@@ -54,8 +54,10 @@ const MusicWindow = () => {
             {songs.map((song) => (
               <div
                 key={song.id}
-                className={`flex items-center justify-between p-2 hover:bg-win95-light-gray cursor-pointer ${
-                  currentSong?.id === song.id ? 'bg-win95-blue text-white' : ''
+                className={`flex items-center justify-between p-2 cursor-pointer ${
+                  currentSong?.id === song.id && isPlaying 
+                    ? 'bg-win95-blue text-white' 
+                    : 'hover:bg-win95-light-gray'
                 }`}
                 onClick={() => playSong(song)}
               >
@@ -65,9 +67,6 @@ const MusicWindow = () => {
                   </span>
                   <span className="text-xs truncate">{song.name}</span>
                 </div>
-                {currentSong?.id === song.id && isPlaying && (
-                  <span className="text-xs flex-shrink-0 ml-2">Playing...</span>
-                )}
               </div>
             ))}
           </div>
