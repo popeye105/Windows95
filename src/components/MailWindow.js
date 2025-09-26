@@ -120,7 +120,7 @@ const MailWindow = () => {
     <div className="h-full flex flex-col bg-win95-gray">
       <div className={`${isMobile ? 'px-2 pt-1 pb-0' : 'px-4 pt-1 pb-0'}`}>
         <p className="text-sm text-black text-center">
-          Feel free to reach out with any questions or just to say hello.
+          Feel free to reach out or just to say hello.
         </p>
       </div>
       <div className={`flex-1 flex flex-col ${isMobile ? 'px-2 pb-2' : 'px-4 pb-4'}`}>
