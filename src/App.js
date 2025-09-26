@@ -27,6 +27,7 @@ function App() {
     { id: 'resume', icon: '📄', label: 'Resume', component: ResumeWindow },
     { id: 'projects', icon: '💼', label: 'Projects', component: ProjectsWindow },
     { id: 'drawings', icon: '🎨', label: 'Drawings', component: DrawingsWindow },
+    { id: 'mail', icon: '📧', label: 'Mail Me', component: MailWindow },
     { id: 'bg', icon: '🖼️', label: 'Change Background', component: ChangeBackgroundWindow },
   ];
 
