@@ -194,9 +194,9 @@ code {
     user-select: text;
   }
   
-  /* Make start menu a bit taller on mobile */
+  /* Add small gap above taskbar for start menu on mobile */
   .win95-start-menu {
-    bottom: 6rem !important;
+    bottom: 2.5rem !important;
   }
 }
 
