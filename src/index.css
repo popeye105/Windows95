@@ -188,6 +188,11 @@ code {
     -ms-user-select: text;
     user-select: text;
   }
+  
+  /* Position start menu slightly above taskbar on mobile */
+  .win95-start-menu {
+    bottom: 2.5rem !important;
+  }
 }
 
 /* Scrollbar styling for Windows 95 look */
