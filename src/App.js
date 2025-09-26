@@ -26,8 +26,8 @@ function App() {
   const desktopIcons = [
     { id: 'resume', icon: '📄', label: 'Resume', component: ResumeWindow },
     { id: 'projects', icon: '💼', label: 'Projects', component: ProjectsWindow },
-    { id: 'drawings', icon: '🎨', label: 'Drawings', component: DrawingsWindow },
     { id: 'mail', icon: '📧', label: 'Mail Me', component: MailWindow },
+    { id: 'drawings', icon: '🎨', label: 'Drawings', component: DrawingsWindow },
     { id: 'bg', icon: '🖼️', label: 'Change Background', component: ChangeBackgroundWindow },
   ];
 
