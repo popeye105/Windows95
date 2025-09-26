@@ -193,6 +193,17 @@ code {
     -ms-user-select: text;
     user-select: text;
   }
+  
+  /* Reduce spacing between separator and Connect text in start menu */
+  .win95-start-menu hr {
+    margin-top: 2px !important;
+    margin-bottom: 1px !important;
+  }
+  
+  .win95-start-menu .win95-text-bold {
+    padding-top: 1px !important;
+    padding-bottom: 4px !important;
+  }
 }
 
 /* Scrollbar styling for Windows 95 look */
