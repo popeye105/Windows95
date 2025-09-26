@@ -246,3 +246,10 @@ p, div, span {
   font-family: 'VT323', 'Courier New', monospace !important;
   line-height: 1.6 !important;
 }
+
+/* Fix GitHub button spacing on Android */
+@media (max-width: 768px) {
+  .win95-start-menu-item img {
+    margin-right: 8px !important;
+  }
+}
