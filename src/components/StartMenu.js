@@ -304,14 +304,14 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
             {renderSubmenu('settings')}
           </div>
           
-          <hr className="my-px border-win95-dark-gray" />
+          <hr className="my-1 border-win95-dark-gray" />
           
-          <div className="px-2 py-px win95-text-bold text-win95-dark-gray">
+          <div className="px-2 py-1 win95-text-bold text-win95-dark-gray">
             Connect
           </div>
           
           <div 
-            className="flex items-center px-2 py-px win95-start-menu-item cursor-pointer"
+            className="flex items-center px-2 py-1 win95-start-menu-item cursor-pointer"
             onClick={() => handleExternalLink('https://www.linkedin.com/in/mohd-arbab-rizvi-3217b9366?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app')}
           >
             <img src="/linkedin-logo.svg" alt="LinkedIn" className="w-4 h-4 mr-2" />
@@ -319,7 +319,7 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
           </div>
           
           <div 
-            className="flex items-center px-2 py-px win95-start-menu-item cursor-pointer"
+            className="flex items-center px-2 py-1 win95-start-menu-item cursor-pointer"
             onClick={() => handleExternalLink('https://github.com/ariz-17')}
           >
             <img src="/github-logo.svg" alt="GitHub" className="w-4 h-4 mr-2" />
