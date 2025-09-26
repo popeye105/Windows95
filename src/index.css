@@ -247,13 +247,10 @@ p, div, span {
   line-height: 1.6 !important;
 }
 
-/* Fix GitHub button spacing from taskbar on mobile */
+/* Fix start menu bottom spacing on mobile */
 @media (max-width: 768px) {
   .win95-start-menu {
     margin-bottom: 8px !important;
-  }
-  
-  .win95-start-menu .w-44 {
     padding-bottom: 8px !important;
   }
 }
