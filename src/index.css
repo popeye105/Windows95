@@ -193,32 +193,6 @@ code {
   .win95-start-menu {
     bottom: 2.5rem !important;
   }
-  
-  /* Fix mobile submenu hover issues */
-  @media (hover: none) and (pointer: coarse) {
-    .mobile-submenu-container {
-      position: relative;
-    }
-    
-    .mobile-submenu-container:hover .mobile-submenu,
-    .mobile-submenu-container:focus-within .mobile-submenu,
-    .mobile-submenu-container.active .mobile-submenu {
-      display: block !important;
-    }
-    
-    .mobile-submenu {
-      display: none;
-      position: absolute;
-      left: 100%;
-      top: 0;
-      margin-left: 1px;
-      width: 176px;
-      background: #c0c0c0;
-      box-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-      z-index: 70;
-      border: 2px outset #c0c0c0;
-    }
-  }
 }
 
 /* Scrollbar styling for Windows 95 look */

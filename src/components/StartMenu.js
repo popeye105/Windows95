@@ -230,7 +230,10 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
     return menu.show && (
       <>
         <div className="absolute left-full top-0 w-1 h-full z-60"></div>
-        <div className={`absolute left-full top-0 ml-1 w-44 bg-win95-gray shadow-lg z-60 win95-start-menu ${isMobile ? 'mobile-submenu' : ''}`}>
+        <div className="absolute left-full top-0 ml-1 w-44 bg-win95-gray shadow-lg z-60 win95-start-menu" style={{
+          border: '2px outset #c0c0c0',
+          boxShadow: '2px 2px 4px rgba(0,0,0,0.3)'
+        }}>
           <div className="p-1">
             {menu.items.map((item, index) => (
               <div
@@ -269,10 +272,18 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
         <div className="w-44">
           <div className="p-1">
           <div 
-            className={`relative ${isMobile ? 'mobile-submenu-container' : ''}`}
+            className="relative"
             onMouseEnter={() => !isMobile && setShowGamesSubmenu(true)}
             onMouseLeave={() => !isMobile && setShowGamesSubmenu(false)}
-            onClick={() => isMobile && setShowGamesSubmenu(!showGamesSubmenu)}
+            onClick={() => {
+              if (isMobile) {
+                // Close settings if open, then toggle games
+                if (showSettingsSubmenu) {
+                  setShowSettingsSubmenu(false);
+                }
+                setShowGamesSubmenu(!showGamesSubmenu);
+              }
+            }}
           >
             <div className="flex items-center justify-between px-2 py-1 win95-start-menu-item cursor-pointer">
               <div className="flex items-center">
@@ -301,10 +312,18 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
           </div>
           
           <div 
-            className={`relative ${isMobile ? 'mobile-submenu-container' : ''}`}
+            className="relative"
             onMouseEnter={() => !isMobile && setShowSettingsSubmenu(true)}
             onMouseLeave={() => !isMobile && setShowSettingsSubmenu(false)}
-            onClick={() => isMobile && setShowSettingsSubmenu(!showSettingsSubmenu)}
+            onClick={() => {
+              if (isMobile) {
+                // Close games if open, then toggle settings
+                if (showGamesSubmenu) {
+                  setShowGamesSubmenu(false);
+                }
+                setShowSettingsSubmenu(!showSettingsSubmenu);
+              }
+            }}
           >
             <div className="flex items-center justify-between px-2 py-1 win95-start-menu-item cursor-pointer">
               <div className="flex items-center">
@@ -346,7 +365,10 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
       {/* Info Dialog */}
       {showInfoDialog && (
         <>
-          <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-70 bg-win95-gray shadow-lg w-80">
+          <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-70 bg-win95-gray shadow-lg w-80 border border-white" style={{
+            border: '2px outset #c0c0c0',
+            boxShadow: '2px 2px 4px rgba(0,0,0,0.3)'
+          }}>
             <div className="bg-win95-blue text-white px-2 py-1 flex justify-between items-center cursor-move select-none">
               <span className="text-sm font-bold tracking-wide">ℹ️ About</span>
               <div className="window-controls flex gap-0">
@@ -384,7 +406,10 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
       {/* Date & Time Dialog */}
       {showDateTimeDialog && (
         <>
-          <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-70 bg-win95-gray shadow-lg w-96">
+          <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-70 bg-win95-gray shadow-lg w-96 border border-white" style={{
+            border: '2px outset #c0c0c0',
+            boxShadow: '2px 2px 4px rgba(0,0,0,0.3)'
+          }}>
             <div className="bg-win95-blue text-white px-2 py-1 flex justify-between items-center cursor-move select-none">
               <span className="text-sm font-bold tracking-wide">🕐 Date & Time Properties</span>
               <div className="window-controls flex gap-0">
