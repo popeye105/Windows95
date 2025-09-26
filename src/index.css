@@ -247,10 +247,27 @@ p, div, span {
   line-height: 1.6 !important;
 }
 
-/* Fix start menu bottom spacing on mobile */
+/* Mobile optimizations */
 @media (max-width: 768px) {
+  body { 
+    overflow: hidden; 
+    -webkit-user-select: none; 
+    -webkit-tap-highlight-color: transparent; 
+  }
+  
   .win95-start-menu {
     margin-bottom: 8px !important;
     padding-bottom: 8px !important;
+  }
+  
+  .win95-window {
+    max-width: calc(100vw - 10px) !important;
+    max-height: calc(100vh - 50px) !important;
+  }
+  
+  .win95-desktop-icon {
+    padding: 8px !important;
+    min-height: 70px !important;
+    width: 80px !important;
   }
 }

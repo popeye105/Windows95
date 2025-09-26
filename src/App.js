@@ -21,6 +21,7 @@ function App() {
   const [isStartMenuOpen, setIsStartMenuOpen] = useState(false);
   const [wallpaperUrl, setWallpaperUrl] = useState(null);
   const [wallpaperLoaded, setWallpaperLoaded] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   const desktopIcons = [
     { id: 'resume', icon: '📄', label: 'Resume', component: ResumeWindow },
@@ -30,23 +31,19 @@ function App() {
   ];
 
   useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
     document.addEventListener('touchstart', function(event) {
-      if (event.touches.length > 1) {
-        event.preventDefault();
-      }
+      if (event.touches.length > 1) event.preventDefault();
     }, { passive: false });
     
-    document.addEventListener('gesturestart', function(event) {
-      event.preventDefault();
-    }, false);
+    ['gesturestart', 'gesturechange', 'gestureend'].forEach(event => {
+      document.addEventListener(event, e => e.preventDefault(), false);
+    });
     
-    document.addEventListener('gesturechange', function(event) {
-      event.preventDefault();
-    }, false);
-    
-    document.addEventListener('gestureend', function(event) {
-      event.preventDefault();
-    }, false);
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
   useEffect(() => {
@@ -182,9 +179,9 @@ function App() {
                   key={window.id}
                   title={window.title}
                   icon={window.icon}
-                  initialPosition={window.position}
-                  width={500}
-                  height={window.id === 'mail' ? 500 : 400}
+                  initialPosition={isMobile ? { x: 5, y: 5 } : window.position}
+                  width={isMobile ? Math.min(window.innerWidth - 20, 350) : 500}
+                  height={isMobile ? Math.min(window.innerHeight - 80, 400) : (window.id === 'mail' ? 500 : 400)}
                   isActive={activeWindow === window.id}
                   isMinimized={!!isMinimized}
                   isMaximized={window.isMaximized}
