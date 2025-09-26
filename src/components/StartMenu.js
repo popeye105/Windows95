@@ -230,9 +230,14 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
     return menu.show && (
       <>
         <div className="absolute left-full top-0 w-1 h-full z-60"></div>
-        <div className="absolute left-full top-0 ml-1 w-44 bg-win95-gray shadow-lg z-60 win95-start-menu" style={{
+        <div className={`absolute left-full top-0 ml-1 w-44 bg-win95-gray shadow-lg z-60 win95-start-menu ${isMobile ? 'mobile-submenu-box' : ''}`} style={{
           border: '2px outset #c0c0c0',
-          boxShadow: '2px 2px 4px rgba(0,0,0,0.3)'
+          boxShadow: '2px 2px 4px rgba(0,0,0,0.3)',
+          ...(isMobile && {
+            position: 'fixed',
+            left: '200px',
+            zIndex: 80
+          })
         }}>
           <div className="p-1">
             {menu.items.map((item, index) => (
@@ -365,8 +370,8 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
       {/* Info Dialog */}
       {showInfoDialog && (
         <>
-          <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-70 bg-win95-gray shadow-lg w-80 border border-white" style={{
-            border: '2px outset #c0c0c0',
+          <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-70 bg-win95-gray shadow-lg w-80" style={{
+            border: '2px solid white',
             boxShadow: '2px 2px 4px rgba(0,0,0,0.3)'
           }}>
             <div className="bg-win95-blue text-white px-2 py-1 flex justify-between items-center cursor-move select-none">
@@ -406,8 +411,8 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
       {/* Date & Time Dialog */}
       {showDateTimeDialog && (
         <>
-          <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-70 bg-win95-gray shadow-lg w-96 border border-white" style={{
-            border: '2px outset #c0c0c0',
+          <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-70 bg-win95-gray shadow-lg w-96" style={{
+            border: '2px solid white',
             boxShadow: '2px 2px 4px rgba(0,0,0,0.3)'
           }}>
             <div className="bg-win95-blue text-white px-2 py-1 flex justify-between items-center cursor-move select-none">

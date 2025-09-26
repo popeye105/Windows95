@@ -193,6 +193,18 @@ code {
   .win95-start-menu {
     bottom: 2.5rem !important;
   }
+  
+  /* Mobile submenu styling - ensure boxes are visible */
+  @media (max-width: 768px) {
+    .win95-start-menu .absolute.left-full {
+      position: fixed !important;
+      left: calc(100% - 20px) !important;
+      background: #c0c0c0 !important;
+      border: 2px outset #c0c0c0 !important;
+      box-shadow: 2px 2px 4px rgba(0,0,0,0.3) !important;
+      z-index: 80 !important;
+    }
+  }
 }
 
 /* Scrollbar styling for Windows 95 look */
