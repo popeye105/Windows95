@@ -87,9 +87,7 @@ const Window = ({
     return null; // Hide window when minimized
   }
 
-  // Mobile detection for taskbar spacing
-  const isMobile = window.innerWidth <= 768;
-  const taskbarHeight = isMobile ? 44 : 36; // Actual taskbar heights: mobile=44px (h-11), desktop=36px (h-9)
+  const taskbarHeight = 36; // Desktop taskbar height
   
   const windowStyle = isMaximized 
     ? { left: 0, top: 0, width: '100vw', height: `calc(100vh - ${taskbarHeight}px)` }

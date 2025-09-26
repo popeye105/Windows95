@@ -9,7 +9,6 @@ const wallpapers = [
 
 const ChangeBackgroundWindow = () => {
   const { wallpaperUrl, setWallpaperUrl } = useContext(BackgroundContext);
-  const isMobile = window.innerWidth <= 768;
 
   const apply = (src) => {
     setWallpaperUrl(src);
@@ -27,8 +26,8 @@ const ChangeBackgroundWindow = () => {
         <span className="text-sm font-bold">Select a Wallpaper</span>
         <button className="win95-button text-xs px-2 py-1" onClick={clear}>Default Color</button>
       </div>
-      <div className="flex-1 overflow-y-auto p-3 border border-gray-400 bg-white m-2" style={{ maxHeight: isMobile ? 'calc(100vh - 200px)' : 'auto' }}>
-        <div className={`grid gap-3 ${isMobile ? 'grid-cols-1' : 'sm:grid-cols-2 lg:grid-cols-3'}`}>
+      <div className="flex-1 overflow-y-auto p-3 border border-gray-400 bg-white m-2">
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {wallpapers.map((w) => (
             <button key={w.src} className="bg-white border border-gray-400 p-2 hover:bg-gray-50" onClick={() => apply(w.src)}>
               <div className="mb-2 text-xs font-bold">{w.name}{wallpaperUrl === w.src ? ' (Selected)' : ''}</div>

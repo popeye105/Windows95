@@ -9,20 +9,6 @@ const MailWindow = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState('');
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    
-    return () => {
-      window.removeEventListener('resize', checkMobile);
-    };
-  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -118,14 +104,14 @@ const MailWindow = () => {
 
   return (
     <div className="h-full flex flex-col bg-win95-gray">
-      <div className={`${isMobile ? 'px-2 pt-1 pb-0' : 'px-4 pt-1 pb-0'}`}>
+      <div className="px-4 pt-1 pb-0">
         <p className="text-sm text-black text-center">
           Feel free to reach out or just to say hello.
         </p>
       </div>
-      <div className={`flex-1 flex flex-col ${isMobile ? 'px-2 pb-2' : 'px-4 pb-4'}`}>
+      <div className="flex-1 flex flex-col px-4 pb-4">
         <form onSubmit={handleSubmit} className="flex-1 flex flex-col">
-          <div className={`flex-1 ${isMobile ? 'space-y-1' : 'space-y-2'} ${isMobile ? 'pb-2' : ''} border border-gray-400 p-2 m-2`}>
+          <div className="flex-1 space-y-2 border border-gray-400 p-2 m-2">
             <div>
               <label className="block text-sm font-bold mb-1">Name</label>
               <input
@@ -162,30 +148,30 @@ const MailWindow = () => {
               />
             </div>
 
-            <div className="flex-1 flex flex-col" style={{ minHeight: isMobile ? '60px' : '80px' }}>
+            <div className="flex-1 flex flex-col" style={{ minHeight: '80px' }}>
               <label className="block text-sm font-bold mb-1">Message</label>
               <textarea
                 name="message"
                 value={formData.message}
                 onChange={handleInputChange}
                 className={`w-full flex-1 px-2 border border-gray-400 bg-white text-black resize-none text-sm`}
-                style={{ minHeight: isMobile ? '40px' : '60px' }}
+                style={{ minHeight: '60px' }}
               />
             </div>
           </div>
 
-          <div className={`flex gap-2 justify-center ${isMobile ? 'mt-1' : 'mt-2'} flex-shrink-0 ${isMobile ? 'pb-2' : ''}`} style={isMobile ? { marginBottom: '20px' } : {}}>
+          <div className="flex gap-2 justify-center mt-2 flex-shrink-0">
             <button
               type="submit"
               disabled={isSubmitting}
-              className={`win95-button ${isMobile ? 'px-3 py-1' : 'px-4 py-1'} font-bold text-xs disabled:opacity-50`}
+              className="win95-button px-4 py-1 font-bold text-xs disabled:opacity-50"
             >
               {isSubmitting ? 'Sending...' : 'Submit'}
             </button>
             <button
               type="button"
               onClick={handleClear}
-              className={`win95-button ${isMobile ? 'px-3 py-1' : 'px-4 py-1'} font-bold text-xs`}
+              className="win95-button px-4 py-1 font-bold text-xs"
             >
               Clear
             </button>

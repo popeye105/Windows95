@@ -19,42 +19,34 @@ function App() {
   const [activeWindow, setActiveWindow] = useState(null);
   const [minimizedWindows, setMinimizedWindows] = useState([]);
   const [isStartMenuOpen, setIsStartMenuOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
   const [wallpaperUrl, setWallpaperUrl] = useState(null);
   const [wallpaperLoaded, setWallpaperLoaded] = useState(false);
 
   const desktopIcons = [
     { id: 'resume', icon: '📄', label: 'Resume', component: ResumeWindow },
     { id: 'projects', icon: '💼', label: 'Projects', component: ProjectsWindow },
-    { id: 'mail', icon: '📧', label: 'Mail Me', component: MailWindow },
     { id: 'drawings', icon: '🎨', label: 'Drawings', component: DrawingsWindow },
     { id: 'bg', icon: '🖼️', label: 'Change Background', component: ChangeBackgroundWindow },
   ];
 
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    
     document.addEventListener('touchstart', function(event) {
       if (event.touches.length > 1) {
         event.preventDefault();
       }
     }, { passive: false });
     
-    let lastTouchEnd = 0;
-    document.addEventListener('touchend', function(event) {
-      const now = (new Date()).getTime();
-      if (now - lastTouchEnd <= 300) {
-        event.preventDefault();
-      }
-      lastTouchEnd = now;
+    document.addEventListener('gesturestart', function(event) {
+      event.preventDefault();
     }, false);
     
-    return () => {
-      window.removeEventListener('resize', checkMobile);
-    };
+    document.addEventListener('gesturechange', function(event) {
+      event.preventDefault();
+    }, false);
+    
+    document.addEventListener('gestureend', function(event) {
+      event.preventDefault();
+    }, false);
   }, []);
 
   useEffect(() => {
@@ -158,7 +150,7 @@ function App() {
   return (
     <BackgroundContext.Provider value={{ wallpaperUrl, setWallpaperUrl }}>
       <div
-        className={`h-screen overflow-hidden ${wallpaperLoaded && wallpaperUrl && !isLoading ? '' : 'bg-win95-desktop'} ${isMobile ? 'pb-10' : ''}`}
+        className={`h-screen overflow-hidden ${wallpaperLoaded && wallpaperUrl && !isLoading ? '' : 'bg-win95-desktop'}`}
         onClick={handleDesktopClick}
         style={wallpaperLoaded && wallpaperUrl && !isLoading ? {
           backgroundImage: `url(${wallpaperUrl})`,
@@ -170,7 +162,7 @@ function App() {
         {isLoading && <SplashScreen onComplete={handleSplashComplete} />}
         {!isLoading && (
           <>
-            <div className={`${isMobile ? 'desktop-icons-container' : 'flex flex-col space-y-2 p-4'}`}>
+            <div className="flex flex-col space-y-2 p-4">
               {desktopIcons.map((icon) => (
                 <DesktopIcon
                   key={icon.id}
@@ -190,9 +182,9 @@ function App() {
                   key={window.id}
                   title={window.title}
                   icon={window.icon}
-                  initialPosition={isMobile ? { x: 10, y: 10 } : window.position}
-                  width={isMobile ? Math.min(window.innerWidth - 20, 350) : 500}
-                  height={isMobile ? Math.min(window.innerHeight - 80, 450) : (window.id === 'mail' ? 500 : 400)}
+                  initialPosition={window.position}
+                  width={500}
+                  height={window.id === 'mail' ? 500 : 400}
                   isActive={activeWindow === window.id}
                   isMinimized={!!isMinimized}
                   isMaximized={window.isMaximized}

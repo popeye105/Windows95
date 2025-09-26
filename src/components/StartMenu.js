@@ -122,8 +122,6 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
   const [showSettingsSubmenu, setShowSettingsSubmenu] = useState(false);
   const [showInfoDialog, setShowInfoDialog] = useState(false);
   const [showDateTimeDialog, setShowDateTimeDialog] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-
   useEffect(() => {
     if (!isOpen) {
       setShowGamesSubmenu(false);
@@ -131,60 +129,13 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
     }
   }, [isOpen]);
 
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile('ontouchstart' in window && window.innerWidth <= 768);
-    };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
   const handleGameClick = (game) => {
-    if (game.name === 'Cook it' && window.innerWidth <= 768 && 'ontouchstart' in window) {
-      const popup = document.createElement('div');
-      popup.style.cssText = `
-        position: fixed;
-        top: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: lightyellow;
-        border: 2px outset silver;
-        padding: 12px 16px;
-        z-index: 10001;
-        font-family: 'MS Sans Serif', sans-serif;
-        box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
-        max-width: 300px;
-        text-align: center;
-      `;
-      popup.innerHTML = `
-        <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
-          <span style="font-size: 16px;">⚠️</span>
-          <span style="font-size: 11px; color: black; line-height: 1.3;">Cook it :- Playable on PC</span>
-        </div>
-      `;
-      
-      
-      document.body.appendChild(popup);
-      
-      setTimeout(() => {
-        if (popup.parentNode) {
-          popup.parentNode.removeChild(popup);
-        }
-      }, 3000);
-      
-      onClose();
-      return;
-    }
-    
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    
     onOpenWindow({
       id: `game-${game.name.toLowerCase()}`,
       title: game.name,
       icon: game.icon,
       component: () => <GameWindow gameUrl={game.url} gameName={game.name} />,
-      isMaximized: isMobile ? (game.name === 'Snake' || game.name === 'Minesweeper') : true
+      isMaximized: true
     });
     onClose();
   };
