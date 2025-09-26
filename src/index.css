@@ -186,6 +186,13 @@ code {
   .win95-start-menu {
     bottom: 2.5rem !important;
   }
+  
+  /* Fix submenu background visibility on mobile */
+  .win95-start-menu .absolute.left-full {
+    background: #c0c0c0 !important;
+    border: 2px outset #c0c0c0 !important;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) !important;
+  }
 }
 
 /* Scrollbar styling for Windows 95 look */
