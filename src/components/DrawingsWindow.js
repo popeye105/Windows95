@@ -16,12 +16,12 @@ const DrawingsWindow = () => {
 
   return (
     <div className="h-full flex flex-col">
-      <div className="h-full overflow-auto p-2 border border-gray-400 bg-white m-2">
+      <div className="h-full overflow-auto p-2 m-2">
         <div className="grid grid-cols-2 gap-2">
           {drawings.map((drawing) => (
             <div
               key={drawing.id}
-              className="bg-white p-2 border border-black"
+              className="p-2 border border-black"
             >
               <div className="aspect-square bg-win95-light-gray flex items-center justify-center mb-2">
                 <img

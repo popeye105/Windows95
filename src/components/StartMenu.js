@@ -228,20 +228,26 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
   const renderSubmenu = (menuKey) => {
     const menu = menuData[menuKey];
     return menu.show && (
-      <div className="absolute left-full top-0 ml-1 w-44 bg-win95-gray shadow-lg z-60 win95-start-menu">
-        <div className="p-1">
-          {menu.items.map((item, index) => (
-            <div
-              key={index}
-              className="flex items-center px-2 py-1 win95-start-menu-item cursor-pointer"
-              onClick={() => menu.onClick(item)}
-            >
-              <span className="mr-2">{item.icon}</span>
-              {item.name}
-            </div>
-          ))}
+      <>
+        {/* Invisible bridge to prevent submenu from disappearing */}
+        <div className="absolute left-full top-0 w-2 h-full z-60"></div>
+        <div className="absolute left-full top-0 ml-1 w-44 bg-win95-gray shadow-lg z-60 win95-start-menu" style={{
+          marginTop: '-4px'
+        }}>
+          <div className="p-1">
+            {menu.items.map((item, index) => (
+              <div
+                key={index}
+                className="flex items-center px-2 py-1 win95-start-menu-item cursor-pointer"
+                onClick={() => menu.onClick(item)}
+              >
+                <span className="mr-2">{item.icon}</span>
+                {item.name}
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      </>
     );
   };
 
@@ -341,10 +347,7 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
       {/* Info Dialog */}
       {showInfoDialog && (
         <>
-          <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-70 bg-win95-gray shadow-lg w-80" style={{
-            border: '2px solid white',
-            boxShadow: '2px 2px 4px rgba(0,0,0,0.3)'
-          }}>
+          <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-70 bg-win95-gray shadow-lg w-80 border border-white">
             <div className="bg-win95-blue text-white px-2 py-1 flex justify-between items-center cursor-move select-none">
               <span className="text-sm font-bold tracking-wide">ℹ️ About</span>
               <div className="window-controls flex gap-0">
@@ -382,10 +385,7 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
       {/* Date & Time Dialog */}
       {showDateTimeDialog && (
         <>
-          <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-70 bg-win95-gray shadow-lg w-96" style={{
-            border: '2px solid white',
-            boxShadow: '2px 2px 4px rgba(0,0,0,0.3)'
-          }}>
+          <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-70 bg-win95-gray shadow-lg w-96 border border-white">
             <div className="bg-win95-blue text-white px-2 py-1 flex justify-between items-center cursor-move select-none">
               <span className="text-sm font-bold tracking-wide">🕐 Date & Time Properties</span>
               <div className="window-controls flex gap-0">

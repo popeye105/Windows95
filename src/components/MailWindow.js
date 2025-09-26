@@ -117,10 +117,15 @@ const MailWindow = () => {
   };
 
   return (
-    <div className="h-full flex flex-col bg-win95-gray overflow-hidden">
-      <div className={`flex-1 flex flex-col ${isMobile ? 'p-2' : 'p-4'} min-h-0`}>
-        <form onSubmit={handleSubmit} className="flex-1 flex flex-col min-h-0">
-          <div className={`flex-1 ${isMobile ? 'space-y-2' : 'space-y-3'} overflow-auto ${isMobile ? 'pb-2' : ''} border border-gray-400 p-2 m-2`}>
+    <div className="h-full flex flex-col bg-win95-gray">
+      <div className={`${isMobile ? 'px-2 pt-1 pb-0' : 'px-4 pt-1 pb-0'}`}>
+        <p className="text-sm text-black text-center">
+          Feel free to reach out with any questions or just to say hello.
+        </p>
+      </div>
+      <div className={`flex-1 flex flex-col ${isMobile ? 'px-2 pb-2' : 'px-4 pb-4'}`}>
+        <form onSubmit={handleSubmit} className="flex-1 flex flex-col">
+          <div className={`flex-1 ${isMobile ? 'space-y-1' : 'space-y-2'} ${isMobile ? 'pb-2' : ''} border border-gray-400 p-2 m-2`}>
             <div>
               <label className="block text-sm font-bold mb-1">Name</label>
               <input
@@ -128,7 +133,8 @@ const MailWindow = () => {
                 name="name"
                 value={formData.name}
                 onChange={handleInputChange}
-                className={`w-full ${isMobile ? 'p-1.5' : 'p-2'} border border-gray-400 bg-white text-black text-sm`}
+                className={`w-full px-2 border border-gray-400 bg-white text-black text-sm`}
+                style={{ height: '24px' }}
               />
             </div>
 
@@ -139,7 +145,8 @@ const MailWindow = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleInputChange}
-                className={`w-full ${isMobile ? 'p-1.5' : 'p-2'} border border-gray-400 bg-white text-black text-sm`}
+                className={`w-full px-2 border border-gray-400 bg-white text-black text-sm`}
+                style={{ height: '24px' }}
               />
             </div>
 
@@ -150,36 +157,37 @@ const MailWindow = () => {
                 name="phone"
                 value={formData.phone}
                 onChange={handleInputChange}
-                className={`w-full ${isMobile ? 'p-1.5' : 'p-2'} border border-gray-400 bg-white text-black text-sm`}
+                className={`w-full px-2 border border-gray-400 bg-white text-black text-sm`}
+                style={{ height: '24px' }}
               />
             </div>
 
-            <div className="flex-1 flex flex-col min-h-0" style={{ minHeight: isMobile ? '80px' : '120px' }}>
+            <div className="flex-1 flex flex-col" style={{ minHeight: isMobile ? '60px' : '80px' }}>
               <label className="block text-sm font-bold mb-1">Message</label>
               <textarea
                 name="message"
                 value={formData.message}
                 onChange={handleInputChange}
-                className={`w-full flex-1 ${isMobile ? 'p-1.5' : 'p-2'} border border-gray-400 bg-white text-black resize-none text-sm`}
-                style={{ minHeight: isMobile ? '60px' : '100px' }}
+                className={`w-full flex-1 px-2 border border-gray-400 bg-white text-black resize-none text-sm`}
+                style={{ minHeight: isMobile ? '40px' : '60px' }}
               />
             </div>
           </div>
 
-          <div className={`flex gap-2 justify-center ${isMobile ? 'mt-2' : 'mt-4'} flex-shrink-0 ${isMobile ? 'pb-2' : ''}`} style={isMobile ? { marginBottom: '20px' } : {}}>
+          <div className={`flex gap-2 justify-center ${isMobile ? 'mt-1' : 'mt-2'} flex-shrink-0 ${isMobile ? 'pb-2' : ''}`} style={isMobile ? { marginBottom: '20px' } : {}}>
             <button
               type="submit"
               disabled={isSubmitting}
-              className={`win95-button ${isMobile ? 'px-4 py-1.5' : 'px-6 py-2'} font-bold text-xs disabled:opacity-50`}
+              className={`win95-button ${isMobile ? 'px-3 py-1' : 'px-4 py-1'} font-bold text-xs disabled:opacity-50`}
             >
-              {isSubmitting ? 'Sending...' : '📤 Submit'}
+              {isSubmitting ? 'Sending...' : 'Submit'}
             </button>
             <button
               type="button"
               onClick={handleClear}
-              className={`win95-button ${isMobile ? 'px-4 py-1.5' : 'px-6 py-2'} font-bold text-xs`}
+              className={`win95-button ${isMobile ? 'px-3 py-1' : 'px-4 py-1'} font-bold text-xs`}
             >
-              🗑️ Clear
+              Clear
             </button>
           </div>
 

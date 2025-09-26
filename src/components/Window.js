@@ -104,7 +104,7 @@ const Window = ({
     >
       {/* Title Bar */}
       <div
-        className={`${isActive ? 'bg-win95-blue' : 'bg-gray-500'} text-white px-2 py-1 flex justify-between items-center cursor-move select-none`}
+        className="bg-win95-blue text-white px-2 py-1 flex justify-between items-center cursor-move select-none"
         onMouseDown={handleMouseDown}
       >
         <div className="flex items-center">

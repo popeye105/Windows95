@@ -78,10 +78,10 @@ const MusicWindow = () => {
             </div>
             
             <div className="flex justify-center gap-1">
-              <button onClick={() => playSong(currentSong)} className="win95-button px-2 py-1 text-xs">
+              <button onClick={() => playSong(currentSong)} className="win95-button text-xs" style={{ padding: '2px 4px' }}>
                 {isPlaying ? '⏸️' : '▶️'}
               </button>
-              <button onClick={stopSong} className="win95-button px-2 py-1 text-xs">
+              <button onClick={stopSong} className="win95-button text-xs" style={{ padding: '2px 4px' }}>
                 ⏹️
               </button>
             </div>
