@@ -247,9 +247,13 @@ p, div, span {
   line-height: 1.6 !important;
 }
 
-/* Fix GitHub button spacing on Android */
+/* Fix GitHub button spacing from taskbar on mobile */
 @media (max-width: 768px) {
-  .win95-start-menu-item img {
-    margin-right: 8px !important;
+  .win95-start-menu {
+    margin-bottom: 8px !important;
+  }
+  
+  .win95-start-menu .w-44 {
+    padding-bottom: 8px !important;
   }
 }
