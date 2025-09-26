@@ -89,10 +89,10 @@ const Window = ({
 
   // Mobile detection for taskbar spacing
   const isMobile = window.innerWidth <= 768;
-  const mobileTaskbarHeight = isMobile ? 80 : 40;
+  const taskbarHeight = isMobile ? 44 : 36; // Actual taskbar heights: mobile=44px (h-11), desktop=36px (h-9)
   
   const windowStyle = isMaximized 
-    ? { left: 0, top: 0, width: '100vw', height: `calc(100vh - ${mobileTaskbarHeight}px)` }
+    ? { left: 0, top: 0, width: '100vw', height: `calc(100vh - ${taskbarHeight}px)` }
     : { left: position.x, top: position.y, width: width, height: height };
 
   return (
@@ -135,7 +135,7 @@ const Window = ({
         </div>
       </div>
       
-      <div className="p-2 flex flex-col" style={{ height: isMaximized ? `calc(100vh - ${mobileTaskbarHeight + 28}px)` : height - 28 }}>
+      <div className="p-2 flex flex-col" style={{ height: isMaximized ? `calc(100vh - ${taskbarHeight + 28}px)` : height - 28 }}>
         <div className="flex-1 overflow-hidden">
           {children}
         </div>
