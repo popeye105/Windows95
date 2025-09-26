@@ -228,31 +228,20 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
   const renderSubmenu = (menuKey) => {
     const menu = menuData[menuKey];
     return menu.show && (
-      <>
-        <div className="absolute left-full top-0 w-1 h-full z-60"></div>
-        <div className={`absolute left-full top-0 ml-1 w-44 bg-win95-gray shadow-lg z-60 win95-start-menu ${isMobile ? 'mobile-submenu-box' : ''}`} style={{
-          border: '2px outset #c0c0c0',
-          boxShadow: '2px 2px 4px rgba(0,0,0,0.3)',
-          ...(isMobile && {
-            position: 'fixed',
-            left: '200px',
-            zIndex: 80
-          })
-        }}>
-          <div className="p-1">
-            {menu.items.map((item, index) => (
-              <div
-                key={index}
-                className="flex items-center px-2 py-1 win95-start-menu-item cursor-pointer"
-                onClick={() => menu.onClick(item)}
-              >
-                <span className="mr-2">{item.icon}</span>
-                {item.name}
-              </div>
-            ))}
-          </div>
+      <div className="absolute left-full top-0 ml-1 w-44 bg-win95-gray shadow-lg z-60 win95-start-menu">
+        <div className="p-1">
+          {menu.items.map((item, index) => (
+            <div
+              key={index}
+              className="flex items-center px-2 py-1 win95-start-menu-item cursor-pointer"
+              onClick={() => menu.onClick(item)}
+            >
+              <span className="mr-2">{item.icon}</span>
+              {item.name}
+            </div>
+          ))}
         </div>
-      </>
+      </div>
     );
   };
 
@@ -278,17 +267,8 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
           <div className="p-1">
           <div 
             className="relative"
-            onMouseEnter={() => !isMobile && setShowGamesSubmenu(true)}
-            onMouseLeave={() => !isMobile && setShowGamesSubmenu(false)}
-            onClick={() => {
-              if (isMobile) {
-                // Close settings if open, then toggle games
-                if (showSettingsSubmenu) {
-                  setShowSettingsSubmenu(false);
-                }
-                setShowGamesSubmenu(!showGamesSubmenu);
-              }
-            }}
+            onMouseEnter={() => setShowGamesSubmenu(true)}
+            onMouseLeave={() => setShowGamesSubmenu(false)}
           >
             <div className="flex items-center justify-between px-2 py-1 win95-start-menu-item cursor-pointer">
               <div className="flex items-center">
@@ -318,17 +298,8 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
           
           <div 
             className="relative"
-            onMouseEnter={() => !isMobile && setShowSettingsSubmenu(true)}
-            onMouseLeave={() => !isMobile && setShowSettingsSubmenu(false)}
-            onClick={() => {
-              if (isMobile) {
-                // Close games if open, then toggle settings
-                if (showGamesSubmenu) {
-                  setShowGamesSubmenu(false);
-                }
-                setShowSettingsSubmenu(!showSettingsSubmenu);
-              }
-            }}
+            onMouseEnter={() => setShowSettingsSubmenu(true)}
+            onMouseLeave={() => setShowSettingsSubmenu(false)}
           >
             <div className="flex items-center justify-between px-2 py-1 win95-start-menu-item cursor-pointer">
               <div className="flex items-center">
