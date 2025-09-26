@@ -253,9 +253,4 @@ p, div, span {
     margin-bottom: 8px !important;
     padding-bottom: 8px !important;
   }
-  
-  /* Fix wallpaper movement on mobile */
-  body, .h-screen {
-    background-attachment: fixed !important;
-  }
 }
