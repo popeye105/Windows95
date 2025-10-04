@@ -1,0 +1,291 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'VT323', 'Courier New', monospace;
+  font-size: 18px;
+  line-height: 1.6;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: unset;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  background-color: #663399;
+}
+
+code {
+  font-family: 'VT323', 'Courier New', monospace;
+  font-size: 18px;
+}
+
+/* Windows 95 specific styles */
+.win95-window {
+  border: 2px solid #808080;
+  background: #c0c0c0;
+}
+
+/* Windows 95 border styles */
+.border-inset {
+  border-top: 2px solid #808080;
+  border-left: 2px solid #808080;
+  border-right: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+}
+
+.win95-button {
+  border: 2px solid #808080;
+  background: #c0c0c0;
+  padding: 6px 16px;
+  font-family: 'VT323', 'Courier New', monospace;
+  font-size: 18px;
+  cursor: pointer;
+  -moz-osx-font-smoothing: unset;
+}
+
+/* Removed active animation for win95-button */
+
+/* Classic Windows 95 buttons with modern polish */
+.window-control-btn {
+  background: linear-gradient(to bottom, #f0f0f0, #d8d8d8);
+  border-top: 2px solid #ffffff;
+  border-left: 2px solid #ffffff;
+  border-right: 2px solid #808080;
+  border-bottom: 2px solid #808080;
+  border-radius: 2px;
+  width: 28px;
+  height: 24px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #000000;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'VT323', 'Courier New', monospace;
+  line-height: 1;
+  padding: 0;
+  margin: 0;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: unset;
+}
+
+.window-control-btn:hover {
+  background: linear-gradient(to bottom, #f8f8f8, #e0e0e0);
+  box-shadow: 0 2px 3px rgba(0,0,0,0.15);
+}
+
+/* Modern button class for apps */
+.modern-btn {
+  background: linear-gradient(to bottom, #f0f0f0, #d8d8d8);
+  border: 1px solid #999;
+  border-radius: 3px;
+  padding: 2px 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+}
+
+.modern-btn:hover {
+  background: linear-gradient(to bottom, #f8f8f8, #e0e0e0);
+}
+
+/* Removed active click animations for window control buttons */
+
+.win95-titlebar {
+  background: linear-gradient(90deg, #000080 0%, #0000ff 100%);
+  color: white;
+  padding: 6px;
+  font-family: 'VT323', 'Courier New', monospace;
+  font-weight: normal;
+  font-size: 18px;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: unset;
+}
+
+.win95-desktop-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: none;
+}
+
+/* Hover highlight (Windows 95 style) */
+.win95-desktop-icon:hover {
+  border-color: #0000ff; /* blue border */
+  background: rgba(0, 0, 255, 0.18); /* subtle blue box */
+}
+
+/* Removed blue selection background */
+
+
+/* Scrollbar styling for Windows 95 look */
+::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+}
+
+::-webkit-scrollbar-track {
+  background: #c0c0c0;
+  border: 1px solid #808080;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c0c0c0;
+  border: 1px solid #808080;
+}
+
+::-webkit-scrollbar-button {
+  background: #c0c0c0;
+  border: 1px solid #808080;
+  height: 16px;
+  width: 16px;
+}
+
+/* Disable text selection for UI elements */
+.no-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Windows 95 Start Menu Styles */
+.win95-start-menu {
+  font-family: 'VT323', 'Courier New', monospace;
+  font-size: 18px;
+  font-weight: normal;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: unset;
+}
+
+.win95-start-menu-item {
+  color: #000000;
+  font-size: 18px;
+  font-weight: normal;
+  transition: none;
+  padding: 4px 8px;
+}
+
+.win95-start-menu-item:hover {
+  background-color: #1d4ed8 !important;
+  color: #ffffff !important;
+  border-radius: 3px;
+}
+
+.win95-start-menu-item:hover * {
+  color: #ffffff !important;
+}
+
+.win95-submenu-arrow {
+  font-size: 12px;
+  color: #000000;
+}
+
+/* Windows 95 Text Styling */
+.win95-text {
+  font-family: 'VT323', 'Courier New', monospace;
+  font-size: 18px;
+  font-weight: normal;
+  color: #000000;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: unset;
+  text-rendering: optimizeSpeed;
+  line-height: 1.6;
+}
+
+.win95-text-bold {
+  font-weight: bold;
+}
+
+/* Window title bars */
+.win95-titlebar-text {
+  font-family: 'VT323', 'Courier New', monospace;
+  font-size: 18px;
+  font-weight: normal;
+  color: #ffffff;
+  text-shadow: none;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: unset;
+}
+
+/* Global pixelated font overrides for authentic Windows 95 look */
+* {
+  font-family: 'VT323', 'Courier New', monospace !important;
+  -webkit-font-smoothing: none !important;
+  -moz-osx-font-smoothing: unset !important;
+  text-rendering: optimizeSpeed !important;
+}
+
+/* Input and textarea specific styling */
+input, textarea, select {
+  font-family: 'VT323', 'Courier New', monospace !important;
+  font-size: 18px !important;
+  font-weight: normal !important;
+  line-height: 1.6 !important;
+  padding: 6px !important;
+}
+
+/* Button specific styling */
+button {
+  font-family: 'VT323', 'Courier New', monospace !important;
+  font-size: 18px !important;
+  font-weight: normal !important;
+  line-height: 1.6 !important;
+}
+
+/* Label and form elements */
+label {
+  font-family: 'VT323', 'Courier New', monospace !important;
+  font-size: 18px !important;
+  font-weight: normal !important;
+  line-height: 1.6 !important;
+}
+
+/* Headings with Windows 95 styling */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'VT323', 'Courier New', monospace !important;
+  font-weight: normal !important;
+  line-height: 1.6 !important;
+}
+
+h1 { font-size: 24px !important; }
+h2 { font-size: 20px !important; }
+h3, h4, h5, h6 { font-size: 18px !important; }
+
+/* Paragraph and div text */
+p, div, span {
+  font-family: 'VT323', 'Courier New', monospace !important;
+  line-height: 1.6 !important;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  body { 
+    overflow: hidden; 
+    -webkit-user-select: none; 
+    -webkit-tap-highlight-color: transparent; 
+  }
+  
+  .win95-start-menu {
+    margin-bottom: 8px !important;
+    padding-bottom: 8px !important;
+  }
+  
+  .win95-window {
+    max-width: calc(100vw - 10px) !important;
+    max-height: calc(100vh - 50px) !important;
+  }
+  
+  .win95-desktop-icon {
+    padding: 8px !important;
+    min-height: 70px !important;
+    width: 80px !important;
+  }
+}

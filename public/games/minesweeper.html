@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Minesweeper</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <style>
+    body { margin: 0; padding: 0; display: flex; align-items: center; justify-content: center; height: 100vh; overflow: hidden; background: silver; font-family: 'MS Sans Serif', sans-serif; }
+    .wrap { background: white; border: 2px solid black; padding: 10px; max-width: calc(100vw - 20px); max-height: calc(100vh - 20px); overflow: auto; }
+    .top { display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: bold; }
+    .board { display: grid; gap: 0px; background: lightgray; padding: 0px; }
+    .cell { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; background: lightgray; border: 1px outset white; font-weight: bold; user-select: none; cursor: pointer; margin: -1px; }
+    .cell.revealed { background: gainsboro; border: 1px inset white; cursor: default; margin: -1px; }
+    .num1{ color: blue;} .num2{ color: green;} .num3{ color: red;} .num4{ color: navy;} .num5{ color: maroon;} .num6{ color: teal;} .num7{ color: black;} .num8{ color: gray;}
+    button { font-family:inherit; padding:4px 8px; }
+    
+    @media (max-width: 768px) {
+      body { padding: 2px; }
+      .wrap { padding: 10px; max-width: 100vw; }
+      .board { gap: 1px; padding: 3px; }
+      .cell { width: 26px; height: 26px; min-width: 26px; min-height: 26px; font-size: 13px; border: 2px outset white; margin: 0; }
+      .cell.revealed { border: 2px inset white; margin: 0; }
+      .top { font-size: 16px; justify-content: space-between; margin-bottom: 8px; }
+      button { padding: 8px 14px; font-size: 16px; }
+    }
+    @media (max-width: 480px) {
+      .cell { width: 22px; height: 22px; min-width: 22px; min-height: 22px; font-size: 11px; }
+      .top { font-size: 14px; }
+      button { padding: 6px 10px; font-size: 14px; }
+    }
+    @media (max-width: 400px) {
+      .cell { width: 18px; height: 18px; min-width: 18px; min-height: 18px; font-size: 9px; }
+      .top { font-size: 12px; }
+      button { padding: 4px 8px; font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <button id="reset">💡 New Game</button>
+      <div>⏱️ <span id="timer">0</span>s</div>
+    </div>
+    <div id="board" class="board"></div>
+  </div>
+  <script>
+    const boardEl = document.getElementById('board');
+    const timerEl = document.getElementById('timer');
+    const resetBtn = document.getElementById('reset');
+
+    // Config - medium 16x16, 40 mines (classic)
+    const ROWS = 16, COLS = 16, MINES = 40;
+    let grid, revealed, mineSet, startTime, timerId, gameOver;
+
+    function init(){
+      // Responsive grid columns
+      const isMobile = window.innerWidth <= 768;
+      const cellSize = isMobile ? (window.innerWidth <= 400 ? '18px' : window.innerWidth <= 480 ? '22px' : '26px') : '28px';
+      boardEl.style.gridTemplateColumns = `repeat(${COLS}, ${cellSize})`;
+      
+      grid = Array.from({length:ROWS}, ()=> Array.from({length:COLS}, ()=>0));
+      revealed = new Set();
+      mineSet = new Set();
+      gameOver = false;
+      timerEl.textContent = '0';
+      if (timerId) clearInterval(timerId);
+      startTime = null;
+      placeMines();
+      calcNumbers();
+      render();
+    }
+
+    function key(r,c){ return r+','+c; }
+
+    function placeMines(){
+      while(mineSet.size < MINES){
+        const r = Math.floor(Math.random()*ROWS);
+        const c = Math.floor(Math.random()*COLS);
+        mineSet.add(key(r,c));
+      }
+    }
+
+    function inBounds(r,c){ return r>=0 && r<ROWS && c>=0 && c<COLS; }
+
+    function neighbors(r,c){
+      const dirs=[-1,0,1];
+      const list=[];
+      for(const dr of dirs){
+        for(const dc of dirs){
+          if(dr===0 && dc===0) continue;
+          const nr=r+dr, nc=c+dc;
+          if(inBounds(nr,nc)) list.push([nr,nc]);
+        }
+      }
+      return list;
+    }
+
+    function calcNumbers(){
+      for(let r=0;r<ROWS;r++){
+        for(let c=0;c<COLS;c++){
+          if(mineSet.has(key(r,c))){ grid[r][c] = -1; continue; }
+          grid[r][c] = neighbors(r,c).reduce((acc,[nr,nc])=> acc + (mineSet.has(key(nr,nc))?1:0), 0);
+        }
+      }
+    }
+
+    function render(){
+      boardEl.innerHTML='';
+      for(let r=0;r<ROWS;r++){
+        for(let c=0;c<COLS;c++){
+          const div=document.createElement('div');
+          div.className='cell';
+          div.dataset.r=r; div.dataset.c=c;
+          const k=key(r,c);
+          if(revealed.has(k)) revealCellDiv(div, r, c);
+          boardEl.appendChild(div);
+        }
+      }
+    }
+
+    function revealCell(r,c){
+      const k=key(r,c);
+      if(revealed.has(k) || gameOver) return;
+      revealed.add(k);
+      if(grid[r][c] === -1){
+        gameOver = true;
+        if (timerId) clearInterval(timerId);
+        revealAllMines();
+        alert('Boom! Game over.');
+        return;
+      }
+      if(grid[r][c] === 0){
+        for(const [nr,nc] of neighbors(r,c)) revealCell(nr,nc);
+      }
+      // Win check
+      if(revealed.size === ROWS*COLS - MINES){
+        gameOver = true;
+        if (timerId) clearInterval(timerId);
+        alert('You win!');
+      }
+    }
+
+    function revealAllMines(){
+      for(const m of mineSet){
+        const [r,c] = m.split(',').map(Number);
+        const idx = r*COLS + c;
+        const div = boardEl.children[idx];
+        div.classList.add('revealed');
+        div.textContent = '💣';
+      }
+    }
+
+    function revealCellDiv(div, r, c){
+      div.classList.add('revealed');
+      const val = grid[r][c];
+      if(val>0){ div.textContent = val; div.classList.add('num'+val); }
+      else { div.textContent = ''; }
+    }
+
+
+    boardEl.addEventListener('contextmenu', e=> e.preventDefault());
+    
+    
+    // Mouse events for desktop
+    boardEl.addEventListener('click', (e)=>{
+      const target = e.target.closest('.cell');
+      if(!target || gameOver) return;
+      
+      const r = +target.dataset.r, c = +target.dataset.c;
+      if(!startTime){ startTime = Date.now(); timerId = setInterval(()=>{ timerEl.textContent = Math.floor((Date.now()-startTime)/1000); }, 1000); }
+      
+      revealCell(r,c);
+      render();
+    });
+    
+
+    resetBtn.addEventListener('click', init);
+
+    init();
+  </script>
+</body>
+</html>
