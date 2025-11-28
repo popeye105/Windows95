@@ -312,7 +312,7 @@ const StartMenu = ({ isOpen, onClose, onOpenWindow }) => {
           
           <div 
             className="flex items-center px-2 py-1 win95-start-menu-item cursor-pointer"
-            onClick={() => handleExternalLink('https://github.com/ariz-17')}
+            onClick={() => handleExternalLink('https://github.com/ariz17')}
           >
             <img src="/github-logo.svg" alt="GitHub" className="w-4 h-4 mr-2" />
             GitHub
