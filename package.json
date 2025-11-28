@@ -1,6 +1,7 @@
 {
   "name": "windows95-portfolio",
   "version": "0.1.0",
+  "description": "Vintage 2.0 Windows 95 themed portfolio site",
   "private": true,
   "dependencies": {
     "react": "^18.2.0",
